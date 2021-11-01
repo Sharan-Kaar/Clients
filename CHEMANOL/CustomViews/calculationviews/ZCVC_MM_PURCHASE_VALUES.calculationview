@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_PURCHASE_VALUES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_PURCHASE_VALUES"/>
+  <metadata changedAt="2021-10-19 10:45:34.0" createdAt="2021-10-19 10:43:45.056"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="50"/>
+  <dataSources>
+    <DataSource id="EKKO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKKO"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOEKZ">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="X"/>
+        </viewAttribute>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="RLWRT"/>
+        <viewAttribute id="WKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Date_format" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;AEDAT&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#EKKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEKZ" source="LOEKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLWRT" source="RLWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WKURS" source="WKURS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Current_date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(now())</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="Join_Field_1" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+      <filter>(&quot;DATE_SQL&quot; >='2020-01-01' AND &quot;DATE_SQL&quot;&lt;= &quot;Current_date&quot;)</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" dynamic="false" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="LOEKZ"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="RLWRT"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="WKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEKZ" source="LOEKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLWRT" source="RLWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WKURS" source="WKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="AEDAT"/>
+      </input>
+      <joinAttribute name="DATE_SAP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RLWRT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOEKZ"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="WKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Local_sourcing" length="15" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;RLWRT&quot;),0,if(&quot;WAERS&quot;='SAR',&quot;RLWRT&quot;,0 ))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Foreign_sourcing" length="15" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;RLWRT&quot;),0,if(&quot;WAERS&quot;!='SAR',&quot;RLWRT&quot;* &quot;WKURS&quot;,0))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLWRT" source="RLWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEKZ" source="LOEKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WKURS" source="WKURS"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_6">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_6" columnName="MANDT"/>
+      </attribute>
+      <attribute id="LOEKZ" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOEKZ"/>
+        <keyMapping columnObjectName="Projection_6" columnName="LOEKZ"/>
+      </attribute>
+      <attribute id="AEDAT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AEDAT"/>
+        <keyMapping columnObjectName="Projection_6" columnName="AEDAT"/>
+      </attribute>
+      <attribute id="WAERS" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAERS"/>
+        <keyMapping columnObjectName="Projection_6" columnName="WAERS"/>
+      </attribute>
+      <attribute id="DATE_SAP" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_SAP"/>
+        <keyMapping columnObjectName="Projection_6" columnName="DATE_SAP"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="RLWRT" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="RLWRT"/>
+        <measureMapping columnObjectName="Projection_6" columnName="RLWRT"/>
+      </measure>
+      <measure id="Local_sourcing" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Local Sourcing"/>
+        <measureMapping columnObjectName="Projection_6" columnName="Local_sourcing"/>
+      </measure>
+      <measure id="Foreign_sourcing" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Foreign Sourcing"/>
+        <measureMapping columnObjectName="Projection_6" columnName="Foreign_sourcing"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

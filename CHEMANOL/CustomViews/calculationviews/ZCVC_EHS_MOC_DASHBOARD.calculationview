@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHS_MOC_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_EHS_MOC_DASHBOARD"/>
+  <metadata activatedAt="2021-10-24 11:56:57.0" changedAt="2021-10-19 10:50:25.093" createdAt="2021-10-19 10:50:18.2"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="49"/>
+  <dataSources>
+    <DataSource id="/IAM/D_I_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_I_ROOT"/>
+    </DataSource>
+    <DataSource id="/IAM/D_I_OBJ_REF" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_I_OBJ_REF"/>
+    </DataSource>
+    <DataSource id="V_EQUI" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="V_EQUI"/>
+    </DataSource>
+    <DataSource id="IFLOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="IFLOT"/>
+    </DataSource>
+    <DataSource id="ILOA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ILOA"/>
+    </DataSource>
+    <DataSource id="CSKT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="CSKT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="EMERGENCY"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="DEFERRAL_CD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;CREATED_ON&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Criticality_Text" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;CRITICALITY&quot;='01','High',if(&quot;CRITICALITY&quot;='02','Medium',if(&quot;CRITICALITY&quot;='03','Low','Unassigned')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CR_Status" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;DEFERRAL_CD&quot;='02','On Hold',IF(&quot;DEFERRAL_CD&quot;='03','Rejected',IF(&quot;DEFERRAL_CD&quot;='04','Change Request Rejected',IF(&quot;DEFERRAL_CD&quot;='05','Not Applicable',IF(&quot;DEFERRAL_CD&quot;='06','Change Request On Hold',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='01','In Preparation',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='02','Submitted',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='03','Approved',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='04','Incomplete',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='05','In Process',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='06','Not Applicable',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='07','Rejected',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='08','Closed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='09','Completed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='10','Canceled',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='11','Awaiting Approval',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='60','New',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='62','Postponed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='63','In Process After Completion',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='64','Flagged for Deletion','Unassigned'))))))))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count_Emergency" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;EMERGENCY&quot;='X',1,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#/IAM/D_I_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EMERGENCY" source="EMERGENCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEFERRAL_CD" source="DEFERRAL_CD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MAIN_REF_IND">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="X"/>
+        </viewAttribute>
+        <viewAttribute id="TYPE_CD">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="EQ"/>
+            <operands value="FL"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_I_OBJ_REF">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAIN_REF_IND" source="MAIN_REF_IND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="MAIN_REF_IND"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="TYPE_CD"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAIN_REF_IND" source="MAIN_REF_IND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DB_KEY"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="ERDAZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Trim_EQUNR" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>ltrim(&quot;EQUNR&quot;,'0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#V_EQUI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAZ" source="ERDAZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="Trim_EQUNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="ERDAZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Trim_EQUNR" source="Trim_EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAZ" source="ERDAZ"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>Trim_EQUNR</partitionViewAttributeName>
+        <order byViewAttributeName="ERDAZ" direction="DESC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="Trim_EQUNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+      </input>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Trim_EQUNR" source="Trim_EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="Trim_EQUNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="TYPE_CD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Dash'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="EQ_Type" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;TYPE_CD&quot;),'0',if(&quot;TYPE_CD&quot;='EQ',&quot;KOSTL&quot;,'0'))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TPLNR"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#IFLOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TPLNR" source="TPLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="EQ_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQ_Type" source="EQ_Type"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="TPLNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="KOSTL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ILOA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="EQ_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQ_Type" source="EQ_Type"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="ILOAN"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="EQ_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Cost_Center" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;TYPE_CD&quot;),'0',if(&quot;TYPE_CD&quot;='FL',&quot;KOSTL&quot;,&quot;EQ_Type&quot;))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQ_Type" source="EQ_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="MCTXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CSKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCTXT" source="MCTXT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="EQ_Type"/>
+        <viewAttribute id="Cost_Center"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="MCTXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQ_Type" source="EQ_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Center" source="Cost_Center"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCTXT" source="MCTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Center" source="KOSTL"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="Cost_Center"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="EQ_Type"/>
+        <viewAttribute id="Cost_Center"/>
+        <viewAttribute id="TYPE_CD"/>
+        <viewAttribute id="KOSTL"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="MCTXT"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Issue_Type_Final" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ISSUE_TYPE&quot;='ZPR','Permanent MOC',IF(&quot;ISSUE_TYPE&quot;='ZTR','Temporary MOC',IF(&quot;ISSUE_TYPE&quot;='ZTS','TSR','Unassigned')))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQ_Type" source="EQ_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Center" source="Cost_Center"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TYPE_CD" source="TYPE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCTXT" source="MCTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_9">
+    <descriptions/>
+    <attributes>
+      <attribute id="ISSUE_TYPE" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ISSUE_TYPE"/>
+        <keyMapping columnObjectName="Projection_9" columnName="ISSUE_TYPE"/>
+      </attribute>
+      <attribute id="KPI" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_9" columnName="KPI"/>
+      </attribute>
+      <attribute id="DB_KEY_1" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DB_KEY"/>
+        <keyMapping columnObjectName="Projection_9" columnName="DB_KEY_1"/>
+      </attribute>
+      <attribute id="MANDT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DB_KEY" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DB_KEY"/>
+        <keyMapping columnObjectName="Projection_9" columnName="DB_KEY"/>
+      </attribute>
+      <attribute id="CRITICALITY" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CRITICALITY"/>
+        <keyMapping columnObjectName="Projection_9" columnName="CRITICALITY"/>
+      </attribute>
+      <attribute id="DATE" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE"/>
+        <keyMapping columnObjectName="Projection_9" columnName="DATE"/>
+      </attribute>
+      <attribute id="Criticality_Text" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Criticality_Text"/>
+        <keyMapping columnObjectName="Projection_9" columnName="Criticality_Text"/>
+      </attribute>
+      <attribute id="LCYCLE_CD" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LCYCLE_CD"/>
+        <keyMapping columnObjectName="Projection_9" columnName="LCYCLE_CD"/>
+      </attribute>
+      <attribute id="CR_Status" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CR_Status"/>
+        <keyMapping columnObjectName="Projection_9" columnName="CR_Status"/>
+      </attribute>
+      <attribute id="EQ_Type" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EQ_Type"/>
+        <keyMapping columnObjectName="Projection_9" columnName="EQ_Type"/>
+      </attribute>
+      <attribute id="Cost_Center" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost_Center"/>
+        <keyMapping columnObjectName="Projection_9" columnName="Cost_Center"/>
+      </attribute>
+      <attribute id="TYPE_CD" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TYPE_CD"/>
+        <keyMapping columnObjectName="Projection_9" columnName="TYPE_CD"/>
+      </attribute>
+      <attribute id="KOSTL" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KOSTL"/>
+        <keyMapping columnObjectName="Projection_9" columnName="KOSTL"/>
+      </attribute>
+      <attribute id="ID" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ID"/>
+        <keyMapping columnObjectName="Projection_9" columnName="ID"/>
+      </attribute>
+      <attribute id="ILOAN" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ILOAN"/>
+        <keyMapping columnObjectName="Projection_9" columnName="ILOAN"/>
+      </attribute>
+      <attribute id="MCTXT" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MCTXT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="MCTXT"/>
+      </attribute>
+      <attribute id="Issue_Type_Final" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Issue_Type_Final"/>
+        <keyMapping columnObjectName="Projection_9" columnName="Issue_Type_Final"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count_Emergency" hidden="false" order="18" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_9" columnName="Count_Emergency"/>
+      </measure>
+      <measure id="CREATED_ON" order="19" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CREATED_ON"/>
+        <measureMapping columnObjectName="Projection_9" columnName="CREATED_ON"/>
+      </measure>
+      <measure id="Count" order="20" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_9" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="479" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="879"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="879"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="783"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="879"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="783"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="687"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="609"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="405" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="326" y="513"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="480" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="402" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="402" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="556" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="479" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="479" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

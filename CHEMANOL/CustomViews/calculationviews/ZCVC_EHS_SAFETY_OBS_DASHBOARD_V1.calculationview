@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHS_SAFETY_OBS_DASHBOARD_V1" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_EHS_SAFETY_OBS_DASHBOARD_V1"/>
+  <metadata activatedAt="2021-10-25 13:23:57.0" changedAt="2021-10-19 10:51:57.924" createdAt="2021-10-19 10:49:49.107"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="57"/>
+  <dataSources>
+    <DataSource id="ZCVA_SHERATE" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVA_SHERATE</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVA_TRIRATE" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVA_TRIRATE</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVA_SAFEMANHOURS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVA_SAFEMANHOURS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_EHS_CLASSIFICATIONS_SAFETY_OBS_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHS_CLASSIFICATIONS_SAFETY_OBS_DASHBOARD</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="Count_Z"/>
+        <viewAttribute id="SHE_RATE_SUM"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVA_SHERATE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Z" source="Count_Z"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="TRIR_RATE_SUM"/>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="Created_Date"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVA_TRIRATE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRIR_RATE_SUM" source="TRIR_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="Cumulative"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVA_SAFEMANHOURS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cumulative" source="Cumulative"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="INC_GROUP"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="INC_GRP_DESC" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_EHS_CLASSIFICATIONS_SAFETY_OBS_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Man_Hours" transparentFilter="false"/>
+        <viewAttribute id="TRIR_RATE_SUM" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Created_Date" transparentFilter="false"/>
+        <viewAttribute id="Cumulative" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="SHE_RATE_SUM" transparentFilter="false"/>
+        <viewAttribute id="SEVERITY" transparentFilter="false"/>
+        <viewAttribute id="INC_GROUP" transparentFilter="false"/>
+        <viewAttribute id="INC_GRP_DESC" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRIR_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cumulative" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count_Z"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SEVERITY" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GROUP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GRP_DESC" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRIR_RATE_SUM" source="TRIR_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cumulative" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SHE_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SEVERITY" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GROUP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GRP_DESC" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Man_Hours" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRIR_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cumulative" source="Cumulative"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SHE_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SEVERITY" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GROUP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INC_GRP_DESC" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Man_Hours" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRIR_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Date"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cumulative" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SHE_RATE_SUM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="TRIR_RATE_SUM"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Created_Date" transparentFilter="false"/>
+        <viewAttribute id="Cumulative" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="SHE_RATE_SUM" transparentFilter="false"/>
+        <viewAttribute id="SEVERITY" transparentFilter="false"/>
+        <viewAttribute id="INC_GROUP" transparentFilter="false"/>
+        <viewAttribute id="INC_GRP_DESC" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRIR_RATE_SUM" source="TRIR_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cumulative" source="Cumulative"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_9">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="MANDT"/>
+      </attribute>
+      <attribute id="KPI" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_9" columnName="KPI"/>
+      </attribute>
+      <attribute id="Created_Date" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Created_Date"/>
+        <keyMapping columnObjectName="Projection_9" columnName="Created_Date"/>
+      </attribute>
+      <attribute id="SEVERITY" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="SEVERITY"/>
+        <keyMapping columnObjectName="Projection_9" columnName="SEVERITY"/>
+      </attribute>
+      <attribute id="INC_GROUP" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="INC_GROUP"/>
+        <keyMapping columnObjectName="Projection_9" columnName="INC_GROUP"/>
+      </attribute>
+      <attribute id="INC_GRP_DESC" order="11" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="INC_GRP_DESC"/>
+        <keyMapping columnObjectName="Projection_9" columnName="INC_GRP_DESC"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Man_Hours" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Man_Hours"/>
+        <measureMapping columnObjectName="Projection_9" columnName="Man_Hours"/>
+      </measure>
+      <measure id="TRIR_RATE_SUM" order="2" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="TRIR_RATE_SUM"/>
+        <measureMapping columnObjectName="Projection_9" columnName="TRIR_RATE_SUM"/>
+      </measure>
+      <measure id="Cumulative" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Cumulative"/>
+        <measureMapping columnObjectName="Projection_9" columnName="Cumulative"/>
+      </measure>
+      <measure id="Count" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_9" columnName="Count"/>
+      </measure>
+      <measure id="SHE_RATE" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_9" columnName="SHE_RATE_SUM"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

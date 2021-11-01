@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_TREASURY_FIXEDASSETS_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_TREASURY_FIXEDASSETS_DASHBOARD"/>
+  <metadata activatedAt="2021-10-26 13:03:50.0" changedAt="2021-10-19 10:47:16.139" createdAt="2021-10-19 10:46:04.471"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="56"/>
+  <dataSources>
+    <DataSource id="ZCVC_FI_TFA_DAILYFUNDS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_TFA_DAILYFUNDS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_TFA_CASHFLOW_LOAN" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_TFA_CASHFLOW_LOAN</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_TFA_ACQUISITION_RETIREMENT" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_TFA_ACQUISITION_RETIREMENT</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_TFA_AUC_AGING_V1" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_TFA_AUC_AGING_V1</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL4"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="RACCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Daily Funds'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+rightstr(&quot;POPER&quot;,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_TFA_DAILYFUNDS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL4"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="GL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_TFA_CASHFLOW_LOAN">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="Acquisition_Value"/>
+        <viewAttribute id="Retirement_Value"/>
+        <viewAttribute id="ANLN1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Acquirement &amp; Retirement'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_TFA_ACQUISITION_RETIREMENT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Acquisition_Value" source="Acquisition_Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Retirement_Value" source="Retirement_Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Aging_Bucket"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="ANLN1_2"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI_1" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'AUC Aging'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;ERDAT&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_TFA_AUC_AGING_V1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Bucket" source="Aging_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_2" source="ANLN1_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="COL1" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="COL4" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="HSL" transparentFilter="false"/>
+        <viewAttribute id="GL" transparentFilter="false"/>
+        <viewAttribute id="Aging_Bucket" transparentFilter="false"/>
+        <viewAttribute id="Acquisition_Value" transparentFilter="false"/>
+        <viewAttribute id="Retirement_Value" transparentFilter="false"/>
+        <viewAttribute id="ANLN1" transparentFilter="false"/>
+        <viewAttribute id="OBJNR" transparentFilter="false"/>
+        <viewAttribute id="ANLN1_2" transparentFilter="false"/>
+        <viewAttribute id="POST1" transparentFilter="false"/>
+        <viewAttribute id="PSPNR" transparentFilter="false"/>
+        <viewAttribute id="POSKI" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Aging_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Acquisition_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Retirement_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OBJNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1_2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POST1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSPNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POSKI" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Aging_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Acquisition_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Retirement_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OBJNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1_2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POST1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSPNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POSKI" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Aging_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Acquisition_Value" source="Acquisition_Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Retirement_Value" source="Retirement_Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OBJNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1_2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POST1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSPNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POSKI" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Date" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Bucket" source="Aging_Bucket"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Acquisition_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Retirement_Value" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ANLN1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_2" source="ANLN1_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="Date" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="Date"/>
+      </attribute>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="COL1" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL1"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL1"/>
+      </attribute>
+      <attribute id="COL2" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL2"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL2"/>
+      </attribute>
+      <attribute id="COL3" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL3"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL3"/>
+      </attribute>
+      <attribute id="COL4" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL4"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL4"/>
+      </attribute>
+      <attribute id="KPI" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="GL" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="GL"/>
+        <keyMapping columnObjectName="Union_1" columnName="GL"/>
+      </attribute>
+      <attribute id="Aging_Bucket" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Aging_Bucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="Aging_Bucket"/>
+      </attribute>
+      <attribute id="ANLN1" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="ANLN1"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN1"/>
+      </attribute>
+      <attribute id="OBJNR" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="OBJNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="OBJNR"/>
+      </attribute>
+      <attribute id="ANLN1_2" order="15" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="ANLN1_2"/>
+        <keyMapping columnObjectName="Union_1" columnName="ANLN1_2"/>
+      </attribute>
+      <attribute id="POST1" order="16" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="POST1"/>
+        <keyMapping columnObjectName="Union_1" columnName="POST1"/>
+      </attribute>
+      <attribute id="PSPNR" order="17" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="PSPNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="PSPNR"/>
+      </attribute>
+      <attribute id="POSKI" order="18" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="POSKI"/>
+        <keyMapping columnObjectName="Union_1" columnName="POSKI"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HSL" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Union_1" columnName="HSL"/>
+      </measure>
+      <measure id="Acquisition_Value" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Acquisition_Value"/>
+        <measureMapping columnObjectName="Union_1" columnName="Acquisition_Value"/>
+      </measure>
+      <measure id="Retirement_Value" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Retirement_Value"/>
+        <measureMapping columnObjectName="Union_1" columnName="Retirement_Value"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

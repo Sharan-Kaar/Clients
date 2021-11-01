@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_CONTRACT_UTILIZATION" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_CONTRACT_UTILIZATION"/>
+  <metadata changedAt="2021-10-19 10:47:29.0" createdAt="2021-10-19 10:45:36.347"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="62"/>
+  <dataSources>
+    <DataSource id="EKPO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKPO"/>
+    </DataSource>
+    <DataSource id="EKKO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKKO"/>
+    </DataSource>
+    <DataSource id="MAKT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MAKT"/>
+    </DataSource>
+    <DataSource id="Projection_5$$$$EKPO$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKPO"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BSTYP">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="K"/>
+        </viewAttribute>
+        <viewAttribute id="PSTYP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Material" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PSTYP&quot;!='9',&quot;TXZ01&quot;,'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Service" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PSTYP&quot;='9',&quot;TXZ01&quot;,'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Item_Type" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PSTYP&quot;='9','Service','Material')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#EKPO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSTYP" source="BSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="KTWRT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EKKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MAKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+        <viewAttribute hidden="true" id="JOIN$EBELN$EBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EBELN$EBELN" source="EBELN"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EBELN$EBELN" source="EBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$EBELN$EBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOEKZ">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="L"/>
+        </viewAttribute>
+        <viewAttribute id="KONNR"/>
+        <viewAttribute id="BRTWR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="TXZ01"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5$$$$EKPO$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEKZ" source="LOEKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONNR" source="KONNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="KONNR"/>
+        <viewAttribute id="BRTWR"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONNR" source="KONNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="KONNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="EBELN"/>
+      <joinAttribute name="MATNR"/>
+      <joinAttribute name="TXZ01"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="BRTWR"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="KONNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONNR" source="KONNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BRTWR"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="KONNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="Material"/>
+        <viewAttribute id="Service"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Contract_Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Service" source="Service"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONNR" source="KONNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_8">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_8" columnName="MANDT"/>
+      </attribute>
+      <attribute id="TXZ01" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TXZ01"/>
+        <keyMapping columnObjectName="Projection_8" columnName="TXZ01"/>
+      </attribute>
+      <attribute id="MATNR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Projection_8" columnName="MATNR"/>
+      </attribute>
+      <attribute id="MAKTX" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MAKTX"/>
+        <keyMapping columnObjectName="Projection_8" columnName="MAKTX"/>
+      </attribute>
+      <attribute id="AEDAT" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AEDAT"/>
+        <keyMapping columnObjectName="Projection_8" columnName="AEDAT"/>
+      </attribute>
+      <attribute id="Material" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Projection_8" columnName="Material"/>
+      </attribute>
+      <attribute id="Service" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Projection_8" columnName="Service"/>
+      </attribute>
+      <attribute id="Item_Type" hidden="false" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Projection_8" columnName="Item_Type"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="BRTWR" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BRTWR"/>
+        <measureMapping columnObjectName="Projection_8" columnName="BRTWR"/>
+      </measure>
+      <measure id="KTWRT" order="2" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="KTWRT"/>
+        <measureMapping columnObjectName="Projection_8" columnName="KTWRT"/>
+      </measure>
+      <measure id="Contract_Count" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Contract_Count"/>
+        <measureMapping columnObjectName="Projection_8" columnName="Contract_Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="252" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="765"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="591"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="765"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="669"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="591"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="495"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="417"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="321"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="417"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

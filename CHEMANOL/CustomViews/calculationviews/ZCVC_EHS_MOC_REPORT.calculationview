@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHS_MOC_REPORT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_EHS_MOC_REPORT"/>
+  <metadata activatedAt="2021-10-24 11:56:57.0" changedAt="2021-10-19 10:49:57.998" createdAt="2021-10-19 10:49:54.052"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="49"/>
+  <dataSources>
+    <DataSource id="/IAM/D_I_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_I_ROOT"/>
+    </DataSource>
+    <DataSource id="/IAM/D_I_DESC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_I_DESC"/>
+    </DataSource>
+    <DataSource id="/IAM/D_I_DESC_TX" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_I_DESC_TX"/>
+    </DataSource>
+    <DataSource id="/IAM/D_ACT_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_ACT_ROOT"/>
+    </DataSource>
+    <DataSource id="/IAM/D_ACT_DESC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_ACT_DESC"/>
+    </DataSource>
+    <DataSource id="/IAM/D_ACT_DTXT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_ACT_DTXT"/>
+    </DataSource>
+    <DataSource id="/IAM/D_ACT_PARTY" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/IAM/D_ACT_PARTY"/>
+    </DataSource>
+    <DataSource id="BUT000" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="BUT000"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CRITICALITY"/>
+        <viewAttribute id="CREATED_ON"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+        <viewAttribute id="DEFERRAL_CD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;CREATED_ON&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Criticality_Text" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;CRITICALITY&quot;='01','High',if(&quot;CRITICALITY&quot;='02','Medium',if(&quot;CRITICALITY&quot;='03','Low','Unassigned')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CR_Status" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;DEFERRAL_CD&quot;='02','On Hold',IF(&quot;DEFERRAL_CD&quot;='03','Rejected',IF(&quot;DEFERRAL_CD&quot;='04','Change Request Rejected',IF(&quot;DEFERRAL_CD&quot;='05','Not Applicable',IF(&quot;DEFERRAL_CD&quot;='06','Change Request On Hold',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='01','In Preparation',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='02','Submitted',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='03','Approved',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='04','Incomplete',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='05','In Process',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='06','Not Applicable',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='07','Rejected',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='08','Closed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='09','Completed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='10','Canceled',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='11','Awaiting Approval',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='60','New',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='62','Postponed',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='63','In Process After Completion',if(&quot;DEFERRAL_CD&quot;='01' and &quot;LCYCLE_CD&quot;='64','Flagged for Deletion','Unassigned'))))))))))))))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#/IAM/D_I_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEFERRAL_CD" source="DEFERRAL_CD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DESC_TYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="EXPLN"/>
+        </viewAttribute>
+        <viewAttribute id="DB_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_I_DESC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESC_TYPE" source="DESC_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DESC_TYPE"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESC_TYPE" source="DESC_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="DB_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="LANGU">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_I_DESC_TX">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGU" source="LANGU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DB_KEY_1"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ACT_CATEGORY">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="TSK"/>
+            <operands value="APP"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="PAR_ISSUE_UUID"/>
+        <viewAttribute id="LCYCLE_CD">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="02"/>
+            <operands value="03"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="SORTNO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_ACT_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACT_CATEGORY" source="ACT_CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PAR_ISSUE_UUID" source="PAR_ISSUE_UUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SORTNO" source="SORTNO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LCYCLE_CD_1"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="PAR_ISSUE_UUID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SORTNO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD_1" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PAR_ISSUE_UUID" source="PAR_ISSUE_UUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SORTNO" source="SORTNO"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <order byViewAttributeName="SORTNO" direction="ASC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="LCYCLE_CD_1"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD_1" source="LCYCLE_CD_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PAR_ISSUE_UUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DB_KEY"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DESC_TYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="DESCR"/>
+        </viewAttribute>
+        <viewAttribute id="DB_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_ACT_DESC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESC_TYPE" source="DESC_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="DB_KEY_3"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_3" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DB_KEY_2"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="LANGU">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_ACT_DTXT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGU" source="LANGU"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="DB_KEY_3"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_3" source="DB_KEY_3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_3" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DB_KEY_3"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="PARTNER_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/IAM/D_ACT_PARTY">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_ID" source="PARTNER_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="DB_KEY_3"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="PARTNER_ID"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_3" source="DB_KEY_3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_ID" source="PARTNER_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="DB_KEY_2"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="PARTNER"/>
+        <viewAttribute id="NAME1_TEXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#BUT000">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER" source="PARTNER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1_TEXT" source="NAME1_TEXT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="DB_KEY_1"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DB_KEY_2"/>
+        <viewAttribute id="DB_KEY_3"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="PARTNER_ID"/>
+        <viewAttribute id="NAME1_TEXT"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_1" source="DB_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_2" source="DB_KEY_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY_3" source="DB_KEY_3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_ID" source="PARTNER_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1_TEXT" source="NAME1_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_ID" source="PARTNER"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="PARTNER_ID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="LCYCLE_CD"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="NAME1_TEXT"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Report'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LCYCLE_CD" source="LCYCLE_CD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1_TEXT" source="NAME1_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_9">
+    <descriptions/>
+    <attributes>
+      <attribute id="TEXT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TEXT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="TEXT"/>
+      </attribute>
+      <attribute id="DATE" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE"/>
+        <keyMapping columnObjectName="Projection_9" columnName="DATE"/>
+      </attribute>
+      <attribute id="LCYCLE_CD" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LCYCLE_CD"/>
+        <keyMapping columnObjectName="Projection_9" columnName="LCYCLE_CD"/>
+      </attribute>
+      <attribute id="CR_Status" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CR_Status"/>
+        <keyMapping columnObjectName="Projection_9" columnName="CR_Status"/>
+      </attribute>
+      <attribute id="ISSUE_ID" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ISSUE_ID"/>
+        <keyMapping columnObjectName="Projection_9" columnName="ISSUE_ID"/>
+      </attribute>
+      <attribute id="MANDT" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="MANDT"/>
+      </attribute>
+      <attribute id="CONTENT" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONTENT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="CONTENT"/>
+      </attribute>
+      <attribute id="NAME1_TEXT" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME1_TEXT"/>
+        <keyMapping columnObjectName="Projection_9" columnName="NAME1_TEXT"/>
+      </attribute>
+      <attribute id="KPI" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_9" columnName="KPI"/>
+      </attribute>
+      <attribute id="ISSUE_TYPE" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ISSUE_TYPE"/>
+        <keyMapping columnObjectName="Projection_9" columnName="ISSUE_TYPE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_9" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="475" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="915"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="915"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="819"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="819"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="723"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="819"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="723"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="327" y="627"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="481" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="401" y="531"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="555" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="476" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="630" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="552" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="398" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="475" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="475" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

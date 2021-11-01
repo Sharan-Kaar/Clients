@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_CURRENT_RATIO_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_CURRENT_RATIO_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 18:16:26.0" changedAt="2021-10-25 18:14:20.522"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="59"/>
+  <dataSources>
+    <DataSource id="ZFIT_SOFP_GL" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_SOFP_GL"/>
+    </DataSource>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+    <DataSource id="ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD_EBITDA" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD_EBITDA</resourceUri>
+    </DataSource>
+    <DataSource id="ZFIT_CF2_TAB6" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_CF2_TAB6"/>
+    </DataSource>
+    <DataSource id="ZFIT_CF2_TAB5" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_CF2_TAB5"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$ZFIT_SOFP_GL$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_SOFP_GL"/>
+    </DataSource>
+    <DataSource id="CopyOfCopyOfProjection_1$$$$ZFIT_SOFP_GL$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_SOFP_GL"/>
+    </DataSource>
+    <DataSource id="ZCVC_FI_PROFIT_LOSS_DASHBOARD_GENERAL_LEDGER" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_PROFIT_LOSS_DASHBOARD_GENERAL_LEDGER</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="GL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFIT_SOFP_GL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RBUKRS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RLDNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="0L"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="POPER_V1" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>midstr(&quot;POPER&quot;,2,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;POPER_V1&quot;+ &quot;GJAHR&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Amount" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;HSL&quot;*-1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="POPER_V1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$RCLNT"/>
+        <viewAttribute hidden="true" id="JOIN$GL$RACCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GL$RACCT" source="GL"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="POPER_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$GL$RACCT" source="RACCT"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$RCLNT"/>
+      <joinAttribute name="JOIN$GL$RACCT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="RYEAR"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_PROFIT_LOSS_CURRENTRATIO_DASHBOARD_EBITDA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RYEAR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="VALUE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Contracts'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+'0101'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Col_3" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Contracts'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="RACCT_1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Contracts'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Col_1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Contracts'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZFIT_CF2_TAB6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALUE" source="VALUE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="VALUE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Borrowings'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date1" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+'0101'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZFIT_CF2_TAB5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALUE" source="VALUE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="AMT2019"/>
+        <viewAttribute id="AMT2020"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>'20191231'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$ZFIT_SOFP_GL$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AMT2019" source="AMT2019"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AMT2020" source="AMT2020"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfCopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="AMT2019"/>
+        <viewAttribute id="AMT2020"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>'20201231'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfCopyOfProjection_1$$$$ZFIT_SOFP_GL$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AMT2019" source="AMT2019"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AMT2020" source="AMT2020"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI_1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Costcenter'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_PROFIT_LOSS_DASHBOARD_GENERAL_LEDGER">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="POPER_V1"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CC_V1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="POPER_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="HSL"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="BUDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="BUDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="Amount"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RBUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="Col_3"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPER_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="Col_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="VALUE"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RBUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RACCT" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPER_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="VALUE"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GJAHR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RBUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPER_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="AMT2019"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#CopyOfCopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GJAHR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RBUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POPER_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="AMT2020"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="KPI_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="RCNTR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="POPER_V1"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="CC_V1" transparentFilter="false"/>
+        <viewAttribute id="WSL"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Count" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>1*&quot;WSL&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Union_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER_V1" source="POPER_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCLNT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCLNT"/>
+        <keyMapping columnObjectName="Projection_3" columnName="RCLNT"/>
+      </attribute>
+      <attribute id="GJAHR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR"/>
+        <keyMapping columnObjectName="Projection_3" columnName="GJAHR"/>
+      </attribute>
+      <attribute id="RBUKRS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RBUKRS"/>
+        <keyMapping columnObjectName="Projection_3" columnName="RBUKRS"/>
+      </attribute>
+      <attribute id="RACCT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RACCT"/>
+        <keyMapping columnObjectName="Projection_3" columnName="RACCT"/>
+      </attribute>
+      <attribute id="COL2" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL2"/>
+        <keyMapping columnObjectName="Projection_3" columnName="COL2"/>
+      </attribute>
+      <attribute id="COL3" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL3"/>
+        <keyMapping columnObjectName="Projection_3" columnName="COL3"/>
+      </attribute>
+      <attribute id="POPER_V1" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POPER_V1"/>
+        <keyMapping columnObjectName="Projection_3" columnName="POPER_V1"/>
+      </attribute>
+      <attribute id="Date" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Projection_3" columnName="Date"/>
+      </attribute>
+      <attribute id="COL1" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL1"/>
+        <keyMapping columnObjectName="Projection_3" columnName="COL1"/>
+      </attribute>
+      <attribute id="CC_V1" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="CC_V1"/>
+        <keyMapping columnObjectName="Projection_3" columnName="CC_V1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="WSL" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="WSL"/>
+        <measureMapping columnObjectName="Projection_3" columnName="WSL"/>
+      </measure>
+      <measure id="Count" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_3" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="484" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="643"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="561" y="545"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="545"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfCopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="449"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="740" y="260"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_PR_PENDING_REQUEST_STATUS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_PR_PENDING_REQUEST_STATUS"/>
+  <metadata changedAt="2021-10-19 10:45:52.0" createdAt="2021-10-19 10:44:02.519"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="59"/>
+  <dataSources>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="EBAN" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EBAN"/>
+    </DataSource>
+    <DataSource id="T134T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T134T"/>
+    </DataSource>
+    <DataSource id="EKPO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKPO"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MATKL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="BADAT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="FRGKZ"/>
+        <viewAttribute id="BNFPO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EBAN">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="BADAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T134T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MTART"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="PSTYP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EKPO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="PSTYP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="PSTYP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="FRGKZ"/>
+        <viewAttribute id="BNFPO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="FRGKZ"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="FRGKZ">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="2"/>
+        </viewAttribute>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="BSART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="Z001"/>
+            <operands value="Z003"/>
+            <operands value="Z005"/>
+            <operands value="Z007"/>
+            <operands value="Z009"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="EBELN">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+        </viewAttribute>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Po_Num" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;EBELN&quot;) ,'X','Not')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Section" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;MTART&quot;='ZSP1') ,'Spares,Consumables &amp; Equipment',if((&quot;MTART&quot;='ZCO1'),'Spares,Consumables &amp; Equipment',if((&quot;MTART&quot;='ZPK1'),'Raw Materials &amp; Packaging Materials',if((&quot;MTART&quot;='ZRM1') ,'Raw Materials &amp; Packaging Materials',if((&quot;PSTYP&quot;='9'),'Contracts Services','exclude')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Spares_RawMaterials">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="Po_Num">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Not"/>
+        </viewAttribute>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="Section">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="exclude"/>
+        </viewAttribute>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="BSART"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="PR_Pending_Days" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;FRGDT&quot;),date(now()))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Ageing_Bucket" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(int(&quot;Ageing_days&quot;) > 30 and int(&quot;Ageing_days&quot;)&lt;= 60 , 'More than 30 Days',  &#xD;
+if(int(&quot;Ageing_days&quot;) >60 and int(&quot;Ageing_days&quot;) &lt;= 90 , 'More than 60 Days',&#xD;
+if(int(&quot;Ageing_days&quot;) >90, 'More than 90 days',  'Less than 30 Days')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Current_date" expressionLanguage="COLUMN_ENGINE">
+          <formula>now()</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Ageing_days" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;FRGDT&quot;),&quot;Current_date&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Po_Num" source="Po_Num"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="CopyOfJoin_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="FRGKZ"/>
+        <viewAttribute id="MATNR_1"/>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="MANDT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_1" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_1" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT_1"/>
+      <joinAttribute name="MATNR_1"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="FRGKZ"/>
+        <viewAttribute id="MATNR_1"/>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="MANDT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Po_Num" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;EBELN&quot;) or &quot;EBELN&quot;='','X','Not')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfJoin_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_1" source="MATNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Service_Contracts">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Po_Num">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="X"/>
+        </viewAttribute>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="FRGKZ">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="2"/>
+        </viewAttribute>
+        <viewAttribute id="MATNR_1">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+        </viewAttribute>
+        <viewAttribute id="BNFPO"/>
+        <viewAttribute id="MANDT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Section" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BSART&quot;='RV','Contract',if(&quot;BSART&quot;='Z002' or &quot;BSART&quot;='Z004' or &quot;BSART&quot;='Z006' or &quot;BSART&quot;='Z008','Service','Exclude'))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Ageing_Bucket_1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(int(&quot;Ageing_days_1&quot;) > 30 and int(&quot;Ageing_days_1&quot;)&lt;= 60 , 'More than 30 Days',  &#xD;
+if(int(&quot;Ageing_days_1&quot;) >60 and int(&quot;Ageing_days_1&quot;) &lt;= 90 , 'More than 60 Days',&#xD;
+if(int(&quot;Ageing_days_1&quot;) >90, 'More than 90 days',  'Less than 30 Days')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Current_date_1" expressionLanguage="COLUMN_ENGINE">
+          <formula>now()</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Ageing_days_1" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;FRGDT&quot;),&quot;Current_date_1&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="PR_Pending_Days_1" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;FRGDT&quot;),date(now()))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Po_Num" source="Po_Num"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGKZ" source="FRGKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_1" source="MATNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Ageing_Bucket"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="Section"/>
+        <viewAttribute id="Current_date"/>
+        <viewAttribute id="Ageing_days"/>
+        <viewAttribute id="PR_Pending_Days"/>
+        <viewAttribute id="FRGDT" transparentFilter="false"/>
+        <viewAttribute id="BNFPO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Spares_RawMaterials">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_date" source="Current_date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_days" source="Ageing_days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PR_Pending_Days" source="PR_Pending_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Service_Contracts">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_days" source="Ageing_days_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_date" source="Current_date_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PR_Pending_Days" source="PR_Pending_Days_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="Ageing_Bucket" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ageing_Bucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="Ageing_Bucket"/>
+      </attribute>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="MATNR" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="MTART" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MTART"/>
+        <keyMapping columnObjectName="Union_1" columnName="MTART"/>
+      </attribute>
+      <attribute id="BANFN" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BANFN"/>
+        <keyMapping columnObjectName="Union_1" columnName="BANFN"/>
+      </attribute>
+      <attribute id="MTBEZ" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MTBEZ"/>
+        <keyMapping columnObjectName="Union_1" columnName="MTBEZ"/>
+      </attribute>
+      <attribute id="Section" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Section"/>
+        <keyMapping columnObjectName="Union_1" columnName="Section"/>
+      </attribute>
+      <attribute id="Current_date" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current_date"/>
+        <keyMapping columnObjectName="Union_1" columnName="Current_date"/>
+      </attribute>
+      <attribute id="Ageing_days" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ageing_days"/>
+        <keyMapping columnObjectName="Union_1" columnName="Ageing_days"/>
+      </attribute>
+      <attribute id="BADAT" order="12" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="FRGDT"/>
+      </attribute>
+      <attribute id="BNFPO" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BNFPO"/>
+        <keyMapping columnObjectName="Union_1" columnName="BNFPO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="PR_Pending_Days" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PR_Pending_Days"/>
+        <measureMapping columnObjectName="Union_1" columnName="PR_Pending_Days"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="Count" hidden="false" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Count"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="BANFN"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="329" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="863"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="593"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="863"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="767"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="767"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="671"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="593"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="497"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="341"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Spares_RawMaterials" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="263"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="419"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Service_Contracts" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="161" y="270"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfJoin_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="497"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="419"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

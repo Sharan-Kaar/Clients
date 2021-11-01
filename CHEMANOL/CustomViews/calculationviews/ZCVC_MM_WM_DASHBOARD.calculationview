@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_WM_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_WM_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 12:16:07.0" changedAt="2021-10-19 10:43:27.639" createdAt="2021-10-19 10:43:20.251"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="MATDOC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MATDOC"/>
+    </DataSource>
+    <DataSource id="Aggregation_2$$$$MATDOC$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MATDOC"/>
+    </DataSource>
+    <DataSource id="Aggregation_3$$$$MATDOC$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MATDOC"/>
+    </DataSource>
+    <DataSource id="MAKT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MAKT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute aggregationType="sum" id="DMBTR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BLDAT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="LINE_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MATDOC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR" source="DMBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BLDAT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="LINE_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="20" expressionLanguage="COLUMN_ENGINE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value=""/>
+          <formula>if(&quot;BWART&quot;='101' or  &quot;BWART&quot;='103' or  &quot;BWART&quot; = '107','Goods Receipt',&#xD;
+if(&quot;BWART&quot;='122' or  &quot;BWART&quot;='124','Rejected',&#xD;
+if(&quot;BWART&quot;='105' or  &quot;BWART&quot;='109','Released',&#xD;
+if(&quot;BWART&quot;='201' or  &quot;BWART&quot;='261' or  &quot;BWART&quot; = '281'  or  &quot;BWART&quot; = '221','Goods Issue',&#xD;
+if(&quot;BWART&quot;='202' or  &quot;BWART&quot;='262' or  &quot;BWART&quot; = '282'  or  &quot;BWART&quot; = '222','Returns','')))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BUDAT_V1" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>MIDSTR(&quot;BUDAT&quot;,7,2)+'-'+MIDSTR(&quot;BUDAT&quot;,5,2)+'-'+LEFTSTR(&quot;BUDAT&quot;,4)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_SQL_V1" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;BUDAT&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="BWART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="105"/>
+            <operands value="109"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute aggregationType="sum" id="ERFMG"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BLDAT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Released Stock Status'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_2$$$$MATDOC$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BLDAT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="Int"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="DaysBetween" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;BLDAT&quot;),date(&quot;BUDAT&quot;))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Bucket" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;DaysBetween&quot;>=0 and &quot;DaysBetween&quot; &lt;4,'0 - 3 Days',(&#xD;
+if(&quot;DaysBetween&quot;>=4 and &quot;DaysBetween&quot; &lt;11,'4 - 10 Days',(&#xD;
+if(&quot;DaysBetween&quot;>=11 and &quot;DaysBetween&quot; &lt;31,'11 - 30 Days',(&#xD;
+if(&quot;DaysBetween&quot;>=31 ,'>30 Days','')))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BUDAT_V1" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>MIDSTR(&quot;BUDAT&quot;,7,2)+'-'+MIDSTR(&quot;BUDAT&quot;,5,2)+'-'+LEFTSTR(&quot;BUDAT&quot;,4)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BLDAT_V1" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>MIDSTR(&quot;BLDAT&quot;,7,2)+'-'+MIDSTR(&quot;BLDAT&quot;,5,2)+'-'+LEFTSTR(&quot;BLDAT&quot;,4)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_SQL" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;CPUDT&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT" source="BLDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="BWART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="122"/>
+            <operands value="124"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute aggregationType="sum" id="ERFMG"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_3$$$$MATDOC$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Vendor wise Rejected'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CPUDT_V1" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>MIDSTR(&quot;CPUDT&quot;,7,2)+'-'+MIDSTR(&quot;CPUDT&quot;,5,2)+'-'+LEFTSTR(&quot;CPUDT&quot;,4)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_SQL_V1" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;CPUDT&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="BLDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="Bucket" transparentFilter="false"/>
+        <viewAttribute id="BUDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="Date_SQL" transparentFilter="false"/>
+        <viewAttribute id="DaysBetween"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="LINE_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BLDAT_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_V1" source="BUDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL_V1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DaysBetween" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELP" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LIFNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_V1" source="BLDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Bucket" source="Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_V1" source="BUDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DaysBetween" source="DaysBetween"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELP" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LIFNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BKTXT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BLDAT_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_V1" source="CPUDT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL_V1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DaysBetween" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="USNAM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MAKTX"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MAKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="Bucket" transparentFilter="false"/>
+        <viewAttribute id="Date_SQL" transparentFilter="false"/>
+        <viewAttribute id="BUDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="BLDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="DaysBetween"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="LINE_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Bucket" source="Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_V1" source="BUDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_V1" source="BLDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DaysBetween" source="DaysBetween"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="KPI" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Join_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="WERKS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Join_1" columnName="WERKS"/>
+      </attribute>
+      <attribute id="BWART" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Movement Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="BWART"/>
+      </attribute>
+      <attribute id="MBLNR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Document No"/>
+        <keyMapping columnObjectName="Join_1" columnName="MBLNR"/>
+      </attribute>
+      <attribute id="CPUDT" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Entered On "/>
+        <keyMapping columnObjectName="Join_1" columnName="CPUDT"/>
+      </attribute>
+      <attribute id="MATNR" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material No"/>
+        <keyMapping columnObjectName="Join_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="ERFME" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Unit of Measure"/>
+        <keyMapping columnObjectName="Join_1" columnName="ERFME"/>
+      </attribute>
+      <attribute id="LGORT" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Storage Location"/>
+        <keyMapping columnObjectName="Join_1" columnName="LGORT"/>
+      </attribute>
+      <attribute id="BKTXT" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Header Text"/>
+        <keyMapping columnObjectName="Join_1" columnName="BKTXT"/>
+      </attribute>
+      <attribute id="USNAM" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Entered By"/>
+        <keyMapping columnObjectName="Join_1" columnName="USNAM"/>
+      </attribute>
+      <attribute id="Bucket" order="12" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Bucket"/>
+        <keyMapping columnObjectName="Join_1" columnName="Bucket"/>
+      </attribute>
+      <attribute id="Date_SQL" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="Date_SQL"/>
+      </attribute>
+      <attribute id="BUDAT_V1" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Posting Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="BUDAT_V1"/>
+      </attribute>
+      <attribute id="BLDAT_V1" order="15" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Document Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="BLDAT_V1"/>
+      </attribute>
+      <attribute id="LIFNR" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vendor"/>
+        <keyMapping columnObjectName="Join_1" columnName="LIFNR"/>
+      </attribute>
+      <attribute id="EBELN" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document No"/>
+        <keyMapping columnObjectName="Join_1" columnName="EBELN"/>
+      </attribute>
+      <attribute id="EBELP" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Item"/>
+        <keyMapping columnObjectName="Join_1" columnName="EBELP"/>
+      </attribute>
+      <attribute id="MAKTX" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="MAKTX"/>
+      </attribute>
+      <attribute id="LINE_ID" order="23" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LINE_ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="LINE_ID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="16" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Join_1" columnName="Count"/>
+      </measure>
+      <measure id="Amount" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Amount"/>
+        <measureMapping columnObjectName="Join_1" columnName="Amount"/>
+      </measure>
+      <measure id="DaysBetween" order="18" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DaysBetween"/>
+        <measureMapping columnObjectName="Join_1" columnName="DaysBetween"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="395"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

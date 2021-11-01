@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_DASHBOARD_FINAL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_DASHBOARD_FINAL"/>
+  <metadata changedAt="2021-10-19 10:47:29.0" createdAt="2021-10-19 10:45:13.732"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="79"/>
+  <dataSources>
+    <DataSource id="ZCVC_MM_PR_PENDING_REQUEST_STATUS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_PR_PENDING_REQUEST_STATUS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_PURCHASE_VALUES" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_PURCHASE_VALUES</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_COST_SAVINGS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_COST_SAVINGS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_CONTRACT_UTILIZATION" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_CONTRACT_UTILIZATION</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_MATERIAL_AVAIL_STATUS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_MATERIAL_AVAIL_STATUS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_PURCHASE_ORDERS_COUNT" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_PURCHASE_ORDERS_COUNT</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Ageing_Bucket">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="Less than 30 Days"/>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Section"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="BADAT"/>
+        <viewAttribute id="BANFN"/>
+        <viewAttribute id="BNFPO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'PR Pending Request Status'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_PR_PENDING_REQUEST_STATUS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="BADAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Foreign_sourcing"/>
+        <viewAttribute id="Local_sourcing"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="DATE_SAP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Purchase Values'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_PURCHASE_VALUES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Foreign_sourcing" source="Foreign_sourcing"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Local_sourcing" source="Local_sourcing"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Section"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="Cost_Saving"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WAERK"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Cost Savings'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_COST_SAVINGS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Saving" source="Cost_Saving"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BRTWR"/>
+        <viewAttribute id="KTWRT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXZ01"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="Contract_Count"/>
+        <viewAttribute id="Item_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Contract Utilization'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_CONTRACT_UTILIZATION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Contract_Count" source="Contract_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MENGE"/>
+        <viewAttribute id="LABST"/>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="ERSDA"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Material Availability'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_MATERIAL_AVAIL_STATUS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LABST" source="LABST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERSDA" source="ERSDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="FGDAT"/>
+        <viewAttribute id="EDOKN"/>
+        <viewAttribute id="PSTYP"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'PO Count'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_PURCHASE_ORDERS_COUNT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FGDAT" source="FGDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EDOKN" source="EDOKN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Ageing_Bucket" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Section" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="Foreign_sourcing" transparentFilter="false"/>
+        <viewAttribute id="Local_sourcing" transparentFilter="false"/>
+        <viewAttribute id="Cost_Saving" transparentFilter="false"/>
+        <viewAttribute id="BRTWR" transparentFilter="false"/>
+        <viewAttribute id="KTWRT" transparentFilter="false"/>
+        <viewAttribute id="TXZ01" transparentFilter="false"/>
+        <viewAttribute id="Contract_Count" transparentFilter="false"/>
+        <viewAttribute id="Item_Type" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="WAERS" transparentFilter="false"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="LABST" transparentFilter="false"/>
+        <viewAttribute id="MENGE" transparentFilter="false"/>
+        <viewAttribute id="BADAT" transparentFilter="false"/>
+        <viewAttribute id="PSTYP" transparentFilter="false"/>
+        <viewAttribute id="BSART" transparentFilter="false"/>
+        <viewAttribute id="EDOKN" transparentFilter="false"/>
+        <viewAttribute id="BANFN" transparentFilter="false"/>
+        <viewAttribute id="BNFPO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Foreign_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Local_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cost_Saving" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BRTWR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTWRT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TXZ01" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Contract_Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Item_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WAERS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LABST" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MENGE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="BADAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSTYP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BSART" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EDOKN" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BANFN" source="BANFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNFPO" source="BNFPO"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ageing_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Section" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Foreign_sourcing" source="Foreign_sourcing"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Local_sourcing" source="Local_sourcing"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cost_Saving" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BRTWR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTWRT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TXZ01" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Contract_Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Item_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LABST" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MENGE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSTYP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BSART" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EDOKN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BANFN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BNFPO" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ageing_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Section" source="Section"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Foreign_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Local_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Saving" source="Cost_Saving"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BRTWR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTWRT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TXZ01" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Contract_Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Item_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERK"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LABST" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MENGE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSTYP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BSART" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EDOKN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BANFN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BNFPO" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ageing_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Section" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Foreign_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Local_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cost_Saving" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BRTWR" source="BRTWR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTWRT" source="KTWRT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXZ01" source="TXZ01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Contract_Count" source="Contract_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Item_Type" source="Item_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WAERS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LABST" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MENGE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="AEDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSTYP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BSART" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EDOKN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BANFN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BNFPO" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_5">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ageing_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Section" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Foreign_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Local_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cost_Saving" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BRTWR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTWRT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TXZ01" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Contract_Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Item_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WAERS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LABST" source="LABST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="ERSDA"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PSTYP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BSART" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EDOKN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BANFN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BNFPO" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_6">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ageing_Bucket" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Section" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Foreign_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Local_sourcing" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Cost_Saving" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BRTWR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTWRT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TXZ01" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Contract_Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Item_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WAERS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LABST" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MENGE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BADAT" source="FGDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EDOKN" source="EDOKN"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BANFN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BNFPO" null="true" value=""/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="Ageing_Bucket" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Ageing_Bucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="Ageing_Bucket"/>
+      </attribute>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Section" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Section"/>
+        <keyMapping columnObjectName="Union_1" columnName="Section"/>
+      </attribute>
+      <attribute id="TXZ01" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TXZ01"/>
+        <keyMapping columnObjectName="Union_1" columnName="TXZ01"/>
+      </attribute>
+      <attribute id="Item_Type" order="12" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Union_1" columnName="Item_Type"/>
+      </attribute>
+      <attribute id="KPI" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="WAERS" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="WAERS"/>
+        <keyMapping columnObjectName="Union_1" columnName="WAERS"/>
+      </attribute>
+      <attribute id="MATNR" order="15" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="BADAT" order="18" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BADAT"/>
+        <keyMapping columnObjectName="Union_1" columnName="BADAT"/>
+      </attribute>
+      <attribute id="PSTYP" order="19" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="PSTYP"/>
+        <keyMapping columnObjectName="Union_1" columnName="PSTYP"/>
+      </attribute>
+      <attribute id="BSART" order="20" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BSART"/>
+        <keyMapping columnObjectName="Union_1" columnName="BSART"/>
+      </attribute>
+      <attribute id="EDOKN" order="21" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="EDOKN"/>
+        <keyMapping columnObjectName="Union_1" columnName="EDOKN"/>
+      </attribute>
+      <attribute id="BANFN" order="22" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BANFN"/>
+        <keyMapping columnObjectName="Union_1" columnName="BANFN"/>
+      </attribute>
+      <attribute id="BNFPO" order="23" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BNFPO"/>
+        <keyMapping columnObjectName="Union_1" columnName="BNFPO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="Foreign_sourcing" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Foreign Sourcing"/>
+        <measureMapping columnObjectName="Union_1" columnName="Foreign_sourcing"/>
+      </measure>
+      <measure id="Local_sourcing" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Local Sourcing"/>
+        <measureMapping columnObjectName="Union_1" columnName="Local_sourcing"/>
+      </measure>
+      <measure id="Cost_Saving" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Cost_Saving"/>
+        <measureMapping columnObjectName="Union_1" columnName="Cost_Saving"/>
+      </measure>
+      <measure id="BRTWR" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BRTWR"/>
+        <measureMapping columnObjectName="Union_1" columnName="BRTWR"/>
+      </measure>
+      <measure id="KTWRT" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="KTWRT"/>
+        <measureMapping columnObjectName="Union_1" columnName="KTWRT"/>
+      </measure>
+      <measure id="Contract_Count" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Contract_Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Contract_Count"/>
+      </measure>
+      <measure id="LABST" order="16" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="LABST"/>
+        <measureMapping columnObjectName="Union_1" columnName="LABST"/>
+      </measure>
+      <measure id="MENGE" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MENGE"/>
+        <measureMapping columnObjectName="Union_1" columnName="MENGE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="330" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="810" y="350"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

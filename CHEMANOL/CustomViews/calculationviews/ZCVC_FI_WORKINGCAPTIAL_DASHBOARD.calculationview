@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_WORKINGCAPTIAL_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="Working Captial Dashboard"/>
+  <metadata changedAt="2021-10-19 10:51:30.0" createdAt="2021-10-19 10:46:01.999"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="58"/>
+  <dataSources>
+    <DataSource id="ZCVC_FI_ACC_PAYABLES_AGEING" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_ACC_PAYABLES_AGEING</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_ACC_RECEIVEABLES_AGEING" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_ACC_RECEIVEABLES_AGEING</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Value"/>
+        <viewAttribute id="Ageing_Type" transparentFilter="false"/>
+        <viewAttribute id="Ageing_Bucket" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="BUKRS" transparentFilter="false"/>
+        <viewAttribute id="LIFNR" transparentFilter="false"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="Rank_Column"/>
+        <viewAttribute id="NAME1" transparentFilter="false"/>
+        <viewAttribute id="Filter" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_ACC_PAYABLES_AGEING">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Value" source="Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Type" source="Ageing_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter" source="Filter"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Ageing_bucket1"/>
+        <viewAttribute id="Due_Date_V1"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="Date_Type" transparentFilter="false"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="Rank_Column"/>
+        <viewAttribute id="Filter" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Account Receiveables'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_ACC_RECEIVEABLES_AGEING">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_bucket1" source="Ageing_bucket1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Due_Date_V1" source="Due_Date_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Type" source="Date_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter" source="Filter"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Value" transparentFilter="false"/>
+        <viewAttribute id="Ageing_Type" transparentFilter="false"/>
+        <viewAttribute id="Ageing_Bucket" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="BUKRS" transparentFilter="false"/>
+        <viewAttribute id="LIFNR" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="Rank_Column"/>
+        <viewAttribute id="NAME1" transparentFilter="false"/>
+        <viewAttribute id="Filter" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Value" source="Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Type" source="Ageing_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter" source="Filter"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Value" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Type" source="Date_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ageing_Bucket" source="Ageing_bucket1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Due_Date_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter" source="Filter"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="Ageing_Bucket" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Ageing Bucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="Ageing_Bucket"/>
+      </attribute>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="BUKRS" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BUKRS"/>
+        <keyMapping columnObjectName="Union_1" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="LIFNR" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="LIFNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="LIFNR"/>
+      </attribute>
+      <attribute id="KPI" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="Date" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="Date"/>
+      </attribute>
+      <attribute id="Ageing_Type" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Ageing Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="Ageing_Type"/>
+      </attribute>
+      <attribute id="Rank_Column" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rank_Column"/>
+        <keyMapping columnObjectName="Union_1" columnName="Rank_Column"/>
+      </attribute>
+      <attribute id="NAME1" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="vendor_name"/>
+        <keyMapping columnObjectName="Union_1" columnName="NAME1"/>
+      </attribute>
+      <attribute id="Filter" order="11" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Filter"/>
+        <keyMapping columnObjectName="Union_1" columnName="Filter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Value" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Value"/>
+        <measureMapping columnObjectName="Union_1" columnName="Value"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="222" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="64" width="271"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="307" y="281"/>
+        <rectangleSize height="66" width="241"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="222" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

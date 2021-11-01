@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVA_SHERATE" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_SHERATE"/>
+  <metadata activatedAt="2021-10-25 13:23:57.0" changedAt="2021-10-19 10:52:48.318" createdAt="2021-10-19 10:51:34.914"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="50"/>
+  <dataSources>
+    <DataSource id="ZCVA_EHSSD_INC_ROOT" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVA_EHSSD_INC_ROOT</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVA_EHHSSD_INC_INCGR" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVA_EHHSSD_INC_INCGR</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MANHOURS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MANHOURS</resourceUri>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="STATUS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Created_Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;DATETIME_CR&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="MonthYear" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(&quot;Created_Date&quot;),4)+midstr(string(&quot;Created_Date&quot;),6,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVA_EHSSD_INC_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      </input>
+      <filter>(&quot;CATEGORY&quot; = '001') AND (&quot;STATUS&quot; != '00')  AND (&quot;STATUS&quot;!='')  AND (&quot;MANDT&quot; = '300')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="SEVERITY">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="A"/>
+            <operands value="B"/>
+            <operands value="C"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVA_EHHSSD_INC_INCGR">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="MonthYear"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="DB_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="MonthYear"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="MonthYear"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>PARENT_KEY</partitionViewAttributeName>
+        <order byViewAttributeName="SEVERITY" direction="ASC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="MonthYear"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Createddate_SAP" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>FORMAT(&quot;Created_Date&quot;,'YYYYMMDD')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="SHE_RATE_SUM" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;SEVERITY&quot;='A',&quot;Count&quot;*50*200000,if(&quot;SEVERITY&quot;='B',&quot;Count&quot;*5*200000,if(&quot;SEVERITY&quot;='C',&quot;Count&quot;*200000,0)))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="Man_Hours"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Year" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;ZDATE_1&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count_Z" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MANHOURS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+      <filter>(&quot;CALMONTH&quot; >='202001' AND &quot;CALMONTH&quot; &lt;='202112' )</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="MonthYear"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="SHE_RATE_SUM"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="Createddate_SAP"/>
+      </input>
+      <joinAttribute name="DATE_SAP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="MonthYear"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute aggregationType="sum" id="SHE_RATE_SUM"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="Year"/>
+        <viewAttribute id="Count_Z"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="MonthYear"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="SHE_RATE_SUM"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MonthYear" source="MonthYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Year" source="Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Z" source="Count_Z"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="Year"/>
+      </input>
+      <joinAttribute name="DATE_SAP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Created_Date"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="Count_Z"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="SHE_RATE_SUM"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'SHE RATE'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Created_Date" source="Created_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Z" source="Count_Z"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHE_RATE_SUM" source="SHE_RATE_SUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="KPI" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_3" columnName="KPI"/>
+      </attribute>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_3" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Date" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Projection_3" columnName="Created_Date"/>
+      </attribute>
+      <attribute id="CALMONTH" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CALMONTH"/>
+        <keyMapping columnObjectName="Projection_3" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="DATE_SAP" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_SAP"/>
+        <keyMapping columnObjectName="Projection_3" columnName="DATE_SAP"/>
+      </attribute>
+      <attribute id="Created_Date" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created_Date"/>
+        <keyMapping columnObjectName="Projection_3" columnName="DATE_SQL"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count_Z" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count_Z"/>
+        <measureMapping columnObjectName="Projection_3" columnName="Count_Z"/>
+      </measure>
+      <measure id="Man_Hours" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Man_Hours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="Man_Hours"/>
+      </measure>
+      <measure id="SHE_RATE_SUM" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_3" columnName="SHE_RATE_SUM"/>
+      </measure>
+      <measure id="Count" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_3" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="843"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="843"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="747"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="669"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="591"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="513"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="339"/>
+        <rectangleSize height="34" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

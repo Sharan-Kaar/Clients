@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dimension:dimension xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="1.2" id="ZAT_JEST" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" dimensionType="Standard">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_JEST"/>
+  <metadata activatedAt="2021-10-19 13:00:29.0" changedAt="2021-10-19 10:56:01.106" createdAt="2021-10-19 10:55:23.277"/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <attributes>
+    <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="MANDT"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="MANDT"/>
+    </attribute>
+    <attribute id="OBJNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="OBJNR"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="OBJNR"/>
+    </attribute>
+    <attribute id="STAT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="STAT"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="STAT"/>
+    </attribute>
+    <attribute id="INACT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="INACT"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="INACT"/>
+    </attribute>
+    <attribute id="CHGNR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="CHGNR"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="CHGNR"/>
+    </attribute>
+    <attribute id="_DATAAGING" order="6" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="_DATAAGING"/>
+      <keyMapping schemaName="SAPHANADB" columnObjectName="JEST" columnName="_DATAAGING"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <privateDataFoundation>
+    <tableProxies>
+      <tableProxy>
+        <table schemaName="SAPHANADB" columnObjectName="JEST"/>
+      </tableProxy>
+    </tableProxies>
+    <joins/>
+    <layout>
+      <shapes>
+        <shape modelObjectName="JEST" modelObjectNameSpace="SAPHANADB" modelObjectType="catalog">
+          <upperLeftCorner x="70" y="30"/>
+        </shape>
+        <shape modelObjectName="DataFoundation" modelObjectNameSpace="DataFoundation" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateDataFoundation>
+  <hierarchies/>
+</Dimension:dimension>

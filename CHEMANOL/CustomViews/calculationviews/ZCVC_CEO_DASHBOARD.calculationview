@@ -1,0 +1,1302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_CEO_DASHBOARD" deprecated="true" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_CEO_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 18:21:49.0" changedAt="2021-10-19 10:51:12.983" createdAt="2021-10-19 10:51:12.506"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="64"/>
+  <dataSources>
+    <DataSource id="ZCVC_MM_VM_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_VM_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_WM_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_WM_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_P2P_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_P2P_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_PM_MAINT_NOTIFICATION_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_MAINT_NOTIFICATION_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_PM_MAINT_ORDER_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_MAINT_ORDER_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_EHSM_NEARMISS_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHSM_NEARMISS_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_EHS_MOC_DASHBOARD_FINAL" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHS_MOC_DASHBOARD_FINAL</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_OBL_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_OBL_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_INBOUND_LOG_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_INBOUND_LOG_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_TFA_CASHFLOW_LOAN" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_TFA_CASHFLOW_LOAN</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_CURRENT_RATIO_CURRENTYEAR_V1_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_CURRENT_RATIO_CURRENTYEAR_V1_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_PM_BACKLOGDAYS_V2" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_BACKLOGDAYS_V2</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="Active Vendors"/>
+            <operands value="Current Year Registered Vendors"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'VM -Total Active Vendors'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;Date&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_VM_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Date_SQL" transparentFilter="false"/>
+        <viewAttribute id="KPI">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="Goods Receipt"/>
+            <operands value="Rejected"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MBLNR"/>
+        <viewAttribute id="CPUDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ERFME"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BKTXT"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="Bucket" transparentFilter="false"/>
+        <viewAttribute id="BUDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="BLDAT_V1" transparentFilter="false"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute id="DaysBetween"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="MAKTX"/>
+        <viewAttribute id="LINE_ID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'WM- Receipts,Rejected'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;Date_SQL&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_WM_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CPUDT" source="CPUDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFME" source="ERFME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BKTXT" source="BKTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Bucket" source="Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_V1" source="BUDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLDAT_V1" source="BLDAT_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DaysBetween" source="DaysBetween"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAKTX" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PRType">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="Emergency PR"/>
+            <operands value="Single PR"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="FRGDT"/>
+        <viewAttribute id="Duration_1"/>
+        <viewAttribute id="Duration"/>
+        <viewAttribute id="VendorType"/>
+        <viewAttribute id="PRSubtype"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Release_Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;FRGDT&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'P2P - Emergency, Single PR'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;Release_Date&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_P2P_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRType" source="PRType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FRGDT" source="FRGDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Duration_1" source="Duration_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Duration" source="Duration"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VendorType" source="VendorType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRSubtype" source="PRSubtype"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="DATE_SQL"/>
+        <viewAttribute id="CM_Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'PMNotif -Notification Rate%'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;DATE_SQL&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_PM_MAINT_NOTIFICATION_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Completion_Percentage"/>
+        <viewAttribute id="Compliance_Type">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="A CRITICAL PM ORDER COMPLIANCE"/>
+            <operands value="PM ORDER COMPLIANCE"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="Confirmed_Orders"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Start_Date"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'PMOrder- PM order Compliance'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;Start_Date&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_PM_MAINT_ORDER_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Completion_Percentage" source="Completion_Percentage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Compliance_Type" source="Compliance_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Start_Date" source="Start_Date"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DEPARTMENT"/>
+        <viewAttribute id="KPI">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Near-miss"/>
+        </viewAttribute>
+        <viewAttribute id="FinalDate"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'NearMiss -Department Wise'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;FinalDate&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_EHSM_NEARMISS_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DATE" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Dash"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Final_KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'MOC -Total CR'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;DATE&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_EHS_MOC_DASHBOARD_FINAL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="MATKL" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="Product wise"/>
+            <operands value="Port of Loading"/>
+            <operands value="Port of Destination"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="WGBEZ" transparentFilter="false"/>
+        <viewAttribute id="Equipment_Counter"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="DESCR" transparentFilter="false"/>
+        <viewAttribute id="Dispatch_Date" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(&quot;Dispatch_Date&quot;,'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_OBL_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Equipment_Counter" source="Equipment_Counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Date" source="Dispatch_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Transport Level Consig"/>
+        </viewAttribute>
+        <viewAttribute id="Transport_Type" transparentFilter="false"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(date(&quot;SCD&quot;),'yyyymm'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_INBOUND_LOG_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="COL4"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(date(&quot;Date&quot;),'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_TFA_CASHFLOW_LOAN">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="Current_Year"/>
+        <viewAttribute id="Current_Month"/>
+        <viewAttribute id="PY_All_Year"/>
+        <viewAttribute id="PY_Current_Month"/>
+        <viewAttribute id="PY_Current_Year"/>
+        <viewAttribute id="Head" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'General Ledger'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Currentyear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>component(now(),1)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Currentmonth" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(now(),'mm')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(format(date(&quot;CALMONTH&quot;),'YYYYMM'),6)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Mandt" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>300</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_CURRENT_RATIO_CURRENTYEAR_V1_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_Year" source="Current_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_Month" source="Current_Month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_All_Year" source="PY_All_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_Current_Month" source="PY_Current_Month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_Current_Year" source="PY_Current_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Head" source="Head"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <filter>(&quot;YEAR&quot; = &quot;Currentyear&quot;) AND (&quot;MONTH&quot; = &quot;Currentmonth&quot;)</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_13">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Dept"/>
+        <viewAttribute id="Backlog_Days_V1"/>
+        <viewAttribute id="Perday_Capacity"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_PM_BACKLOGDAYS_V2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days_V1" source="Backlog_Days_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Final_KPI" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="Confirmed_Orders" transparentFilter="false"/>
+        <viewAttribute id="No_Of_Orders" transparentFilter="false"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent" transparentFilter="false"/>
+        <viewAttribute id="Notification_Rate_Type_Medium" transparentFilter="false"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency" transparentFilter="false"/>
+        <viewAttribute id="DEPARTMENT" transparentFilter="false"/>
+        <viewAttribute id="Duration" transparentFilter="false"/>
+        <viewAttribute id="Volume" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="MATKL" transparentFilter="false"/>
+        <viewAttribute id="WGBEZ" transparentFilter="false"/>
+        <viewAttribute id="Transport_Type" transparentFilter="false"/>
+        <viewAttribute id="BILL_OF_LAD" transparentFilter="false"/>
+        <viewAttribute id="HSL" transparentFilter="false"/>
+        <viewAttribute id="COL1" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="GL" transparentFilter="false"/>
+        <viewAttribute id="COL4" transparentFilter="false"/>
+        <viewAttribute id="MONTH" transparentFilter="false"/>
+        <viewAttribute id="YEAR" transparentFilter="false"/>
+        <viewAttribute id="Current_Year" transparentFilter="false"/>
+        <viewAttribute id="Current_Month" transparentFilter="false"/>
+        <viewAttribute id="PY_All_Year" transparentFilter="false"/>
+        <viewAttribute id="PY_Current_Month" transparentFilter="false"/>
+        <viewAttribute id="PY_Current_Year" transparentFilter="false"/>
+        <viewAttribute id="Head" transparentFilter="false"/>
+        <viewAttribute id="Count_1" transparentFilter="false"/>
+        <viewAttribute id="Date_N" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="DESCR" transparentFilter="false"/>
+        <viewAttribute id="ARBEI" transparentFilter="false"/>
+        <viewAttribute id="Perday_Capacity" transparentFilter="false"/>
+        <viewAttribute id="LGORT" transparentFilter="false"/>
+        <viewAttribute id="MBLNR" transparentFilter="false"/>
+        <viewAttribute id="LINE_ID" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MBLNR" source="MBLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LINE_ID" source="LINE_ID"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="PRType"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Duration" source="Duration"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="Compliance_Type"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_KPI" source="Final_KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Equipment_Counter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="Mandt"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Duration" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_Year" source="Current_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Current_Month" source="Current_Month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_All_Year" source="PY_All_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_Current_Month" source="PY_Current_Month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PY_Current_Year" source="PY_Current_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Head" source="Head"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Date_N" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ARBEI" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Perday_Capacity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Confirmed_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="No_Of_Orders" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Urgent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Medium" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Notification_Rate_Type_Emergency" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Duration" source="Backlog_Days_V1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Volume" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Location" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="HSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL3" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL2" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="GL" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="COL4" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="YEAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_All_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Month" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="PY_Current_Year" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Head" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LGORT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MBLNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LINE_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TOR_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DocumentID" null="true" value=""/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Final_KPI" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Final_KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="Final_KPI"/>
+      </attribute>
+      <attribute id="KPI" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="DEPARTMENT" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="DEPARTMENT"/>
+        <keyMapping columnObjectName="Union_1" columnName="DEPARTMENT"/>
+      </attribute>
+      <attribute id="Location" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Location"/>
+        <keyMapping columnObjectName="Union_1" columnName="Location"/>
+      </attribute>
+      <attribute id="MATKL" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Product Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATKL"/>
+      </attribute>
+      <attribute id="WGBEZ" order="15" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Product"/>
+        <keyMapping columnObjectName="Union_1" columnName="WGBEZ"/>
+      </attribute>
+      <attribute id="Transport_Type" order="16" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Transport_Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="Transport_Type"/>
+      </attribute>
+      <attribute id="BILL_OF_LAD" order="17" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BILL_OF_LAD"/>
+        <keyMapping columnObjectName="Union_1" columnName="BILL_OF_LAD"/>
+      </attribute>
+      <attribute id="COL1" order="19" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL1"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL1"/>
+      </attribute>
+      <attribute id="COL3" order="20" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL3"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL3"/>
+      </attribute>
+      <attribute id="COL2" order="21" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL2"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL2"/>
+      </attribute>
+      <attribute id="GL" order="22" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="GL"/>
+        <keyMapping columnObjectName="Union_1" columnName="GL"/>
+      </attribute>
+      <attribute id="COL4" order="23" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL4"/>
+        <keyMapping columnObjectName="Union_1" columnName="COL4"/>
+      </attribute>
+      <attribute id="MONTH" order="24" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MONTH"/>
+        <keyMapping columnObjectName="Union_1" columnName="MONTH"/>
+      </attribute>
+      <attribute id="YEAR" order="25" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Union_1" columnName="YEAR"/>
+      </attribute>
+      <attribute id="Head" order="31" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Head"/>
+        <keyMapping columnObjectName="Union_1" columnName="Head"/>
+      </attribute>
+      <attribute id="Date_N" order="33" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date_N"/>
+        <keyMapping columnObjectName="Union_1" columnName="Date_N"/>
+      </attribute>
+      <attribute id="TURES_TCO" order="34" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TURES_TCO"/>
+        <keyMapping columnObjectName="Union_1" columnName="TURES_TCO"/>
+      </attribute>
+      <attribute id="DESCR" order="35" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Equipment Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="DESCR"/>
+      </attribute>
+      <attribute id="LGORT" order="38" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Storage Location"/>
+        <keyMapping columnObjectName="Union_1" columnName="LGORT"/>
+      </attribute>
+      <attribute id="MBLNR" order="39" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Material Document No"/>
+        <keyMapping columnObjectName="Union_1" columnName="MBLNR"/>
+      </attribute>
+      <attribute id="LINE_ID" order="40" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="LINE_ID"/>
+        <keyMapping columnObjectName="Union_1" columnName="LINE_ID"/>
+      </attribute>
+      <attribute id="TOR_ID" order="41" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TOR_ID"/>
+        <keyMapping columnObjectName="Union_1" columnName="TOR_ID"/>
+      </attribute>
+      <attribute id="DocumentID" order="42" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="DocumentID"/>
+        <keyMapping columnObjectName="Union_1" columnName="DocumentID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Value"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="Confirmed_Orders" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Union_1" columnName="Confirmed_Orders"/>
+      </measure>
+      <measure id="No_Of_Orders" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Union_1" columnName="No_Of_Orders"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Urgent" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Low"/>
+        <measureMapping columnObjectName="Union_1" columnName="Notification_Rate_Type_Urgent"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Medium" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Medium"/>
+        <measureMapping columnObjectName="Union_1" columnName="Notification_Rate_Type_Medium"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Emergency" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Emergency"/>
+        <measureMapping columnObjectName="Union_1" columnName="Notification_Rate_Type_Emergency"/>
+      </measure>
+      <measure id="Duration" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Duration"/>
+        <measureMapping columnObjectName="Union_1" columnName="Duration"/>
+      </measure>
+      <measure id="Volume" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Volume"/>
+        <measureMapping columnObjectName="Union_1" columnName="Volume"/>
+      </measure>
+      <measure id="HSL" order="18" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Union_1" columnName="HSL"/>
+      </measure>
+      <measure id="Current_Year" order="26" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Current_Year"/>
+        <measureMapping columnObjectName="Union_1" columnName="Current_Year"/>
+      </measure>
+      <measure id="Current_Month" order="27" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Current_Month"/>
+        <measureMapping columnObjectName="Union_1" columnName="Current_Month"/>
+      </measure>
+      <measure id="PY_All_Year" order="28" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_All_Year"/>
+        <measureMapping columnObjectName="Union_1" columnName="PY_All_Year"/>
+      </measure>
+      <measure id="PY_Current_Month" order="29" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_Current_Month"/>
+        <measureMapping columnObjectName="Union_1" columnName="PY_Current_Month"/>
+      </measure>
+      <measure id="PY_Current_Year" order="30" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_Current_Year"/>
+        <measureMapping columnObjectName="Union_1" columnName="PY_Current_Year"/>
+      </measure>
+      <measure id="Count_1" order="32" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count_1"/>
+      </measure>
+      <measure id="ARBEI" order="36" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ARBEI"/>
+        <measureMapping columnObjectName="Union_1" columnName="ARBEI"/>
+      </measure>
+      <measure id="Perday_Capacity" order="37" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Perday_Capacity"/>
+        <measureMapping columnObjectName="Union_1" columnName="Perday_Capacity"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="874" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1254" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1408" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1562" y="461"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1716" y="461"/>
+        <rectangleSize height="64" width="261"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="800" y="600"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="874" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

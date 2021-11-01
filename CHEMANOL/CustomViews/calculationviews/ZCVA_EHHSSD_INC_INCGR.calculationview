@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVA_EHHSSD_INC_INCGR" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_EHHSSD_INC_INCGR"/>
+  <metadata activatedAt="2021-10-25 10:12:12.0" changedAt="2021-10-19 10:52:48.54" createdAt="2021-10-19 10:52:41.495"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="47"/>
+  <dataSources>
+    <DataSource id="EHHSSD_INC_INCGR" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_INCGR"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="DATETIME_CH"/>
+        <viewAttribute id="USER_ID_CH"/>
+        <viewAttribute id="INC_GROUP"/>
+        <viewAttribute id="NM_GROUP"/>
+        <viewAttribute id="SO_GROUP"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="EEW_INC_INCGR_D"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSD_INC_INCGR">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CH" source="DATETIME_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CH" source="USER_ID_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NM_GROUP" source="NM_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EEW_INC_INCGR_D" source="EEW_INC_INCGR_D"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DB_KEY" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DB_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DB_KEY"/>
+      </attribute>
+      <attribute id="PARENT_KEY" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PARENT_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PARENT_KEY"/>
+      </attribute>
+      <attribute id="USER_ID_CR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CR"/>
+      </attribute>
+      <attribute id="USER_ID_CH" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CH"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CH"/>
+      </attribute>
+      <attribute id="INC_GROUP" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INC_GROUP"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INC_GROUP"/>
+      </attribute>
+      <attribute id="NM_GROUP" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NM_GROUP"/>
+        <keyMapping columnObjectName="Projection_1" columnName="NM_GROUP"/>
+      </attribute>
+      <attribute id="SO_GROUP" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SO_GROUP"/>
+        <keyMapping columnObjectName="Projection_1" columnName="SO_GROUP"/>
+      </attribute>
+      <attribute id="SEVERITY" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SEVERITY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="SEVERITY"/>
+      </attribute>
+      <attribute id="EEW_INC_INCGR_D" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEW_INC_INCGR_D"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EEW_INC_INCGR_D"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="DATETIME_CR" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CR"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CR"/>
+      </measure>
+      <measure id="DATETIME_CH" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CH"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CH"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="220"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

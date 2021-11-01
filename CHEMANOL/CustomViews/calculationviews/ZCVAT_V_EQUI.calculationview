@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVAT_V_EQUI" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="ZCVAT_V_EQUI"/>
+  <metadata activatedAt="2021-10-25 10:06:02.0" changedAt="2021-10-19 19:17:31.181"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="56"/>
+  <dataSources>
+    <DataSource id="EQUI" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EQUI"/>
+    </DataSource>
+    <DataSource id="EQUZ" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EQUZ"/>
+    </DataSource>
+    <DataSource id="EQKT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EQKT"/>
+    </DataSource>
+    <DataSource id="ILOA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ILOA"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EQUI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EQUZ">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="EQUNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EQKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="EQUNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ILOAN"/>
+        <viewAttribute id="ABCKZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ILOA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ILOAN" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute hidden="true" id="JOIN$ILOAN$ILOAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ILOAN$ILOAN" source="ILOAN"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ILOAN$ILOAN" source="ILOAN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$ILOAN$ILOAN"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Join_3" columnName="MANDT"/>
+      </attribute>
+      <attribute id="EQUNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EQUNR"/>
+        <keyMapping columnObjectName="Join_3" columnName="EQUNR"/>
+      </attribute>
+      <attribute id="DATBI" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATBI"/>
+        <keyMapping columnObjectName="Join_3" columnName="DATBI"/>
+      </attribute>
+      <attribute id="ABCKZ" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABCKZ"/>
+        <keyMapping columnObjectName="Join_3" columnName="ABCKZ"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="370" y="-370"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="100" y="282"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="290" y="276"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="200" y="160"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="200" y="60"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="370" y="59"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="280" y="-60"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="280" y="-150"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="460" y="-151"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="370" y="-255"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

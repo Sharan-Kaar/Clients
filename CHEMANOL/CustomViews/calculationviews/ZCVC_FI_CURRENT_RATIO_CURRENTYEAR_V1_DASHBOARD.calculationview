@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_CURRENT_RATIO_CURRENTYEAR_V1_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_CURRENT_RATIO_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 18:21:49.0" changedAt="2021-10-19 10:49:16.579" createdAt="2021-10-19 10:49:08.133"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="61"/>
+  <dataSources>
+    <DataSource id="ZCVC_FI_CURRENT_RATIO_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_CURRENT_RATIO_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$ZCVC_FI_CURRENT_RATIO_DASHBOARD$$" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_CURRENT_RATIO_DASHBOARD</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="CC_V1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Head" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;COL2&quot;='Current Assets','Current Assets',if(&quot;COL2&quot;='Current liabilities','Current liabilities',if(&quot;COL3&quot;='Current portion of long term borrowings'or &quot;COL3&quot;='Short term borrowings' or &quot;COL3&quot;='Long-term borrowings','Loan',if(&quot;COL2&quot;='Equity' AND (&quot;RACCT&quot;='0030000000' OR &quot;RACCT&quot;='0030100000' OR &quot;RACCT&quot;='0030200000' OR &quot;RACCT&quot;='0030210000' OR &quot;RACCT&quot;='0030300000'),'Equity',if(&quot;COL3&quot;='Property, plant and equipment','Assets',if(&quot;COL3&quot;='6 01 100 - AMORTIZATION','Amortization_Capex_Den',IF((&quot;COL2&quot;='Cost of Sales' and &quot;COL3&quot;='6 01 000 - DEPRECIATION'),'Cost of Sales and Depreciation',if(&quot;COL2&quot;='Revenue','Revenue',if((&quot;COL2&quot;='Other Operating Costs - Net' and &quot;RACCT&quot;='0070200001' and &quot;COL3&quot;='7 02 000 - OTHER INCOME/LOSS'),'Capex_Den',if(&quot;COL2&quot;='Cost of Sales','Cost of Sales',if(&quot;COL3&quot;='Intangible assets' or (&quot;COL3&quot;='Inventories' and &quot;RACCT&quot;='0010300001') or &quot;COL3&quot;='Right-of-use assets','Capex_Num',if(&quot;COL3&quot;='Inventories','Inventories',if(&quot;COL2&quot;='Selling &amp; Distribution Expenses' or &quot;COL2&quot;='General &amp; Administrative Expenses' or &quot;COL2&quot;='Other Operating Costs - Net' ,'EBITDA_Num',if(&quot;COL3&quot;='Accrued and other liabilities' or &quot;COL3&quot;='Accounts Payable' or &quot;COL3&quot;='Accounts Receivables'or &quot;COL3&quot;='Prepayments and other receivables','Changes in WC',if(&quot;COL2&quot;='Depreciation','EBITDA_Den',IF( &quot;COL2&quot;='Zakat expense','Zakat expense',if(&quot;COL3&quot;='Zakat Payable','Zakat Payable',if(&quot;COL3&quot;='Cash and cash equivalents','Opening Cash Balance',&#xD;
+if( &quot;COL2&quot;='Finance Costs','Finance Costs',IF(&quot;COL3&quot;='Current portion of lease Liability' or &quot;COL3&quot;='Lease Liability','Current Portion of Lease Liability',if(&quot;COL2&quot;='Contracts','Contracts','')))))))))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CalMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;Date&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_FI_CURRENT_RATIO_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="WSL"/>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="CalMonth"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CalMonth" source="CalMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="2019"/>
+            <operands value="2020"/>
+            <operands value="2021"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute aggregationType="sum" id="MONTH_INT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH_INT" source="MONTH_INT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$ZCVC_FI_CURRENT_RATIO_DASHBOARD$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="Count_1"/>
+        <viewAttribute hidden="true" id="JOIN$Dummy$Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <input node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="JOIN$Dummy$Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CalMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+      </input>
+      <joinAttribute name="CALMONTH"/>
+      <joinAttribute name="RACCT"/>
+      <joinAttribute name="COL2"/>
+      <joinAttribute name="COL3"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+      </input>
+      <joinAttribute name="YEAR"/>
+      <joinAttribute name="RACCT"/>
+      <joinAttribute name="COL2"/>
+      <joinAttribute name="COL3"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Current Year'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <filter>&quot;CALMONTH&quot;>= &quot;CALMONTH_1&quot;</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Current Month'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <filter>&quot;CALMONTH&quot;= &quot;CALMONTH_1&quot;</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute id="Count_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH_1"/>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="WSL_1_1" transparentFilter="false"/>
+        <viewAttribute id="RACCT" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="Count_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL_1_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL_1_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH_1" source="CALMONTH_1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WSL_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KPI" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="WSL_1"/>
+        <viewAttribute aggregationType="sum" id="WSL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute aggregationType="sum" id="WSL_1_1" transparentFilter="false"/>
+        <viewAttribute id="RACCT" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute aggregationType="sum" id="Count_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1_1" source="WSL_1_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="RACCT" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="Count_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="WSL_1_1" transparentFilter="false"/>
+        <viewAttribute id="RACCT" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="Count_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Previous_Year" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(int(&quot;YEAR&quot;)+1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1_1" source="WSL_1_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WSL_1"/>
+        <viewAttribute id="WSL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="WSL_1_1"/>
+        <viewAttribute id="WSL_2"/>
+        <viewAttribute id="WSL_1_1_1" transparentFilter="false"/>
+        <viewAttribute id="RACCT" transparentFilter="false"/>
+        <viewAttribute id="COL2" transparentFilter="false"/>
+        <viewAttribute id="COL3" transparentFilter="false"/>
+        <viewAttribute id="Count_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_1" source="Count_1"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1_1" source="WSL_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_2" source="WSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WSL_1_1_1" source="WSL_1_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="Previous_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+      </input>
+      <joinAttribute name="YEAR"/>
+      <joinAttribute name="MONTH"/>
+      <joinAttribute name="RACCT"/>
+      <joinAttribute name="COL2"/>
+      <joinAttribute name="COL3"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_4">
+    <descriptions/>
+    <attributes>
+      <attribute id="CALMONTH" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CALMONTH"/>
+        <keyMapping columnObjectName="Join_4" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="MONTH" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MONTH"/>
+        <keyMapping columnObjectName="Join_4" columnName="MONTH"/>
+      </attribute>
+      <attribute id="YEAR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Join_4" columnName="YEAR"/>
+      </attribute>
+      <attribute id="Head" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Head"/>
+        <keyMapping columnObjectName="Join_4" columnName="RACCT"/>
+      </attribute>
+      <attribute id="COL2" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL2"/>
+        <keyMapping columnObjectName="Join_4" columnName="COL2"/>
+      </attribute>
+      <attribute id="COL3" order="11" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="COL3"/>
+        <keyMapping columnObjectName="Join_4" columnName="COL3"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Current_Year" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Current_Year"/>
+        <measureMapping columnObjectName="Join_4" columnName="WSL_1"/>
+      </measure>
+      <measure id="Current_Month" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Current_Month"/>
+        <measureMapping columnObjectName="Join_4" columnName="WSL"/>
+      </measure>
+      <measure id="PY_All_Year" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_All_Year"/>
+        <measureMapping columnObjectName="Join_4" columnName="WSL_1_1"/>
+      </measure>
+      <measure id="PY_Current_Month" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_Current_Month"/>
+        <measureMapping columnObjectName="Join_4" columnName="WSL_2"/>
+      </measure>
+      <measure id="PY_Current_Year" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PY_Current_Year"/>
+        <measureMapping columnObjectName="Join_4" columnName="WSL_1_1_1"/>
+      </measure>
+      <measure id="Count_1" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Join_4" columnName="Count_1"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="319" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1247"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1151"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1247"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1247"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1151"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="1055"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="977"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="171" y="899"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="325" y="899"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="245" y="803"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="245" y="725"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="245" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="91" y="647"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="399" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="245" y="513"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="245" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="166" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="320" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

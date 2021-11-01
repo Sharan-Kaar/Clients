@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_TFA_ACQUISITION_RETIREMENT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_TFA_ACQUISITION_RETIREMENT"/>
+  <metadata activatedAt="2021-10-26 13:02:52.0" changedAt="2021-10-19 10:47:16.409" createdAt="2021-10-19 10:47:09.197"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="40"/>
+  <dataSources>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="MOVCAT"/>
+        <viewAttribute id="RMVCT"/>
+        <viewAttribute id="VORGN"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="ANLN1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+rightstr(&quot;POPER&quot;,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Acquisition_Value" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;MOVCAT&quot;='11' or &quot;MOVCAT&quot;='13'),&quot;HSL&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Retirement_Value" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;MOVCAT&quot;='12' or &quot;MOVCAT&quot;='14'),&quot;HSL&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CurrentYear" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(now(),'yyyy')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MOVCAT" source="MOVCAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RMVCT" source="RMVCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VORGN" source="VORGN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+      </input>
+      <filter>(&quot;RLDNR&quot; ='0L') AND (&quot;RBUKRS&quot; ='1000') AND (in (&quot;MOVCAT&quot;,'11','13','12','14')) AND (&quot;GJAHR&quot;=&quot;CurrentYear&quot;)</filter>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCLNT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCLNT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RCLNT"/>
+      </attribute>
+      <attribute id="Date" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Date"/>
+      </attribute>
+      <attribute id="ANLN1" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN1"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ANLN1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Acquisition_Value" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Acquisition_Value"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Acquisition_Value"/>
+      </measure>
+      <measure id="Retirement_Value" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Retirement_Value"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Retirement_Value"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="50" y="270"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

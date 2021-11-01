@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVA_EHHSSD_INC_PINJI" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_EHHSSD_INC_PINJI"/>
+  <metadata activatedAt="2021-10-25 13:20:01.0" changedAt="2021-10-25 13:18:04.717"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="61"/>
+  <dataSources>
+    <DataSource id="EHHSSD_INC_PINJI" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_PINJI"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="ROOT_KEY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="DATETIME_CH"/>
+        <viewAttribute id="USER_ID_CH"/>
+        <viewAttribute id="OC_INC_TYPE"/>
+        <viewAttribute id="EXT_CASE_ID"/>
+        <viewAttribute id="REPORT_REQ_TS"/>
+        <viewAttribute id="REP_CRIT"/>
+        <viewAttribute id="JURISD_PRIV_TS"/>
+        <viewAttribute id="INJ_ORG_PROP_TS"/>
+        <viewAttribute id="INJ_ON_DUTY_TS"/>
+        <viewAttribute id="FATALITY_TS"/>
+        <viewAttribute id="DEATH_TIMESTAMP"/>
+        <viewAttribute id="DEATH_TIME_ZONE"/>
+        <viewAttribute id="DEATH_LOC_TYPE"/>
+        <viewAttribute id="DEATH_CAUSE_TYPE"/>
+        <viewAttribute id="UNCONSC_TS"/>
+        <viewAttribute id="RESUSC_TS"/>
+        <viewAttribute id="TREAT_BEY_FI_TS"/>
+        <viewAttribute id="EMERG_ROOM_TS"/>
+        <viewAttribute id="INPAT_TS"/>
+        <viewAttribute id="INPAT_24H_TS"/>
+        <viewAttribute id="TRAN_FIRST"/>
+        <viewAttribute id="TRAN_FURTH"/>
+        <viewAttribute id="TXC_TRE_COMM_KEY"/>
+        <viewAttribute id="EEW_INC_PINJI_D"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSD_INC_PINJI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ROOT_KEY" source="ROOT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CH" source="DATETIME_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CH" source="USER_ID_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OC_INC_TYPE" source="OC_INC_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EXT_CASE_ID" source="EXT_CASE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REPORT_REQ_TS" source="REPORT_REQ_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REP_CRIT" source="REP_CRIT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JURISD_PRIV_TS" source="JURISD_PRIV_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INJ_ORG_PROP_TS" source="INJ_ORG_PROP_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INJ_ON_DUTY_TS" source="INJ_ON_DUTY_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FATALITY_TS" source="FATALITY_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEATH_TIMESTAMP" source="DEATH_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEATH_TIME_ZONE" source="DEATH_TIME_ZONE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEATH_LOC_TYPE" source="DEATH_LOC_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEATH_CAUSE_TYPE" source="DEATH_CAUSE_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UNCONSC_TS" source="UNCONSC_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RESUSC_TS" source="RESUSC_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TREAT_BEY_FI_TS" source="TREAT_BEY_FI_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EMERG_ROOM_TS" source="EMERG_ROOM_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INPAT_TS" source="INPAT_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INPAT_24H_TS" source="INPAT_24H_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRAN_FIRST" source="TRAN_FIRST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRAN_FURTH" source="TRAN_FURTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXC_TRE_COMM_KEY" source="TXC_TRE_COMM_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EEW_INC_PINJI_D" source="EEW_INC_PINJI_D"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DB_KEY" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DB_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DB_KEY"/>
+      </attribute>
+      <attribute id="ROOT_KEY" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ROOT_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ROOT_KEY"/>
+      </attribute>
+      <attribute id="PARENT_KEY" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PARENT_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PARENT_KEY"/>
+      </attribute>
+      <attribute id="USER_ID_CR" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CR"/>
+      </attribute>
+      <attribute id="USER_ID_CH" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CH"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CH"/>
+      </attribute>
+      <attribute id="OC_INC_TYPE" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OC_INC_TYPE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="OC_INC_TYPE"/>
+      </attribute>
+      <attribute id="EXT_CASE_ID" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EXT_CASE_ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EXT_CASE_ID"/>
+      </attribute>
+      <attribute id="REPORT_REQ_TS" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REPORT_REQ_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="REPORT_REQ_TS"/>
+      </attribute>
+      <attribute id="REP_CRIT" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REP_CRIT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="REP_CRIT"/>
+      </attribute>
+      <attribute id="JURISD_PRIV_TS" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JURISD_PRIV_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="JURISD_PRIV_TS"/>
+      </attribute>
+      <attribute id="INJ_ORG_PROP_TS" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INJ_ORG_PROP_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INJ_ORG_PROP_TS"/>
+      </attribute>
+      <attribute id="INJ_ON_DUTY_TS" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INJ_ON_DUTY_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INJ_ON_DUTY_TS"/>
+      </attribute>
+      <attribute id="FATALITY_TS" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FATALITY_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="FATALITY_TS"/>
+      </attribute>
+      <attribute id="DEATH_TIME_ZONE" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DEATH_TIME_ZONE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DEATH_TIME_ZONE"/>
+      </attribute>
+      <attribute id="DEATH_LOC_TYPE" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DEATH_LOC_TYPE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DEATH_LOC_TYPE"/>
+      </attribute>
+      <attribute id="DEATH_CAUSE_TYPE" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DEATH_CAUSE_TYPE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DEATH_CAUSE_TYPE"/>
+      </attribute>
+      <attribute id="UNCONSC_TS" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UNCONSC_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="UNCONSC_TS"/>
+      </attribute>
+      <attribute id="RESUSC_TS" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RESUSC_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RESUSC_TS"/>
+      </attribute>
+      <attribute id="TREAT_BEY_FI_TS" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TREAT_BEY_FI_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TREAT_BEY_FI_TS"/>
+      </attribute>
+      <attribute id="EMERG_ROOM_TS" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EMERG_ROOM_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMERG_ROOM_TS"/>
+      </attribute>
+      <attribute id="INPAT_TS" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INPAT_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INPAT_TS"/>
+      </attribute>
+      <attribute id="INPAT_24H_TS" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INPAT_24H_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INPAT_24H_TS"/>
+      </attribute>
+      <attribute id="TRAN_FIRST" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRAN_FIRST"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TRAN_FIRST"/>
+      </attribute>
+      <attribute id="TRAN_FURTH" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRAN_FURTH"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TRAN_FURTH"/>
+      </attribute>
+      <attribute id="TXC_TRE_COMM_KEY" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TXC_TRE_COMM_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TXC_TRE_COMM_KEY"/>
+      </attribute>
+      <attribute id="EEW_INC_PINJI_D" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEW_INC_PINJI_D"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EEW_INC_PINJI_D"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="DATETIME_CR" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CR"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CR"/>
+      </measure>
+      <measure id="DATETIME_CH" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CH"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CH"/>
+      </measure>
+      <measure id="DEATH_TIMESTAMP" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DEATH_TIMESTAMP"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DEATH_TIMESTAMP"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="30" y="190"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

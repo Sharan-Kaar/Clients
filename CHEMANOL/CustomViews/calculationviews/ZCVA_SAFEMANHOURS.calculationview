@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVA_SAFEMANHOURS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_SHERATE"/>
+  <metadata activatedAt="2021-10-25 13:10:46.0" changedAt="2021-10-19 10:51:58.146" createdAt="2021-10-19 10:51:50.784"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="47"/>
+  <dataSources>
+    <DataSource id="ZCVC_MANHOURS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MANHOURS</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ZCUM_SMH"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZDATE_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Cumulative" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;ZCUM_SMH&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'SAFE MAN-HOURS'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MANHOURS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ZCUM_SMH"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Cumulative"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cumulative" source="Cumulative"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>MANDT_1</partitionViewAttributeName>
+        <order byViewAttributeName="ZDATE_1" direction="ASC"/>
+        <rankThreshold>
+          <value>2000000</value>
+        </rankThreshold>
+        <rankViewAttributeName>Rank_Column</rankViewAttributeName>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Cumulative"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZCUM_SMH"/>
+        <viewAttribute id="Rank_Column"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Cumulative&quot;=0 or isnull(&quot;Cumulative&quot;),0,&quot;Rank_Column&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cumulative" source="Cumulative"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="KPI" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="ZDATE_1" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZDATE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ZDATE_1"/>
+      </attribute>
+      <attribute id="MANDT_1" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT_1"/>
+      </attribute>
+      <attribute id="ZCUM_SMH" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Projection_1" columnName="ZCUM_SMH"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Cumulative" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Cumulative"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Cumulative"/>
+      </measure>
+      <measure id="Count" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="321"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

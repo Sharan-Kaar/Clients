@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_IBL_NO_OF_TRIPS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_IBL_NO_OF_TRIPS"/>
+  <metadata activatedAt="2021-10-25 16:43:12.0" changedAt="2021-10-25 16:41:11.619"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="53"/>
+  <dataSources>
+    <DataSource id="ZTM_TRUCK_DET" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZTM_TRUCK_DET"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="MATDOC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MATDOC"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="GATE_IN_DATE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="00000000"/>
+        </viewAttribute>
+        <viewAttribute id="DO_NUMBER">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="CHEMANOL TRUCK"/>
+        </viewAttribute>
+        <viewAttribute id="CON_RET_TER"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Gate_in" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;GATE_IN_DATE&quot;,6)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Return" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;CON_RET_TER&quot;,6)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Trip_Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;TRUCK_NO&quot;) or &quot;TRUCK_NO&quot;='',0,if((&quot;TRUCK_NO&quot; ) = '2726|2726'and &quot;Gate_in&quot;= &quot;Return&quot;, 2, if((&quot;TRUCK_NO&quot; ) = '2728|2728'and &quot;Gate_in&quot;= &quot;Return&quot;,2, if((&quot;TRUCK_NO&quot; ) = '4154|4154'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '2726|2728'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '2728|2726'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '2726|4154'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '4154|2726'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '4154|2728'and &quot;Gate_in&quot;= &quot;Return&quot;,2,if((&quot;TRUCK_NO&quot; ) = '2728|4154'and &quot;Gate_in&quot;= &quot;Return&quot;,2,1))))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZTM_TRUCK_DET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DO_NUMBER" source="DO_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CON_RET_TER" source="CON_RET_TER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="Check"/>
+        <viewAttribute id="DO_NUMBER"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="CON_RET_TER"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Trip_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DO_NUMBER" source="DO_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CON_RET_TER" source="CON_RET_TER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ASN_ITEM"/>
+      <joinAttribute name="ASN_NO"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CON_RET_TER"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="DO_NUMBER"/>
+        <viewAttribute id="Check"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CON_RET_TER" source="CON_RET_TER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DO_NUMBER" source="DO_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Check"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ETHANOL"/>
+        </viewAttribute>
+        <viewAttribute id="BWART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="313"/>
+            <operands value="314"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="LGORT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="SETH"/>
+        </viewAttribute>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="XABLN"/>
+        <viewAttribute id="SHKZG"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Ethanol_Trip" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;XABLN&quot;) or &quot;XABLN&quot;='',0,if((&quot;XABLN&quot;='2726|2728'or &quot;XABLN&quot;='2728|2726'or &quot;XABLN&quot;='4154|2726'or &quot;XABLN&quot;='4154|2728' or &quot;XABLN&quot;='2726|4154' or &quot;XABLN&quot;='2726|4154')or &quot;XABLN&quot;='2726|2726'or &quot;XABLN&quot;='2728|2728'or &quot;XABLN&quot;='4154|4154',2,1))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#MATDOC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XABLN" source="XABLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="Ethanol_Trip"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Ethanol_Trips" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;SHKZG&quot;='H'AND &quot;BWART&quot;='314', &quot;Ethanol_Trip&quot; *-1,&quot;Ethanol_Trip&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ethanol_Trip" source="Ethanol_Trip"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CON_RET_TER"/>
+        <viewAttribute id="DO_NUMBER"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="MTART" transparentFilter="false"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Check" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CON_RET_TER" source="CON_RET_TER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DO_NUMBER" source="DO_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Check"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_6">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CON_RET_TER" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DO_NUMBER" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRUCK_NO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MTART" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Ethanol_Trips"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="DO_NUMBER"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="CON_RET_TER"/>
+        <viewAttribute id="Check"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="MTART" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Trip" length="25" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATNR&quot;='ETHANOL',&quot;MATNR&quot;,if(&quot;MTART&quot;!='ZRM1','Other materials',&quot;MATNR&quot;))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DO_NUMBER" source="DO_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CON_RET_TER" source="CON_RET_TER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Check"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MANDT"/>
+      </attribute>
+      <attribute id="TRUCK_NO" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRUCK_NO"/>
+        <keyMapping columnObjectName="Projection_5" columnName="TRUCK_NO"/>
+      </attribute>
+      <attribute id="DO_NUMBER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DO_NUMBER"/>
+        <keyMapping columnObjectName="Projection_5" columnName="DO_NUMBER"/>
+      </attribute>
+      <attribute id="GATE_IN_DATE" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GATE_IN_DATE"/>
+        <keyMapping columnObjectName="Projection_5" columnName="GATE_IN_DATE"/>
+      </attribute>
+      <attribute id="CON_RET_TER" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CON_RET_TER"/>
+        <keyMapping columnObjectName="Projection_5" columnName="CON_RET_TER"/>
+      </attribute>
+      <attribute id="Trip" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Trip"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Trip"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Check" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Trip Count"/>
+        <measureMapping columnObjectName="Projection_5" columnName="Check"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="533"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="533"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="437"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="437"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

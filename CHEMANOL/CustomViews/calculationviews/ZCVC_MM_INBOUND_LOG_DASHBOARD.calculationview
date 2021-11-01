@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_INBOUND_LOG_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_INBOUND_LOG_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 12:49:11.0" changedAt="2021-10-25 12:47:08.511"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="57"/>
+  <dataSources>
+    <DataSource id="ZLO_SHIP_TRACK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZLO_SHIP_TRACK"/>
+    </DataSource>
+    <DataSource id="ZTM_TRUCK_DET" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZTM_TRUCK_DET"/>
+    </DataSource>
+    <DataSource id="LIKP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIKP"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="T134T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T134T"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_7$$$$LIPS$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_8$$$$MARA$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="Projection_10$$$$T134T$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T134T"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="BAYAN"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Category" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(match(&quot;BAYAN&quot; ,'DMM*'), 'DMM',if(match(&quot;BAYAN&quot;,'RUH*'), 'RUH',if(match(&quot;BAYAN&quot;,'JUB*'),'JUB',if(match(&quot;BAYAN&quot;,'JED*'),'JED',if(match(&quot;BAYAN&quot;,'BAH*'),'BAH','others')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZLO_SHIP_TRACK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BAYAN" source="BAYAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+      <filter>(&quot;BAYAN&quot; !='LOCAL') and (&quot;BAYAN&quot; !='') and (&quot;SCD&quot; !='00000000')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="BAYAN"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="Category">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="others"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BAYAN" source="BAYAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="CONTAINER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZTM_TRUCK_DET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="CONTAINER"/>
+        <viewAttribute id="Category"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="ASN_NO"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="CONTAINER"/>
+        <viewAttribute id="Category"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="CONTAINER"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="TRATY"/>
+        <viewAttribute id="BOLNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIKP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRATY" source="TRATY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BOLNR" source="BOLNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="TRATY"/>
+        <viewAttribute id="BOLNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRATY" source="TRATY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BOLNR" source="BOLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TRATY"/>
+        <viewAttribute id="BOLNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Transport_Type" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;TRATY&quot;='S001','Sea',if(&quot;TRATY&quot;='S002','Road',if(&quot;TRATY&quot;='S003' and &quot;CONTAINER_TYP&quot;='06','Courier',if(&quot;TRATY&quot;='S003','Air',if(&quot;TRATY&quot;='S004','Pipeline','others')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRATY" source="TRATY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BOLNR" source="BOLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute hidden="true" id="JOIN$CONTAINER$LICHN"/>
+        <viewAttribute hidden="true" id="JOIN$VBELN$VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTAINER$LICHN" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$VBELN$VBELN" source="VBELN"/>
+      </input>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CONTAINER$LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$VBELN$VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$CONTAINER$LICHN"/>
+      <joinAttribute name="JOIN$VBELN$VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T134T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MTART"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Transport_Type" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Sea"/>
+        </viewAttribute>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="VBELN"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Transport Level Consig'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_7$$$$LIPS$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute aggregationType="sum" id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_8$$$$MARA$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_10$$$$T134T$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MTART"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+      <input node="#Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="CONTAINER_TYP"/>
+        <viewAttribute id="Category"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Shipment cleared'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER_TYP" source="CONTAINER_TYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Transport_Type" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="others"/>
+        </viewAttribute>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Transport Level Consig'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Quantity" length="20" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MTART&quot;='ZRM1',string(&quot;LFIMG&quot;),'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Quantity_V1" length="20" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(string(&quot;Quantity&quot;)='0',&quot;Quantity&quot;,if(&quot;VRKME&quot;='MT',&quot;Quantity&quot;,if(&quot;VRKME&quot;='KG',(&quot;Quantity&quot;)/1000,&quot;Quantity&quot;)))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Units from sea port'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Material_No" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MTART&quot;='ZRM1',&quot;MATNR&quot;,&quot;MTBEZ&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Material Level Consig'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Transport_Type" transparentFilter="false"/>
+        <viewAttribute id="Category"/>
+        <viewAttribute id="Quantity_V1" transparentFilter="false"/>
+        <viewAttribute id="MEINS" transparentFilter="false"/>
+        <viewAttribute id="MTBEZ" transparentFilter="false"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="VBELN" transparentFilter="false"/>
+        <viewAttribute id="Material_No" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Quantity_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MEINS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MTBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_No" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Category" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Quantity_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MEINS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MTBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_No" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Category" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Quantity_V1" source="Quantity_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MTBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material_No" source="Material_No"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_7">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Category" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Quantity_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MEINS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_No" null="true" value=""/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MATNR" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="MEINS" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MEINS"/>
+        <keyMapping columnObjectName="Union_1" columnName="MEINS"/>
+      </attribute>
+      <attribute id="KPI" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="Category" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Category"/>
+        <keyMapping columnObjectName="Union_1" columnName="Category"/>
+      </attribute>
+      <attribute id="MTBEZ" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MTBEZ"/>
+        <keyMapping columnObjectName="Union_1" columnName="MTBEZ"/>
+      </attribute>
+      <attribute id="Transport_Type" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Transport_Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="Transport_Type"/>
+      </attribute>
+      <attribute id="BILL_OF_LAD" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BILL_OF_LAD"/>
+        <keyMapping columnObjectName="Union_1" columnName="BILL_OF_LAD"/>
+      </attribute>
+      <attribute id="SCD" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SCD"/>
+        <keyMapping columnObjectName="Union_1" columnName="SCD"/>
+      </attribute>
+      <attribute id="MANDT" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="VBELN" order="12" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="VBELN"/>
+        <keyMapping columnObjectName="Union_1" columnName="VBELN"/>
+      </attribute>
+      <attribute id="Material_No" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Material_No"/>
+        <keyMapping columnObjectName="Union_1" columnName="Material_No"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="Quantity_V1" order="2" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity_V1"/>
+        <measureMapping columnObjectName="Union_1" columnName="Quantity_V1"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="330" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1187"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1109"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1109"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="1013"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="935"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="423" y="857"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="269" y="857"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="269" y="761"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="187" y="683"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="824" y="761"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="824" y="683"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="824" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="978" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="824" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="670" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="670" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="208" y="587"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="362" y="683"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="362" y="587"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="362" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="516" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="670" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="516" y="491"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="561" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

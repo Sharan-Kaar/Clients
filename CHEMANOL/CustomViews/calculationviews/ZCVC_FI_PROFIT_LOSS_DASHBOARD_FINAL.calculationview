@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_PROFIT_LOSS_DASHBOARD_FINAL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_PROFIT_LOSS_DASHBOARD_FINAL"/>
+  <metadata changedAt="2021-10-19 10:49:38.0" createdAt="2021-10-19 10:47:28.463"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="51"/>
+  <dataSources>
+    <DataSource id="ZCVC_FI_PROFIT_LOSS_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_PROFIT_LOSS_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_FI_PROFIT_LOSS_DASHBOARD_EBITDA" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_PROFIT_LOSS_DASHBOARD_EBITDA</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_PROFIT_LOSS_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_PROFIT_LOSS_DASHBOARD_EBITDA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR" transparentFilter="false"/>
+        <viewAttribute id="H_TEXT" transparentFilter="false"/>
+        <viewAttribute id="S_TEXT" transparentFilter="false"/>
+        <viewAttribute id="H_TEXT_1" transparentFilter="false"/>
+        <viewAttribute id="Range_GL" transparentFilter="false"/>
+        <viewAttribute id="Date_F" transparentFilter="false"/>
+        <viewAttribute id="Amount_in_Local_Currency" transparentFilter="false"/>
+        <viewAttribute id="Debit_Credit_Indicator" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="TXT20" transparentFilter="false"/>
+        <viewAttribute id="CC_V1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="RCNTR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="S_TEXT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="H_TEXT_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CC_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="H_TEXT" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="H_TEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="H_TEXT"/>
+      </attribute>
+      <attribute id="S_TEXT" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="S_TEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="S_TEXT"/>
+      </attribute>
+      <attribute id="H_TEXT_1" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="H_TEXT_1"/>
+        <keyMapping columnObjectName="Union_1" columnName="H_TEXT_1"/>
+      </attribute>
+      <attribute id="Range_GL" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Range_GL"/>
+        <keyMapping columnObjectName="Union_1" columnName="Range_GL"/>
+      </attribute>
+      <attribute id="Date_F" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date_F"/>
+        <keyMapping columnObjectName="Union_1" columnName="Date_F"/>
+      </attribute>
+      <attribute id="Debit_Credit_Indicator" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Debit_Credit_Indicator"/>
+        <keyMapping columnObjectName="Union_1" columnName="Debit_Credit_Indicator"/>
+      </attribute>
+      <attribute id="KPI" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="TXT20" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Union_1" columnName="TXT20"/>
+      </attribute>
+      <attribute id="RCNTR" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="RCNTR"/>
+        <keyMapping columnObjectName="Union_1" columnName="CC_V1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Amount_in_Local_Currency" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Amount_in_Local_Currency"/>
+        <measureMapping columnObjectName="Union_1" columnName="Amount_in_Local_Currency"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

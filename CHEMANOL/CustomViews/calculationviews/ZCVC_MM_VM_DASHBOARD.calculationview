@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_VM_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_VM_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 12:13:43.0" changedAt="2021-10-19 10:43:41.335" createdAt="2021-10-19 10:43:34.308"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="61"/>
+  <dataSources>
+    <DataSource id="LFB1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFB1"/>
+    </DataSource>
+    <DataSource id="EKET" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKET"/>
+    </DataSource>
+    <DataSource id="EKPO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EKPO"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$LFB1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFB1"/>
+    </DataSource>
+    <DataSource id="LFM1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFM1"/>
+    </DataSource>
+    <DataSource id="BUT100" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="BUT100"/>
+    </DataSource>
+    <DataSource id="LFA1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFA1"/>
+    </DataSource>
+    <DataSource id="Projection_10$$$$LFA1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFA1"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_10$$$$LFA1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LFA1"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="ERDAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ERDAT&quot;>= &quot;CurrentYearBeg&quot; and &quot;ERDAT&quot;&lt;= &quot;CurrentYearEnd&quot;,'Current Year Registered Vendors',&#xD;
+'Active Vendors')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CurrentYearBeg" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(now(),1))+'0101'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CurrentYearEnd" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(now(),1))+'1231'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;ERDAT&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#LFB1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+      </input>
+      <filter>(&quot;SPERR&quot; !='X') OR (&quot;LOEVM&quot; !='X')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EINDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EKET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EINDT" source="EINDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="PSTYP">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="D"/>
+        </viewAttribute>
+        <viewAttribute id="ELIKZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EKPO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSTYP" source="PSTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELIKZ" source="ELIKZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EINDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="ELIKZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EINDT" source="EINDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELIKZ" source="ELIKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="EBELN"/>
+      <joinAttribute name="EBELP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EINDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="ELIKZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DeliveryStatus" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ELIKZ&quot;='X','Delivery Completed',(&#xD;
+if(&quot;ELIKZ&quot;!='X','Delivery Yet to Complete','')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;EINDT&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Delivery Status of PO'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EINDT" source="EINDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELIKZ" source="ELIKZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="ERDAT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Inactive Vendors'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CurrentYearBeg" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(now(),1))+'0101'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CurrentYearEnd" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(now(),1))+'1231'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;ERDAT&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$LFB1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+      </input>
+      <filter>(&quot;SPERR&quot; ='X') OR (&quot;LOEVM&quot; ='X')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="EKORG"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LFM1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EKORG" source="EKORG"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="CurrentYearBeg"/>
+        <viewAttribute id="CurrentYearEnd"/>
+        <viewAttribute id="EKORG"/>
+        <viewAttribute id="Date"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearBeg" source="CurrentYearBeg"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearEnd" source="CurrentYearEnd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EKORG" source="EKORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LIFNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="RLTYP">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="CRM010"/>
+        </viewAttribute>
+        <viewAttribute id="PARTNER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#BUT100">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLTYP" source="RLTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER" source="PARTNER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LFA1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARTNER"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER" source="PARTNER"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER" source="LIFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="PARTNER"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARTNER"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>Date(&quot;ERDAT&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="Int" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'CRM010'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="Transport_Vendor" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'CRM010'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER" source="PARTNER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_10$$$$LFA1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="CurrentYearBeg"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="EKORG"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="CurrentYearEnd"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearBeg" source="CurrentYearBeg"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EKORG" source="EKORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearEnd" source="CurrentYearEnd"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LIFNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_10$$$$LFA1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="CurrentYearBeg"/>
+        <viewAttribute id="CurrentYearEnd"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearBeg" source="CurrentYearBeg"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearEnd" source="CurrentYearEnd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+      </input>
+      <input node="#CopyOfProjection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LIFNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LOEVM"/>
+        <viewAttribute id="SPERR"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="CurrentYearBeg"/>
+        <viewAttribute id="CurrentYearEnd"/>
+        <viewAttribute id="EKORG"/>
+        <viewAttribute id="EINDT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="ELIKZ"/>
+        <viewAttribute id="DeliveryStatus"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="NAME1" transparentFilter="false"/>
+        <viewAttribute id="CRM010" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LOEVM" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SPERR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LIFNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ERDAT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CurrentYearBeg" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CurrentYearEnd" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EKORG" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EINDT" source="EINDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELIKZ" source="ELIKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeliveryStatus" source="DeliveryStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NAME1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CRM010" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_9">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BUKRS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LOEVM" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SPERR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ERDAT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CurrentYearBeg" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CurrentYearEnd" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EKORG" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EINDT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ELIKZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DeliveryStatus" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="PARTNER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRM010" source="Transport_Vendor"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EINDT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ELIKZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DeliveryStatus" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CRM010" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearBeg" source="CurrentYearBeg"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EKORG" source="EKORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearEnd" source="CurrentYearEnd"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_5">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EKORG" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EINDT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="EBELP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ELIKZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DeliveryStatus" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CRM010" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOEVM" source="LOEVM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPERR" source="SPERR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearBeg" source="CurrentYearBeg"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CurrentYearEnd" source="CurrentYearEnd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="LIFNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="EBELP"/>
+        <viewAttribute id="DeliveryStatus"/>
+        <viewAttribute id="EKORG"/>
+        <viewAttribute id="NAME1" transparentFilter="false"/>
+        <viewAttribute id="CRM010" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFNR" source="LIFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELP" source="EBELP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeliveryStatus" source="DeliveryStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EKORG" source="EKORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CRM010" source="CRM010"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_6">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_6" columnName="MANDT"/>
+      </attribute>
+      <attribute id="BUKRS" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Projection_6" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="LIFNR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vendor"/>
+        <keyMapping columnObjectName="Projection_6" columnName="LIFNR"/>
+      </attribute>
+      <attribute id="KPI" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_6" columnName="Int"/>
+      </attribute>
+      <attribute id="Date" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Projection_6" columnName="Date"/>
+      </attribute>
+      <attribute id="EBELN" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document No"/>
+        <keyMapping columnObjectName="Projection_6" columnName="EBELN"/>
+      </attribute>
+      <attribute id="EBELP" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Item"/>
+        <keyMapping columnObjectName="Projection_6" columnName="EBELP"/>
+      </attribute>
+      <attribute id="DeliveryStatus" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DeliveryStatus"/>
+        <keyMapping columnObjectName="Projection_6" columnName="DeliveryStatus"/>
+      </attribute>
+      <attribute id="EKORG" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Organization"/>
+        <keyMapping columnObjectName="Projection_6" columnName="EKORG"/>
+      </attribute>
+      <attribute id="NAME1" order="11" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="NAME1"/>
+        <keyMapping columnObjectName="Projection_6" columnName="NAME1"/>
+      </attribute>
+      <attribute id="CRM010" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="CRM010"/>
+        <keyMapping columnObjectName="Projection_6" columnName="CRM010"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_6" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="599" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="599" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="599" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="587"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="491"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

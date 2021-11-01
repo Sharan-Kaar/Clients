@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PM_BACKLOGDAYS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PM_BACKLOG&amp;UTILIZATION_DASHBOARD_BACKLOGDAYS"/>
+  <metadata changedAt="2021-10-19 10:44:20.0" createdAt="2021-10-19 10:42:34.054"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="56"/>
+  <dataSources>
+    <DataSource id="AUFK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="AUFK"/>
+    </DataSource>
+    <DataSource id="AFKO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="AFKO"/>
+    </DataSource>
+    <DataSource id="JEST" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="JEST"/>
+    </DataSource>
+    <DataSource id="Projection_12$$$$JEST$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="JEST"/>
+    </DataSource>
+    <DataSource id="Projection_6$$$$AFKO$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="AFKO"/>
+    </DataSource>
+    <DataSource id="AFVV" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="AFVV"/>
+    </DataSource>
+    <DataSource id="ZPM_PERDAYC_T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ZPM_PERDAYC_T"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION_MONTH" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION_MONTH"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUTYP">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="30"/>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="VAPLZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#AUFK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUTYP" source="AUTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#AFKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="AUTYP"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUTYP" source="AUTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="AUFNR_1"/>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="AUTYP"/>
+        <viewAttribute id="AUART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="PM01"/>
+            <operands value="PM02"/>
+            <operands value="PM03"/>
+            <operands value="PM04"/>
+            <operands value="PM05"/>
+            <operands value="PM06"/>
+            <operands value="PM07"/>
+            <operands value="PM08"/>
+            <operands value="PM09"/>
+            <operands value="PM10"/>
+            <operands value="PM11"/>
+            <operands value="PM13"/>
+            <operands value="PM14"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="VAPLZ">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="ELE-FD"/>
+            <operands value="ELE-MD"/>
+            <operands value="INS-FD"/>
+            <operands value="INS-MD"/>
+            <operands value="MEC-FD"/>
+            <operands value="MEC-MD"/>
+            <operands value="CMS-FD"/>
+            <operands value="CMS-MD"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUTYP" source="AUTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="I0009"/>
+            <operands value="I0045"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="INACT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Confirmed_ord" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;OBJNR&quot; = 'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#JEST">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INACT" source="INACT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="I0001"/>
+            <operands value="I0002"/>
+            <operands value="I0010"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="INACT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_12$$$$JEST$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INACT" source="INACT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="OBJNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Confirmed_stat" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>instru(&quot;OBJNR&quot;,&quot;OBJNR_1&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="OBJNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_13">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="Confirmed_stat"/>
+        <viewAttribute id="OBJNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Confirmed_stat_Final" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;OBJNR&quot;=&quot;OBJNR_1&quot;, 1, 0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_stat" source="Confirmed_stat"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Confirmed_stat_Final">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+        </viewAttribute>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="OBJNR_1"/>
+        <viewAttribute id="Confirmed_stat"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_stat_Final" source="Confirmed_stat_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_stat" source="Confirmed_stat"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="OBJNR_1"/>
+        <viewAttribute id="MANDT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+      <input node="#Projection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="OBJNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUFPL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_6$$$$AFKO$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="AUFPL"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="AUFNR_1"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="AUFPL"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>midstr(&quot;GSTRP&quot;,1,6)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="BD_Order_count" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;AUFNR_1&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFPL"/>
+        <viewAttribute id="ARBEI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#AFVV">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="AUFPL"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="BD_Order_count"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFPL" source="AUFPL"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="AUFPL"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="ARBEI"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count_Ztab" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZPM_PERDAYC_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="Count_Ztab"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Ztab" source="Count_Ztab"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="ARBEI"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute aggregationType="count" id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="Count_Ztab"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Ztab" source="Count_Ztab"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="Count_Ztab"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Backlog_Days" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&#xD;
+if(isNull( &quot;ELE_FD&quot;),0,&#xD;
+if(&quot;VAPLZ&quot;='ELE-FD',&quot;ARBEI&quot;/ &quot;ELE_FD&quot;,if(&quot;VAPLZ&quot;='ELE-MD',&quot;ARBEI&quot;/ &quot;ELE_MD&quot;,if(&quot;VAPLZ&quot;='INS-FD',&quot;ARBEI&quot;/ &quot;INS_FD&quot;,if(&quot;VAPLZ&quot;='INS-MD',&quot;ARBEI&quot;/ &quot;INS_MD&quot;,if(&quot;VAPLZ&quot;='MEC-FD',&quot;ARBEI&quot;/ &quot;MEC_FD&quot;,if(&quot;VAPLZ&quot;='MEC-MD',&quot;ARBEI&quot;/ &quot;MEC_MD&quot;,if(&quot;VAPLZ&quot;='CMS-FD',&quot;ARBEI&quot;/ &quot;CMS_FD&quot;,if(&quot;VAPLZ&quot;='CMS-MD',&quot;ARBEI&quot;/ &quot;CMS_MD&quot;,0)))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Ztab" source="Count_Ztab"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_14" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="YEAR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Current_Date" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(now(),'yyyymm')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION_MONTH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      </input>
+      <filter>(&quot;CALMONTH&quot; >='201601' AND &quot;CALMONTH&quot;&lt;=&quot;Current_Date&quot;)</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="Backlog_Days"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="Count_Ztab"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days" source="Backlog_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Ztab" source="Count_Ztab"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="Date"/>
+      </input>
+      <joinAttribute name="CALMONTH"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_15">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Backlog_Days"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Backlog_Days_V1" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&#xD;
+if(isNull( &quot;ELE_FD&quot;),0,&#xD;
+if(&quot;VAPLZ&quot;='ELE-FD',&quot;ARBEI&quot;  / &quot;ELE_FD&quot;,if(&quot;VAPLZ&quot;='ELE-MD',&quot;ARBEI&quot;/ &quot;ELE_MD&quot;,if(&quot;VAPLZ&quot;='INS-FD',&quot;ARBEI&quot;/ &quot;INS_FD&quot;,if(&quot;VAPLZ&quot;='INS-MD',&quot;ARBEI&quot;/ &quot;INS_MD&quot;,if(&quot;VAPLZ&quot;='MEC-FD',&quot;ARBEI&quot;/ &quot;MEC_FD&quot;,if(&quot;VAPLZ&quot;='MEC-MD',&quot;ARBEI&quot;/ &quot;MEC_MD&quot;,if(&quot;VAPLZ&quot;='CMS-FD',&quot;ARBEI&quot;/ &quot;CMS_FD&quot;,if(&quot;VAPLZ&quot;='CMS-MD',&quot;ARBEI&quot;/ &quot;CMS_MD&quot;,0)))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'BACKLOG DAYS'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dept" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;VAPLZ&quot;),'0',&quot;VAPLZ&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Perday_Capacity" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Dept&quot;='ELE-FD',&quot;ELE_FD&quot;,if(&quot;Dept&quot;='ELE-MD',&quot;ELE_MD&quot;,if(&quot;Dept&quot;='INS-FD',&quot;INS_FD&quot;,if(&quot;Dept&quot;='INS-MD',&quot;INS_MD&quot;,if(&quot;Dept&quot;='CMS-FD',&quot;CMS_FD&quot;,if(&quot;Dept&quot;='CMS-MD',&quot;CMS_MD&quot;,if(&quot;Dept&quot;='MEC-FD',&quot;MEC_FD&quot;,if(&quot;Dept&quot;='MEC-MD',&quot;MEC_MD&quot;,0))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days" source="Backlog_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_15">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="AUFNR_1"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="Backlog_Days"/>
+        <viewAttribute id="Count_Ztab"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Backlog_Days_V1" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&#xD;
+if(isNull( &quot;ELE_FD&quot;),0,&#xD;
+if(&quot;VAPLZ&quot;='ELE-FD',&quot;ARBEI&quot;  / &quot;ELE_FD&quot;,if(&quot;VAPLZ&quot;='ELE-MD',&quot;ARBEI&quot;/ &quot;ELE_MD&quot;,if(&quot;VAPLZ&quot;='INS-FD',&quot;ARBEI&quot;/ &quot;INS_FD&quot;,if(&quot;VAPLZ&quot;='INS-MD',&quot;ARBEI&quot;/ &quot;INS_MD&quot;,if(&quot;VAPLZ&quot;='MEC-FD',&quot;ARBEI&quot;/ &quot;MEC_FD&quot;,if(&quot;VAPLZ&quot;='MEC-MD',&quot;ARBEI&quot;/ &quot;MEC_MD&quot;,if(&quot;VAPLZ&quot;='CMS-FD',&quot;ARBEI&quot;/ &quot;CMS_FD&quot;,if(&quot;VAPLZ&quot;='CMS-MD',&quot;ARBEI&quot;/ &quot;CMS_MD&quot;,0)))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'BACKLOG DAYS'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dept" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;VAPLZ&quot;),'0','Totals')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Perday_Capacity" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Dept&quot;='ELE-FD',&quot;ELE_FD&quot;,&#xD;
+if(&quot;Dept&quot;='ELE-MD',&quot;ELE_MD&quot;,&#xD;
+if(&quot;Dept&quot;='INS-FD',&quot;INS_FD&quot;,&#xD;
+if(&quot;Dept&quot;='INS-MD',&quot;INS_MD&quot;,&#xD;
+if(&quot;Dept&quot;='CMS-FD',&quot;CMS_FD&quot;,&#xD;
+if(&quot;Dept&quot;='CMS-MD',&quot;CMS_MD&quot;,&#xD;
+if(&quot;Dept&quot;='MEC-FD',&quot;MEC_FD&quot;,&#xD;
+if(&quot;Dept&quot;='MEC-MD',&quot;MEC_MD&quot;,&#xD;
+if(&quot;Dept&quot;='Totals',(&quot;ELE_FD&quot;+&quot;CMS_FD&quot;+&quot;CMS_MD&quot;+&quot;ELE_MD&quot;+&quot;INS_FD&quot;+&quot;INS_MD&quot;+&quot;MEC_FD&quot;+&quot;MEC_MD&quot; ),0)))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days" source="Backlog_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Ztab" source="Count_Ztab"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Dept"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Perday_Capacity"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CALMONTH"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Dept"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Backlog_Days_V1"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="INS_FD"/>
+        <viewAttribute id="ELE_FD"/>
+        <viewAttribute id="CMS_MD"/>
+        <viewAttribute id="ELE_MD"/>
+        <viewAttribute id="INS_MD"/>
+        <viewAttribute id="CMS_FD"/>
+        <viewAttribute id="MEC_MD"/>
+        <viewAttribute id="MEC_FD"/>
+        <viewAttribute id="Perday_Capacity"/>
+        <viewAttribute id="BD_Order_count"/>
+        <viewAttribute id="Backlog_Days"/>
+        <viewAttribute id="VAPLZ"/>
+        <viewAttribute id="AUFNR_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days_V1" source="Backlog_Days_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_FD" source="INS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_FD" source="ELE_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_MD" source="CMS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ELE_MD" source="ELE_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INS_MD" source="INS_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMS_FD" source="CMS_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_MD" source="MEC_MD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEC_FD" source="MEC_FD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days" source="Backlog_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VAPLZ" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR_1" source="AUFNR_1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_5">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Backlog_Days_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INS_FD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ELE_FD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CMS_MD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ELE_MD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="INS_MD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CMS_FD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MEC_MD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MEC_FD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BD_Order_count" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Backlog_Days" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VAPLZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AUFNR_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="CALMONTH" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CALMONTH"/>
+        <keyMapping columnObjectName="Union_1" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="KPI" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="Dept" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Dept"/>
+        <keyMapping columnObjectName="Union_1" columnName="Dept"/>
+      </attribute>
+      <attribute id="MANDT" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Backlog_Days_V1" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Backlog_Days"/>
+        <measureMapping columnObjectName="Union_1" columnName="Backlog_Days_V1"/>
+      </measure>
+      <measure id="ARBEI" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ARBEI"/>
+        <measureMapping columnObjectName="Union_1" columnName="ARBEI"/>
+      </measure>
+      <measure id="INS_FD" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="INS_FD"/>
+        <measureMapping columnObjectName="Union_1" columnName="INS_FD"/>
+      </measure>
+      <measure id="ELE_FD" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ELE_FD"/>
+        <measureMapping columnObjectName="Union_1" columnName="ELE_FD"/>
+      </measure>
+      <measure id="CMS_MD" order="10" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CMS_MD"/>
+        <measureMapping columnObjectName="Union_1" columnName="CMS_MD"/>
+      </measure>
+      <measure id="ELE_MD" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ELE_MD"/>
+        <measureMapping columnObjectName="Union_1" columnName="ELE_MD"/>
+      </measure>
+      <measure id="INS_MD" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="INS_MD"/>
+        <measureMapping columnObjectName="Union_1" columnName="INS_MD"/>
+      </measure>
+      <measure id="CMS_FD" order="13" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CMS_FD"/>
+        <measureMapping columnObjectName="Union_1" columnName="CMS_FD"/>
+      </measure>
+      <measure id="MEC_MD" order="14" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MEC_MD"/>
+        <measureMapping columnObjectName="Union_1" columnName="MEC_MD"/>
+      </measure>
+      <measure id="MEC_FD" order="15" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MEC_FD"/>
+        <measureMapping columnObjectName="Union_1" columnName="MEC_FD"/>
+      </measure>
+      <measure id="Perday_Capacity" order="16" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Perday_Capacity"/>
+        <measureMapping columnObjectName="Union_1" columnName="Perday_Capacity"/>
+      </measure>
+      <measure id="BD_Order_count" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BD_Order_count"/>
+        <measureMapping columnObjectName="Union_1" columnName="BD_Order_count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="Count" hidden="false" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Count"/>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="465" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1559"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1559"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1463"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1385"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="1655"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="1655"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1559"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1463"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1385"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="1289"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="1211"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="1133"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="1133"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="323" y="1037"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="323" y="959"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="477" y="959"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395" y="863"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395" y="785"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="549" y="785"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="468" y="689"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="468" y="611"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="468" y="533"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="314" y="533"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="388" y="437"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="388" y="281"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="476" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="542" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="465" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

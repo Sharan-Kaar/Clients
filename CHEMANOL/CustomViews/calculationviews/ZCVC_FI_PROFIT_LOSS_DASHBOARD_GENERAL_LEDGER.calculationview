@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_PROFIT_LOSS_DASHBOARD_GENERAL_LEDGER" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_PROFIT_LOSS_DASHBOARD"/>
+  <metadata activatedAt="2021-10-25 17:39:16.0" changedAt="2021-10-25 17:37:13.818"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="64"/>
+  <dataSources>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+    <DataSource id="ZCVC_FI_GL" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_FI_GL</resourceUri>
+    </DataSource>
+    <DataSource id="ZFI_PL_GL_GRP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFI_PL_GL_GRP"/>
+    </DataSource>
+    <DataSource id="ZFIT_PL_CC_GRP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_PL_CC_GRP"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="RYEAR"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="RFAREA"/>
+        <viewAttribute id="DRCRK"/>
+        <viewAttribute id="RCNTR">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="0000500000"/>
+            <operands value="0000600000"/>
+            <operands value="0000700000"/>
+            <operands value="0000800000"/>
+            <operands value="0000900000"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="RLDNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="0L"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_N" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;RYEAR&quot;+ rightstr( &quot;POPER&quot;,2)+'01'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_F" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;RYEAR&quot;+ rightstr( &quot;POPER&quot;,2)+'01'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_Fiscal" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;RYEAR&quot;+ rightstr( &quot;POPER&quot;,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="GL" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>LTRIM(&quot;RACCT&quot;,'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Amount" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;HSL&quot;*-1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RYEAR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RFAREA" source="RFAREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DRCRK" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TXT20"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_FI_GL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ACCOUNT"/>
+        <viewAttribute id="COST_CENTRE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFI_PL_GL_GRP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACCOUNT" source="ACCOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTRE" source="COST_CENTRE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="COST_CENTRE"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="ACCOUNT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="RFAREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="DRCRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTRE" source="COST_CENTRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACCOUNT" source="ACCOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="ACCOUNT"/>
+      </input>
+      <joinAttribute name="Client"/>
+      <joinAttribute name="GL_Account"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="COST_CENTRE"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="ACCOUNT"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CC_V1" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;GL_Account&quot;= &quot;ACCOUNT&quot;,&quot;COST_CENTRE&quot;,&quot;RCNTR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTRE" source="COST_CENTRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACCOUNT" source="ACCOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="MANDT"/>
+      </input>
+      <joinAttribute name="GL_Account"/>
+      <joinAttribute name="Client"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Filter_Condition" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF((isnull(&quot;RCNTR&quot;)  or &quot;RCNTR&quot;='') and (&quot;H_TEXT&quot;='Cost of Sales'),'X',IF((&quot;H_TEXT&quot;='Cost of Sales') and (isnull(&quot;H_TEXT_1&quot;)),'X',''))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="COST_CNTR"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFIT_PL_CC_GRP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST_CNTR" source="COST_CNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="Filter_Condition"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_Condition" source="Filter_Condition"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="COST_CNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="MANDT"/>
+      </input>
+      <joinAttribute name="CC_V1"/>
+      <joinAttribute name="Client"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Filter_Condition"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Filter" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;Filter_Condition_v1&quot;='X','Y',IF(&quot;Filter_For_Revenue&quot;='Y' ,'Y',IF(&quot;H_TEXT_1&quot;= &quot;H_TEXT&quot;,'Y','N')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Filter_Condition_v1" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF((isnull(&quot;CC_V1&quot;)  or &quot;CC_V1&quot;='') and (&quot;H_TEXT&quot;='Cost of Sales'),'X',IF((&quot;H_TEXT&quot;='Cost of Sales') and (isnull(&quot;H_TEXT_1&quot;)),'X',''))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_Condition" source="Filter_Condition"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="Client"/>
+        <viewAttribute id="Company_Code"/>
+        <viewAttribute id="Fiscal_Year"/>
+        <viewAttribute id="Period"/>
+        <viewAttribute id="GL_Account"/>
+        <viewAttribute id="Functional_Area"/>
+        <viewAttribute id="Debit_Credit_Indicator"/>
+        <viewAttribute id="Date_N"/>
+        <viewAttribute id="Date_F"/>
+        <viewAttribute id="Date_Fiscal"/>
+        <viewAttribute id="Amount_in_Local_Currency"/>
+        <viewAttribute id="Range_GL"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Filter">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+        </viewAttribute>
+        <viewAttribute id="Filter_Condition"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="CC_V1"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'CostCenter'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Client" source="Client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company_Code" source="Company_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Fiscal_Year" source="Fiscal_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Period" source="Period"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_Account" source="GL_Account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Functional_Area" source="Functional_Area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Debit_Credit_Indicator" source="Debit_Credit_Indicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_N" source="Date_N"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_F" source="Date_F"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_Fiscal" source="Date_Fiscal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount_in_Local_Currency" source="Amount_in_Local_Currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter" source="Filter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_Condition" source="Filter_Condition"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CC_V1" source="CC_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCNTR" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCNTR"/>
+        <keyMapping columnObjectName="Projection_5" columnName="RCNTR"/>
+      </attribute>
+      <attribute id="Client" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Client"/>
+      </attribute>
+      <attribute id="Company_Code" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company_Code"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Company_Code"/>
+      </attribute>
+      <attribute id="Fiscal_Year" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal_Year"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Fiscal_Year"/>
+      </attribute>
+      <attribute id="Period" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Period"/>
+      </attribute>
+      <attribute id="GL_Account" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL_Account"/>
+        <keyMapping columnObjectName="Projection_5" columnName="GL_Account"/>
+      </attribute>
+      <attribute id="Functional_Area" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional_Area"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Functional_Area"/>
+      </attribute>
+      <attribute id="Debit_Credit_Indicator" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Debit_Credit_Indicator"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Debit_Credit_Indicator"/>
+      </attribute>
+      <attribute id="Date_N" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date_N"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Date_N"/>
+      </attribute>
+      <attribute id="Date_F" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date_F"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Date_F"/>
+      </attribute>
+      <attribute id="Date_Fiscal" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date_Fiscal"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Date_Fiscal"/>
+      </attribute>
+      <attribute id="Range_GL" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Range_GL"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Range_GL"/>
+      </attribute>
+      <attribute id="H_TEXT" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="H_TEXT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="H_TEXT"/>
+      </attribute>
+      <attribute id="S_TEXT" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="S_TEXT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="S_TEXT"/>
+      </attribute>
+      <attribute id="H_TEXT_1" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="H_TEXT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="H_TEXT_1"/>
+      </attribute>
+      <attribute id="Filter" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Filter"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Filter"/>
+      </attribute>
+      <attribute id="Filter_For_Revenue" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Filter_For_Revenue"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Filter_For_Revenue"/>
+      </attribute>
+      <attribute id="Filter_Condition" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Filter_Condition"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Filter_Condition"/>
+      </attribute>
+      <attribute id="KPI" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_5" columnName="KPI"/>
+      </attribute>
+      <attribute id="TXT20" order="21" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TXT20"/>
+        <keyMapping columnObjectName="Projection_5" columnName="TXT20"/>
+      </attribute>
+      <attribute id="CC_V1" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CC_V1"/>
+        <keyMapping columnObjectName="Projection_5" columnName="CC_V1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Amount_in_Local_Currency" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Amount_in_Local_Currency"/>
+        <measureMapping columnObjectName="Projection_5" columnName="Amount_in_Local_Currency"/>
+      </measure>
+      <measure id="Amount" order="23" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_5" columnName="Amount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="177" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="765"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="591"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="765"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="669"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="591"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="100" y="495"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="100" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="254" y="417"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="177" y="321"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="177" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="177" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

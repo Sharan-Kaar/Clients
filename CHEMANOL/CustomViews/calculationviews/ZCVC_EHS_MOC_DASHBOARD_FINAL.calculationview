@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHS_MOC_DASHBOARD_FINAL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_EHS_MOC_DASHBOARD_FINAL"/>
+  <metadata activatedAt="2021-10-24 11:56:57.0" changedAt="2021-10-19 10:50:24.84" createdAt="2021-10-19 10:50:04.672"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="50"/>
+  <dataSources>
+    <DataSource id="ZCVC_EHS_MOC_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHS_MOC_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_EHS_MOC_REPORT" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHS_MOC_REPORT</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="Criticality_Text"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="Count_Emergency"/>
+        <viewAttribute id="MCTXT"/>
+        <viewAttribute id="Cost_Center"/>
+        <viewAttribute id="Issue_Type_Final"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_EHS_MOC_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCTXT" source="MCTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cost_Center" source="Cost_Center"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Issue_Type_Final" source="Issue_Type_Final"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ISSUE_ID"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="DATE"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="CONTENT"/>
+        <viewAttribute id="CR_Status"/>
+        <viewAttribute id="NAME1_TEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="ISSUE_TYPE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Issue_type_Final" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ISSUE_TYPE&quot;='ZPR','Permanent MOC',IF(&quot;ISSUE_TYPE&quot;='ZTR','Temporary MOC',IF(&quot;ISSUE_TYPE&quot;='ZTS','TSR','Unassigned')))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_EHS_MOC_REPORT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1_TEXT" source="NAME1_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_TYPE" source="ISSUE_TYPE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CR_Status" transparentFilter="false"/>
+        <viewAttribute id="Criticality_Text" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DATE" transparentFilter="false"/>
+        <viewAttribute id="TEXT" transparentFilter="false"/>
+        <viewAttribute id="ISSUE_ID" transparentFilter="false"/>
+        <viewAttribute id="CONTENT" transparentFilter="false"/>
+        <viewAttribute id="NAME1_TEXT" transparentFilter="false"/>
+        <viewAttribute id="Count_Emergency" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Criticality_Text"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="MCTXT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NAME1_TEXT" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_Emergency" source="Count_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="Issue_Type_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="Cost_Center"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CR_Status" source="CR_Status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Criticality_Text" source="Issue_type_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISSUE_ID" source="ISSUE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTENT" source="CONTENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1_TEXT" source="NAME1_TEXT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count_Emergency" null="true" value=""/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="CR_Status" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="CR_Status"/>
+        <keyMapping columnObjectName="Union_1" columnName="CR_Status"/>
+      </attribute>
+      <attribute id="Criticality_Text" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Criticality_Text"/>
+        <keyMapping columnObjectName="Union_1" columnName="Criticality_Text"/>
+      </attribute>
+      <attribute id="KPI" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="MANDT" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DATE" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="DATE"/>
+        <keyMapping columnObjectName="Union_1" columnName="DATE"/>
+      </attribute>
+      <attribute id="TEXT" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="TEXT"/>
+      </attribute>
+      <attribute id="ISSUE_ID" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="ISSUE_ID"/>
+        <keyMapping columnObjectName="Union_1" columnName="ISSUE_ID"/>
+      </attribute>
+      <attribute id="CONTENT" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="CONTENT"/>
+        <keyMapping columnObjectName="Union_1" columnName="CONTENT"/>
+      </attribute>
+      <attribute id="NAME1_TEXT" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="NAME1_TEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="NAME1_TEXT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="Count_Emergency" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Union_1" columnName="Count_Emergency"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

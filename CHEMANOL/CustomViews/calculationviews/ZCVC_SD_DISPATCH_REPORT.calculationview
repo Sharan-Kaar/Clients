@@ -1,0 +1,1828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_SD_DISPATCH_REPORT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_SD_DISPATCH_REPORT"/>
+  <metadata activatedAt="2021-10-24 13:36:01.0" changedAt="2021-10-19 10:38:56.382" createdAt="2021-10-19 10:38:56.007"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="55"/>
+  <dataSources>
+    <DataSource id="LIKP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIKP"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="VBFA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBFA"/>
+    </DataSource>
+    <DataSource id="T023T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T023T"/>
+    </DataSource>
+    <DataSource id="KNA1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="KNA1"/>
+    </DataSource>
+    <DataSource id="T005T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T005T"/>
+    </DataSource>
+    <DataSource id="VBPA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBPA"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_9$$$$VBPA$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBPA"/>
+    </DataSource>
+    <DataSource id="CopyOfCopyOfProjection_9$$$$VBPA$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBPA"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_7$$$$KNA1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="KNA1"/>
+    </DataSource>
+    <DataSource id="CopyOfCopyOfProjection_7$$$$KNA1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="KNA1"/>
+    </DataSource>
+    <DataSource id="CopyOfCopyOfCopyOfProjection_7$$$$KNA1$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="KNA1"/>
+    </DataSource>
+    <DataSource id="VBAK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBAK"/>
+    </DataSource>
+    <DataSource id="PRCD_ELEMENTS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="PRCD_ELEMENTS"/>
+    </DataSource>
+    <DataSource id="TCURR" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="TCURR"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="WADAT_IST"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIKP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNN"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#VBFA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+      <joinAttribute name="POSNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T023T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATKL"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="ORMNG"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KCMENG"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Dispatch_Qty" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;VRKME&quot;='KG' or &quot;VRKME&quot;='L',&quot;Qty&quot;/1000,&quot;Qty&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Qty" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>If(&quot;LFIMG&quot;=0,&quot;KCMENG&quot;,&quot;LFIMG&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORMNG" source="ORMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KCMENG" source="KCMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="LAND1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#KNA1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KUNNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="LANDX50"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T005T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LAND1"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="PARVW">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="AG"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Customer_Type" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PARVW&quot;='ZA','Sales Agent',(&#xD;
+if(&quot;PARVW&quot;='AG','Customer ',(&#xD;
+if(&quot;PARVW&quot;='WE','Ship to Party','')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#VBPA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARVW" source="PARVW"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="PARVW">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="WE"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Customer_Type" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PARVW&quot;='ZA','Sales Agent',(&#xD;
+if(&quot;PARVW&quot;='AG','Customer ',(&#xD;
+if(&quot;PARVW&quot;='WE','Ship to Party','')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_9$$$$VBPA$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARVW" source="PARVW"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfCopyOfProjection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="PARVW">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ZA"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Customer_Type" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PARVW&quot;='ZA','Sales Agent',(&#xD;
+if(&quot;PARVW&quot;='AG','Customer ',(&#xD;
+if(&quot;PARVW&quot;='WE','Ship to Party','')))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfCopyOfProjection_9$$$$VBPA$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARVW" source="PARVW"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="KUNNR_1"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="PARVW"/>
+        <viewAttribute id="Customer_Type"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_1" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARVW" source="PARVW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Customer_Type" source="Customer_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELV"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#CopyOfProjection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELV"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_9" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#CopyOfCopyOfProjection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELV"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_7$$$$KNA1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_10" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#CopyOfProjection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KUNNR_SOLDTOPARTY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfCopyOfProjection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfCopyOfProjection_7$$$$KNA1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfCopyOfCopyOfProjection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfCopyOfCopyOfProjection_7$$$$KNA1$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_11" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#CopyOfCopyOfProjection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KUNNR_SHIPTOPARTY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_12" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="NAME_SALESAGENT"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#CopyOfCopyOfCopyOfProjection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SALESAGENT" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KUNNR_SALESAGENT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="KNUMV"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#VBAK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_13" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="NAME_SALESAGENT"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="POSNN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SALESAGENT" source="NAME_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELV"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="KPOSN"/>
+        <viewAttribute id="KSCHL">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ZSPR"/>
+        </viewAttribute>
+        <viewAttribute aggregationType="sum" id="KBETR"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="WAERK"/>
+        <viewAttribute id="KMEIN"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Calclated_Value" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;KMEIN&quot;='KG'or &quot;KMEIN&quot;='L',&quot;KBETR&quot;*1000,&quot;KBETR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#PRCD_ELEMENTS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPOSN" source="KPOSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KSCHL" source="KSCHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KBETR" source="KBETR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KMEIN" source="KMEIN"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="KBETR"/>
+        <viewAttribute id="WAERK"/>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="KPOSN"/>
+        <viewAttribute aggregationType="sum" id="Calclated_Value"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KBETR" source="KBETR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPOSN" source="KPOSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Calclated_Value" source="Calclated_Value"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_14" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="NAME_SALESAGENT"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="POSNN"/>
+        <viewAttribute id="KBETR"/>
+        <viewAttribute id="WAERK"/>
+        <viewAttribute id="Calclated_Value"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SALESAGENT" source="NAME_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+      </input>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KBETR" source="KBETR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Calclated_Value" source="Calclated_Value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="KPOSN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KNUMV"/>
+      <joinAttribute name="POSNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KURST">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="M"/>
+        </viewAttribute>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="TCURR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="USD"/>
+        </viewAttribute>
+        <viewAttribute id="GDATU"/>
+        <viewAttribute id="UKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ConversionDate" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>99999999-int(&quot;GDATU&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#TCURR">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KURST" source="KURST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCURR" source="TCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GDATU" source="GDATU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_13">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DATE_SAP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_15" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="TCURR"/>
+        <viewAttribute id="GDATU"/>
+        <viewAttribute id="ConversionDate"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="UKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCURR" source="TCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GDATU" source="GDATU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConversionDate" source="ConversionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+      </input>
+      <input node="#Projection_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_14" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="TCURR"/>
+        <viewAttribute id="GDATU"/>
+        <viewAttribute id="ConversionDate"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="UKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCURR" source="TCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GDATU" source="GDATU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConversionDate" source="ConversionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+      </input>
+      <filter>&quot;DATE_SAP&quot;>= &quot;ConversionDate&quot;</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="TCURR"/>
+        <viewAttribute id="GDATU"/>
+        <viewAttribute id="ConversionDate"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="UKURS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TCURR" source="TCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GDATU" source="GDATU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConversionDate" source="ConversionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+      </input>
+      <windowFunction dynamicPartitionAttributes="true">
+        <partitionViewAttributeName>FCURR</partitionViewAttributeName>
+        <partitionViewAttributeName>TCURR</partitionViewAttributeName>
+        <partitionViewAttributeName>DATE_SAP</partitionViewAttributeName>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <order byViewAttributeName="ConversionDate" direction="DESC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_16" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="NAME_SALESAGENT"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="POSNN"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="KBETR_OLD"/>
+        <viewAttribute id="WAERK"/>
+        <viewAttribute id="UKURS"/>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="Calclated_Value"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SALESAGENT" source="NAME_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KBETR_OLD" source="KBETR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Calclated_Value" source="Calclated_Value"/>
+      </input>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="FCURR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="WADAT_IST"/>
+      <joinAttribute name="WAERK"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_15">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WAERK"/>
+        <viewAttribute id="KBETR"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="POSNN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="NAME_SALESAGENT"/>
+        <viewAttribute id="NAME_SHIPTOPARTY"/>
+        <viewAttribute id="NAME_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="WBSTA"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="INCO1"/>
+        <viewAttribute id="VBELV"/>
+        <viewAttribute id="POSNV"/>
+        <viewAttribute id="VBTYP_V"/>
+        <viewAttribute id="Dispatch_Qty"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="LANDX50"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR_SOLDTOPARTY"/>
+        <viewAttribute id="KUNNR_SHIPTOPARTY"/>
+        <viewAttribute id="KUNNR_SALESAGENT"/>
+        <viewAttribute id="UKURS"/>
+        <viewAttribute id="FCURR"/>
+        <viewAttribute id="Calc"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Revenue" length="10" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;FCURR&quot;),&quot;Calc&quot;,&quot;Calc&quot;/(&quot;UKURS&quot;*-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Dispatch Details'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="DispatchDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;WADAT_IST&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_16">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KBETR" source="KBETR_OLD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNN" source="POSNN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SALESAGENT" source="NAME_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SHIPTOPARTY" source="NAME_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME_SOLDTOPARTY" source="NAME_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTA" source="WBSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INCO1" source="INCO1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELV" source="VBELV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNV" source="POSNV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBTYP_V" source="VBTYP_V"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dispatch_Qty" source="Dispatch_Qty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANDX50" source="LANDX50"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SOLDTOPARTY" source="KUNNR_SOLDTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SHIPTOPARTY" source="KUNNR_SHIPTOPARTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR_SALESAGENT" source="KUNNR_SALESAGENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UKURS" source="UKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FCURR" source="FCURR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Calc" source="Calclated_Value"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_15">
+    <descriptions/>
+    <attributes>
+      <attribute id="WAERK" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency"/>
+        <keyMapping columnObjectName="Projection_15" columnName="WAERK"/>
+      </attribute>
+      <attribute id="KNUMV" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KNUMV"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KNUMV"/>
+      </attribute>
+      <attribute id="POSNN" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSNN"/>
+        <keyMapping columnObjectName="Projection_15" columnName="POSNN"/>
+      </attribute>
+      <attribute id="NAME_SALESAGENT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Agent"/>
+        <keyMapping columnObjectName="Projection_15" columnName="NAME_SALESAGENT"/>
+      </attribute>
+      <attribute id="NAME_SHIPTOPARTY" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ship to Party"/>
+        <keyMapping columnObjectName="Projection_15" columnName="NAME_SHIPTOPARTY"/>
+      </attribute>
+      <attribute id="NAME_SOLDTOPARTY" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sold to Party"/>
+        <keyMapping columnObjectName="Projection_15" columnName="NAME_SOLDTOPARTY"/>
+      </attribute>
+      <attribute id="KUNNR" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KUNNR"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KUNNR"/>
+      </attribute>
+      <attribute id="MANDT" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_15" columnName="MANDT"/>
+      </attribute>
+      <attribute id="VBELN" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Delivery No."/>
+        <keyMapping columnObjectName="Projection_15" columnName="VBELN"/>
+      </attribute>
+      <attribute id="POSNR" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSNR"/>
+        <keyMapping columnObjectName="Projection_15" columnName="POSNR"/>
+      </attribute>
+      <attribute id="MATNR" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Code"/>
+        <keyMapping columnObjectName="Projection_15" columnName="MATNR"/>
+      </attribute>
+      <attribute id="UECHA" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UECHA"/>
+        <keyMapping columnObjectName="Projection_15" columnName="UECHA"/>
+      </attribute>
+      <attribute id="WBSTA" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Delivery Status"/>
+        <keyMapping columnObjectName="Projection_15" columnName="WBSTA"/>
+      </attribute>
+      <attribute id="VRKME" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Unit of measure"/>
+        <keyMapping columnObjectName="Projection_15" columnName="VRKME"/>
+      </attribute>
+      <attribute id="INCO1" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Incoterms"/>
+        <keyMapping columnObjectName="Projection_15" columnName="INCO1"/>
+      </attribute>
+      <attribute id="VBELV" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order No."/>
+        <keyMapping columnObjectName="Projection_15" columnName="VBELV"/>
+      </attribute>
+      <attribute id="POSNV" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order Line Item"/>
+        <keyMapping columnObjectName="Projection_15" columnName="POSNV"/>
+      </attribute>
+      <attribute id="VBTYP_V" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VBTYP_V"/>
+        <keyMapping columnObjectName="Projection_15" columnName="VBTYP_V"/>
+      </attribute>
+      <attribute id="MATKL" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Group"/>
+        <keyMapping columnObjectName="Projection_15" columnName="MATKL"/>
+      </attribute>
+      <attribute id="WGBEZ" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Product"/>
+        <keyMapping columnObjectName="Projection_15" columnName="WGBEZ"/>
+      </attribute>
+      <attribute id="LANDX50" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country"/>
+        <keyMapping columnObjectName="Projection_15" columnName="LANDX50"/>
+      </attribute>
+      <attribute id="LAND1" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country ID"/>
+        <keyMapping columnObjectName="Projection_15" columnName="LAND1"/>
+      </attribute>
+      <attribute id="KUNNR_SOLDTOPARTY" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sold to party - ID"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KUNNR_SOLDTOPARTY"/>
+      </attribute>
+      <attribute id="KUNNR_SHIPTOPARTY" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ship to party - ID"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KUNNR_SHIPTOPARTY"/>
+      </attribute>
+      <attribute id="KUNNR_SALESAGENT" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Agent - ID"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KUNNR_SALESAGENT"/>
+      </attribute>
+      <attribute id="KPI" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_15" columnName="KPI"/>
+      </attribute>
+      <attribute id="DispatchDate" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DispatchDate"/>
+        <keyMapping columnObjectName="Projection_15" columnName="DispatchDate"/>
+      </attribute>
+      <attribute id="WADAT_IST" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WADAT_IST"/>
+        <keyMapping columnObjectName="Projection_15" columnName="WADAT_IST"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Dispatch_Qty" order="19" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Dispatch Qty"/>
+        <measureMapping columnObjectName="Projection_15" columnName="Dispatch_Qty"/>
+      </measure>
+      <measure id="KBETR" order="30" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="KBETR"/>
+        <measureMapping columnObjectName="Projection_15" columnName="KBETR"/>
+      </measure>
+      <measure id="Revenue" order="31" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Revenue"/>
+        <measureMapping columnObjectName="Projection_15" columnName="Revenue"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="966" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1761"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1761"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="1665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="1569"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="1665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="1569"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="1473"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="96" y="1473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="170" y="1377"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="170" y="1299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="324" y="1299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="243" y="1203"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="397" y="1203"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="315" y="1107"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="469" y="1107"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="540" y="1011"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfCopyOfProjection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="610" y="915"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="386" y="1011"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="456" y="915"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="525" y="819"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="679" y="819"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="594" y="723"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfCopyOfProjection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="748" y="723"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfCopyOfCopyOfProjection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="510" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="664" y="627"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="581" y="531"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="735" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="735" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="889" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="889" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="889" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="966" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1120" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1043" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1043" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1043" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_16" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="966" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="966" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

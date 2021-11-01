@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHSM_NEARMISS_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="Near Miss Dashboard for EHSM"/>
+  <metadata activatedAt="2021-10-24 12:35:56.0" changedAt="2021-10-19 10:51:06.458" createdAt="2021-10-19 10:50:57.374"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="57"/>
+  <dataSources>
+    <DataSource id="EHHSSD_INC_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_ROOT"/>
+    </DataSource>
+    <DataSource id="USR21" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="USR21"/>
+    </DataSource>
+    <DataSource id="ADCP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ADCP"/>
+    </DataSource>
+    <DataSource id="EHHSSD_INC_BINFA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_BINFA"/>
+    </DataSource>
+    <DataSource id="EHFNDD_LOC_TEXT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHFNDD_LOC_TEXT"/>
+    </DataSource>
+    <DataSource id="ZCVC_EHS_CLASSIFICATIONS_NEAR_MISS_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_EHS_CLASSIFICATIONS_NEAR_MISS_DASHBOARD</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="STATUS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="00"/>
+        </viewAttribute>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="CATEGORY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="002"/>
+        </viewAttribute>
+        <viewAttribute id="USER_ID_CR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="DateTime" length="24" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;DATETIME_CR&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="CreatedDate" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;DateTime&quot;,8)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="FinalDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;CreatedDate&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#EHHSSD_INC_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ADDRNUMBER"/>
+        <viewAttribute id="BNAME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#USR21">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNAME" source="BNAME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="ADDRNUMBER"/>
+        <viewAttribute id="DEPARTMENT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ADCP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="STATUS"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="CreatedDate"/>
+        <viewAttribute id="BNAME"/>
+        <viewAttribute id="ADDRNUMBER"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="FinalDate"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedDate" source="CreatedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BNAME" source="BNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="BNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="USER_ID_CR"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Department_name" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DEPARTMENT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="FinalDate"/>
+        <viewAttribute hidden="true" id="JOIN$ADDRNUMBER$ADDRNUMBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Near-miss'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ADDRNUMBER$ADDRNUMBER" source="ADDRNUMBER"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ADDRNUMBER$ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+      </input>
+      <joinAttribute name="JOIN$ADDRNUMBER$ADDRNUMBER"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOC_ROOT_KEY_REF"/>
+        <viewAttribute id="PARENT_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSD_INC_BINFA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOC_ROOT_KEY_REF" source="LOC_ROOT_KEY_REF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions>
+        <comment text="For getting the respective Text information for the respective Location(varbinary) field."/>
+      </descriptions>
+      <viewAttributes>
+        <viewAttribute id="ROOT_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TEXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHFNDD_LOC_TEXT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ROOT_KEY" source="ROOT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LOC_ROOT_KEY_REF"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TEXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOC_ROOT_KEY_REF" source="LOC_ROOT_KEY_REF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOC_ROOT_KEY_REF" source="ROOT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="LOC_ROOT_KEY_REF"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Plant_name">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LOC_ROOT_KEY_REF"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOC_ROOT_KEY_REF" source="LOC_ROOT_KEY_REF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DEPARTMENT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="LOC_ROOT_KEY_REF"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="FinalDate"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Department_name">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+      </input>
+      <input node="#Plant_name">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOC_ROOT_KEY_REF" source="LOC_ROOT_KEY_REF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="DB_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DEPARTMENT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="FinalDate"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="NM_GROUP"/>
+        <viewAttribute id="DESCRIPTION"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_EHS_CLASSIFICATIONS_NEAR_MISS_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NM_GROUP" source="NM_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="FinalDate"/>
+        <viewAttribute id="TEXT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="DEPARTMENT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="NM_GROUP" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="FinalDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DEPARTMENT" source="DEPARTMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NM_GROUP" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_7">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DEPARTMENT" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FinalDate" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TEXT" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NM_GROUP" source="NM_GROUP"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="FinalDate" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FinalDate"/>
+        <keyMapping columnObjectName="Union_1" columnName="FinalDate"/>
+      </attribute>
+      <attribute id="TEXT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="TEXT"/>
+      </attribute>
+      <attribute id="KPI" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="DEPARTMENT" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DEPARTMENT"/>
+        <keyMapping columnObjectName="Union_1" columnName="DEPARTMENT"/>
+      </attribute>
+      <attribute id="MANDT" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="NM_GROUP" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="NM_GROUP"/>
+        <keyMapping columnObjectName="Union_1" columnName="NM_GROUP"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="330" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="533"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="533"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Department_name" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="437"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="533"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Plant_name" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="437"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="341"/>
+        <rectangleSize height="111" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="263"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="262"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

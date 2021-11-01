@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PM_MAINT_NOTIFICATION_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PM_MAINT_NOTIFICATION_DASHBOARD"/>
+  <metadata activatedAt="2021-10-24 15:04:05.0" changedAt="2021-10-19 10:41:08.766" createdAt="2021-10-19 10:41:01.403"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="VIQMEL" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VIQMEL"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="T001W" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T001W"/>
+    </DataSource>
+    <DataSource id="T357" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T357"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$VIQMEL$$" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VIQMEL"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="QMART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="M1"/>
+            <operands value="M2"/>
+            <operands value="M3"/>
+            <operands value="M4"/>
+            <operands value="M5"/>
+            <operands value="M8"/>
+            <operands value="M9"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="LTRMN"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="BEBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="CM_Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Notification_Rate_Type" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;ARTPR&quot;='PM') AND (&quot;PRIOK&quot;='1'),'1',if((&quot;ARTPR&quot;='PM') AND (&quot;PRIOK&quot;='2'),'3',if((&quot;ARTPR&quot;='PM') AND in(&quot;PRIOK&quot;,'3','4','5'),'2','4')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="M2vsOthers" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;QMART&quot;='M1') ,'M1-Corrective Maintenance',if((&quot;QMART&quot;='M2'),'M2-Breakdown Maintenance',if(in(&quot;QMART&quot;,'M3','M4','M5','M8','M9'),'Other Notifications','No')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Notification_Rate_Type_Desc" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Notification_Rate_Type&quot;='1','Emergency',if(&quot;Notification_Rate_Type&quot;='2','Medium',if(&quot;Notification_Rate_Type&quot;='3','Urgent','Unassigned')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Notification_Rate_Type_Emergency" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Notification_Rate_Type&quot;='1',1,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Notification_Rate_Type_Medium" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Notification_Rate_Type&quot;='2',1,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Notification_Rate_Type_Urgent" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Notification_Rate_Type&quot;='3',1,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#VIQMEL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LTRMN" source="LTRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEBER" source="BEBER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DATETIME_SAP"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="QUARTER"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="WEEK"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+        <viewAttribute id="DAY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Current_Year" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DATE_SQL_V1" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;DAY&quot;+ '-'+&quot;MONTH&quot;+'-'+ &quot;YEAR&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DATE_SAP_V1" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)+midstr(string(now()),6,2)+midstr(string(now()),9,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_SAP" source="DATETIME_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUARTER" source="QUARTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WEEK" source="WEEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DAY" source="DAY"/>
+      </input>
+      <filter>(&quot;DATE_SAP&quot; >='20200101' AND &quot;DATE_SAP&quot;&lt;= &quot;DATE_SAP_V1&quot;)</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="NAME1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T001W">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BEBER"/>
+        <viewAttribute id="FING"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TELE"/>
+        <viewAttribute id="WERKS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T357">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEBER" source="BEBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TELE" source="TELE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="CM_Count"/>
+        <viewAttribute id="QMART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="M2vsOthers"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="FING"/>
+        <viewAttribute id="BEBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="M2vsOthers" source="M2vsOthers"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEBER" source="BEBER"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEBER" source="BEBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="WERKS"/>
+      </input>
+      <joinAttribute name="BEBER"/>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="IWERK"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="M2vsOthers"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="QMART"/>
+        <viewAttribute id="CM_Count"/>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="FING"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="M2vsOthers" source="M2vsOthers"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="M2vsOthers"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="QMART"/>
+        <viewAttribute id="CM_Count"/>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="FING"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="M2vsOthers" source="M2vsOthers"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="WERKS"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="IWERK"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="QMART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="M1"/>
+            <operands value="M2"/>
+            <operands value="M3"/>
+            <operands value="M4"/>
+            <operands value="M5"/>
+            <operands value="M8"/>
+            <operands value="M9"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="LTRMN"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="QMTXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="CM_Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$VIQMEL$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LTRMN" source="LTRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="CM_Count"/>
+        <viewAttribute id="Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="CM_Count"/>
+        <viewAttribute id="QMART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="M2vsOthers"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="CM_Count_1"/>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="FING"/>
+        <viewAttribute hidden="true" id="JOIN$Dummy$Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="M2vsOthers" source="M2vsOthers"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count_1" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$Dummy$Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="QUARTER"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="WEEK"/>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+        <viewAttribute id="DATE_SQL_V1"/>
+        <viewAttribute id="STRMN"/>
+        <viewAttribute id="QMNUM"/>
+        <viewAttribute id="CM_Count"/>
+        <viewAttribute id="QMART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Notification_Rate_Type"/>
+        <viewAttribute id="PRIOK"/>
+        <viewAttribute id="ARTPR"/>
+        <viewAttribute id="M2vsOthers"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="IWERK"/>
+        <viewAttribute id="QMTXT"/>
+        <viewAttribute id="Notification_Rate_Type_Desc"/>
+        <viewAttribute id="Notification_Rate_Type_Emergency"/>
+        <viewAttribute id="Notification_Rate_Type_Medium"/>
+        <viewAttribute id="Notification_Rate_Type_Urgent"/>
+        <viewAttribute id="CM_Count_1"/>
+        <viewAttribute id="QMDAT"/>
+        <viewAttribute id="FING"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUARTER" source="QUARTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WEEK" source="WEEK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL_V1" source="DATE_SQL_V1"/>
+      </input>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STRMN" source="STRMN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMNUM" source="QMNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count" source="CM_Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMART" source="QMART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type" source="Notification_Rate_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRIOK" source="PRIOK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARTPR" source="ARTPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="M2vsOthers" source="M2vsOthers"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="IWERK" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMTXT" source="QMTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Desc" source="Notification_Rate_Type_Desc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Emergency" source="Notification_Rate_Type_Emergency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Medium" source="Notification_Rate_Type_Medium"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Notification_Rate_Type_Urgent" source="Notification_Rate_Type_Urgent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CM_Count_1" source="CM_Count_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QMDAT" source="QMDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FING" source="FING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="QMDAT"/>
+      </input>
+      <joinAttribute name="DATE_SAP"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="YEAR" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Join_1" columnName="YEAR"/>
+      </attribute>
+      <attribute id="QUARTER" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QUARTER"/>
+        <keyMapping columnObjectName="Join_1" columnName="QUARTER"/>
+      </attribute>
+      <attribute id="MONTH" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MONTH"/>
+        <keyMapping columnObjectName="Join_1" columnName="MONTH"/>
+      </attribute>
+      <attribute id="WEEK" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WEEK"/>
+        <keyMapping columnObjectName="Join_1" columnName="WEEK"/>
+      </attribute>
+      <attribute id="STRMN" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STRMN"/>
+        <keyMapping columnObjectName="Join_1" columnName="STRMN"/>
+      </attribute>
+      <attribute id="QMNUM" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QMNUM"/>
+        <keyMapping columnObjectName="Join_1" columnName="QMNUM"/>
+      </attribute>
+      <attribute id="QMART" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QMART"/>
+        <keyMapping columnObjectName="Join_1" columnName="QMART"/>
+      </attribute>
+      <attribute id="MANDT" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Join_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DATE_SAP" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_SAP"/>
+        <keyMapping columnObjectName="Join_1" columnName="DATE_SAP"/>
+      </attribute>
+      <attribute id="Notification_Rate_Type" order="11" attributeHierarchyActive="false" descriptionColumnName="Notification_Rate_Type_Desc" displayAttribute="false">
+        <descriptions defaultDescription="Notification_Rate_Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="Notification_Rate_Type"/>
+      </attribute>
+      <attribute id="M2vsOthers" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="M2vsOthers"/>
+        <keyMapping columnObjectName="Join_1" columnName="M2vsOthers"/>
+      </attribute>
+      <attribute id="NAME1" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME1"/>
+        <keyMapping columnObjectName="Join_1" columnName="NAME1"/>
+      </attribute>
+      <attribute id="IWERK" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IWERK"/>
+        <keyMapping columnObjectName="Join_1" columnName="IWERK"/>
+      </attribute>
+      <attribute id="DATE_SQL" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_SQL"/>
+        <keyMapping columnObjectName="Join_1" columnName="DATE_SQL"/>
+      </attribute>
+      <attribute id="QMTXT" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QMTXT"/>
+        <keyMapping columnObjectName="Join_1" columnName="QMTXT"/>
+      </attribute>
+      <attribute id="Notification_Rate_Type_Desc" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Notification_Rate_Type_Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="Notification_Rate_Type_Desc"/>
+      </attribute>
+      <attribute id="DATE_SQL_V1" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_SQL_V1"/>
+        <keyMapping columnObjectName="Join_1" columnName="DATE_SQL_V1"/>
+      </attribute>
+      <attribute id="QMDAT" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QMDAT"/>
+        <keyMapping columnObjectName="Join_1" columnName="QMDAT"/>
+      </attribute>
+      <attribute id="FING" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FING"/>
+        <keyMapping columnObjectName="Join_1" columnName="FING"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="CM_Count" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CM_Count"/>
+        <measureMapping columnObjectName="Join_1" columnName="CM_Count"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Emergency" hidden="false" order="18" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Emergency"/>
+        <measureMapping columnObjectName="Join_1" columnName="Notification_Rate_Type_Emergency"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Medium" hidden="false" order="19" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Medium"/>
+        <measureMapping columnObjectName="Join_1" columnName="Notification_Rate_Type_Medium"/>
+      </measure>
+      <measure id="Notification_Rate_Type_Urgent" hidden="false" order="20" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Low"/>
+        <measureMapping columnObjectName="Join_1" columnName="Notification_Rate_Type_Urgent"/>
+      </measure>
+      <measure id="Total_Count" order="22" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Total_Count"/>
+        <measureMapping columnObjectName="Join_1" columnName="CM_Count_1"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="175" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="531"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="453"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PM_BACKLLOG_UTILIZATION_DASHBOARD_FINAL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PM_BACKLLOG_UTILIZATION_DASHBOARD_FINAL"/>
+  <metadata changedAt="2021-10-19 10:44:22.0" createdAt="2021-10-19 10:42:37.342"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="48"/>
+  <dataSources>
+    <DataSource id="ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_BACKLOGDAYS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_BACKLOGDAYS</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_MH_UTIL" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_MH_UTIL</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_PM_VS_TMH_UTIL" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_PM_VS_TMH_UTIL</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Backlog_Days_V1"/>
+        <viewAttribute id="Dept"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ARBEI"/>
+        <viewAttribute id="Perday_Capacity"/>
+        <viewAttribute id="BD_Order_count"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_BACKLOGDAYS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Backlog_Days_V1" source="Backlog_Days_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBEI" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Perday_Capacity" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MAN_HOURS"/>
+        <viewAttribute id="ISMNW"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="KTEXT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MH_UTIL_V1"/>
+        <viewAttribute id="Posting_Date"/>
+        <viewAttribute id="ARBPL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_MH_UTIL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAN_HOURS" source="MAN_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW" source="ISMNW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTEXT" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MH_UTIL_V1" source="MH_UTIL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Posting_Date" source="Posting_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBPL" source="ARBPL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="ISMNW"/>
+        <viewAttribute id="ISMNW_1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="PM_MH_UTIL"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="KTEXT"/>
+        <viewAttribute id="Posting_Date"/>
+        <viewAttribute id="ARBPL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_PM_BACKLOG_UTILIZATION_DASHBOARD_PM_VS_TMH_UTIL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW" source="ISMNW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW_1" source="ISMNW_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PM_MH_UTIL" source="PM_MH_UTIL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTEXT" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Posting_Date" source="Posting_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARBPL" source="ARBPL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute datatype="NVARCHAR" id="CLIENT" length="3" scale="0"/>
+        <viewAttribute datatype="NVARCHAR" id="KPI" length="50" scale="0"/>
+        <viewAttribute datatype="DECIMAL" id="VALUE" length="34" scale="2"/>
+        <viewAttribute id="Dept" transparentFilter="false"/>
+        <viewAttribute id="CALMONTH" transparentFilter="false"/>
+        <viewAttribute id="MAN_HOURS" transparentFilter="false"/>
+        <viewAttribute id="ISMNW" transparentFilter="false"/>
+        <viewAttribute id="ISMNW_1" transparentFilter="false"/>
+        <viewAttribute id="KTEXT" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="MH_UTIL_V1" transparentFilter="false"/>
+        <viewAttribute id="BD_Order_count" transparentFilter="false"/>
+        <viewAttribute id="Posting_Date" transparentFilter="false"/>
+        <viewAttribute id="AUFNR" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALUE" source="Backlog_Days_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="Dept"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MAN_HOURS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW" source="ARBEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW_1" source="Perday_Capacity"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="KTEXT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MH_UTIL_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BD_Order_count" source="BD_Order_count"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Posting_Date" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AUFNR" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VALUE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAN_HOURS" source="MAN_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW" source="ISMNW"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ISMNW_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTEXT" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MH_UTIL_V1" source="MH_UTIL_V1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BD_Order_count" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Posting_Date" source="Posting_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="ARBPL"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VALUE" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MAN_HOURS" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW" source="ISMNW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ISMNW_1" source="ISMNW_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTEXT" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MH_UTIL_V1" source="PM_MH_UTIL"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BD_Order_count" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Posting_Date" source="Posting_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dept" source="ARBPL"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="CLIENT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CLIENT"/>
+        <keyMapping columnObjectName="Union_1" columnName="CLIENT"/>
+      </attribute>
+      <attribute id="KPI" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="Dept" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Dept"/>
+        <keyMapping columnObjectName="Union_1" columnName="Dept"/>
+      </attribute>
+      <attribute id="CALMONTH" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="CALMONTH"/>
+        <keyMapping columnObjectName="Union_1" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="KTEXT" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KTEXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="KTEXT"/>
+      </attribute>
+      <attribute id="Posting_Date" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Posting_Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="Posting_Date"/>
+      </attribute>
+      <attribute id="AUFNR" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="AUFNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="AUFNR"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="VALUE" order="3" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VALUE"/>
+        <measureMapping columnObjectName="Union_1" columnName="VALUE"/>
+      </measure>
+      <measure id="MAN_HOURS" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MAN_HOURS"/>
+        <measureMapping columnObjectName="Union_1" columnName="MAN_HOURS"/>
+      </measure>
+      <measure id="ISMNW" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ISMNW"/>
+        <measureMapping columnObjectName="Union_1" columnName="ISMNW"/>
+      </measure>
+      <measure id="ISMNW_1" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ISMNW_1"/>
+        <measureMapping columnObjectName="Union_1" columnName="ISMNW_1"/>
+      </measure>
+      <measure id="Count" order="10" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="MH_UTIL_V1" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MH_UTIL"/>
+        <measureMapping columnObjectName="Union_1" columnName="MH_UTIL_V1"/>
+      </measure>
+      <measure id="BD_Order_count" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BD_Order_count"/>
+        <measureMapping columnObjectName="Union_1" columnName="BD_Order_count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="164" width="140"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

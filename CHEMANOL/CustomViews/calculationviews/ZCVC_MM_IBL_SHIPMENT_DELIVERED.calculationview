@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_IBL_SHIPMENT_DELIVERED" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_IBL_SHIPMENT_DELIVERED"/>
+  <metadata activatedAt="2021-10-25 16:41:57.0" changedAt="2021-10-25 16:39:55.738"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="52"/>
+  <dataSources>
+    <DataSource id="ZTM_TRUCK_DET" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZTM_TRUCK_DET"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="T134T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T134T"/>
+    </DataSource>
+    <DataSource id="MATDOC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MATDOC"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="GATE_IN_DATE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="00000000"/>
+        </viewAttribute>
+        <viewAttribute id="CONTAINER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZTM_TRUCK_DET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LICHN"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LICHN" source="LICHN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="CONTAINER"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="LICHN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ASN_NO"/>
+      <joinAttribute name="ASN_ITEM"/>
+      <joinAttribute name="CONTAINER"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="CONTAINER"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONTAINER" source="CONTAINER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MTART"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T134T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTART" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="MTART"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BWART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="313"/>
+            <operands value="314"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="LGORT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="SETH"/>
+        </viewAttribute>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute aggregationType="sum" id="MENGE"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="MATNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ETHANOL"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Quantity" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;MENGE&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Ethanol_Quan" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;SHKZG&quot;='H',string(&quot;MENGE&quot;),string(&quot;MENGE&quot;*-1))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="MTBEZ" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Raw materials'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#MATDOC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="Ethanol_Quan" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Ethanol_Quan" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LFIMG" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="BUDAT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ASN_NO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ASN_ITEM" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VRKME" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ethanol_Quan" source="Ethanol_Quan"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="ASN_NO"/>
+        <viewAttribute id="ASN_ITEM"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="VRKME"/>
+        <viewAttribute id="Ethanol_Quan" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Quantity_Cal" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATNR&quot;='ETHANOL',&quot;Ethanol_Quan&quot;,string(if(&quot;VRKME&quot;='KG',(&quot;LFIMG&quot;)/1000, &quot;LFIMG&quot;)))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Final_Quantity" length="20" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;Quantity_Cal&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Material_Type" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula> &quot;MTBEZ&quot; + ' '+'in'+  ' '+&quot;MEINS&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_NO" source="ASN_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ASN_ITEM" source="ASN_ITEM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Ethanol_Quan" source="Ethanol_Quan"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="MATNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MATNR"/>
+      </attribute>
+      <attribute id="MTBEZ" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MTBEZ"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MTBEZ"/>
+      </attribute>
+      <attribute id="MANDT" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MANDT"/>
+      </attribute>
+      <attribute id="VBELN" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VBELN"/>
+        <keyMapping columnObjectName="Projection_5" columnName="VBELN"/>
+      </attribute>
+      <attribute id="ASN_NO" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ASN_NO"/>
+        <keyMapping columnObjectName="Projection_5" columnName="ASN_NO"/>
+      </attribute>
+      <attribute id="GATE_IN_DATE" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GATE_IN_DATE"/>
+        <keyMapping columnObjectName="Projection_5" columnName="GATE_IN_DATE"/>
+      </attribute>
+      <attribute id="ASN_ITEM" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ASN_ITEM"/>
+        <keyMapping columnObjectName="Projection_5" columnName="ASN_ITEM"/>
+      </attribute>
+      <attribute id="MEINS" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MEINS"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MEINS"/>
+      </attribute>
+      <attribute id="Material_Type" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material_Type"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Material_Type"/>
+      </attribute>
+      <attribute id="VRKME" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRKME"/>
+        <keyMapping columnObjectName="Projection_5" columnName="VRKME"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="LFIMG" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="LFIMG"/>
+        <measureMapping columnObjectName="Projection_5" columnName="LFIMG"/>
+      </measure>
+      <measure id="Final_Quantity" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Final_Quantity"/>
+        <measureMapping columnObjectName="Projection_5" columnName="Final_Quantity"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="174" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="551"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="551"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="97" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="174" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="174" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

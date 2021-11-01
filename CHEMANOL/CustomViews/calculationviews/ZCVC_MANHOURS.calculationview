@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MANHOURS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MANHOURS"/>
+  <metadata activatedAt="2021-10-25 13:07:32.0" changedAt="2021-10-25 13:05:34.502"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="ZEHSM_SAFE_M_HRS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZEHSM_SAFE_M_HRS"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$ZEHSM_SAFE_M_HRS$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZEHSM_SAFE_M_HRS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ZDATE"/>
+        <viewAttribute id="ZDIRECT_HIRE"/>
+        <viewAttribute id="ZCONTRACTOR"/>
+        <viewAttribute id="ZLTI_FLAG">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="X"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZEHSM_SAFE_M_HRS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDIRECT_HIRE" source="ZDIRECT_HIRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCONTRACTOR" source="ZCONTRACTOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZLTI_FLAG" source="ZLTI_FLAG"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ZDATE"/>
+        <viewAttribute id="ZDIRECT_HIRE"/>
+        <viewAttribute id="ZCONTRACTOR"/>
+        <viewAttribute id="ZLTI_FLAG"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDIRECT_HIRE" source="ZDIRECT_HIRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCONTRACTOR" source="ZCONTRACTOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZLTI_FLAG" source="ZLTI_FLAG"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <order byViewAttributeName="ZDATE" direction="DESC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ZDATE"/>
+        <viewAttribute id="ZDIRECT_HIRE"/>
+        <viewAttribute id="ZCONTRACTOR"/>
+        <viewAttribute id="ZLTI_FLAG"/>
+        <viewAttribute id="ZCUM_SMH"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Direct" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;ZDIRECT_HIRE&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Contractor" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;ZCONTRACTOR&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Man_Hours" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;Direct&quot;+  &quot;Contractor&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$ZEHSM_SAFE_M_HRS$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDIRECT_HIRE" source="ZDIRECT_HIRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCONTRACTOR" source="ZCONTRACTOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZLTI_FLAG" source="ZLTI_FLAG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ZDATE"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="ZDIRECT_HIRE"/>
+        <viewAttribute id="ZCONTRACTOR"/>
+        <viewAttribute id="ZLTI_FLAG"/>
+        <viewAttribute id="Direct"/>
+        <viewAttribute id="Contractor"/>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="ZCUM_SMH"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDIRECT_HIRE" source="ZDIRECT_HIRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCONTRACTOR" source="ZCONTRACTOR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZLTI_FLAG" source="ZLTI_FLAG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Direct" source="Direct"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Contractor" source="Contractor"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+      </input>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+      </input>
+      <joinAttribute name="MANDT_1"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="ZDATE_1"/>
+        <viewAttribute id="ZLTI_FLAG"/>
+        <viewAttribute id="Direct"/>
+        <viewAttribute id="Contractor"/>
+        <viewAttribute id="Man_Hours"/>
+        <viewAttribute id="ZDATE"/>
+        <viewAttribute id="ZCUM_SMH"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Condition" length="1" expressionLanguage="COLUMN_ENGINE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          <formula>if(isnull(&quot;ZDATE&quot;),'Y',IF(&quot;ZDATE_1&quot;>= &quot;ZDATE&quot;,'Y','N'))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE_1" source="ZDATE_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZLTI_FLAG" source="ZLTI_FLAG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Direct" source="Direct"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Contractor" source="Contractor"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Man_Hours" source="Man_Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZDATE" source="ZDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ZCUM_SMH" source="ZCUM_SMH"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT_1" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_2" columnName="MANDT_1"/>
+      </attribute>
+      <attribute id="ZDATE_1" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZDATE"/>
+        <keyMapping columnObjectName="Projection_2" columnName="ZDATE_1"/>
+      </attribute>
+      <attribute id="ZLTI_FLAG" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZLTI_FLAG"/>
+        <keyMapping columnObjectName="Projection_2" columnName="ZLTI_FLAG"/>
+      </attribute>
+      <attribute id="Condition" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Condition"/>
+        <keyMapping columnObjectName="Projection_2" columnName="Condition"/>
+      </attribute>
+      <attribute id="ZCUM_SMH" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Projection_2" columnName="ZCUM_SMH"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Direct" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Direct"/>
+        <measureMapping columnObjectName="Projection_2" columnName="Direct"/>
+      </measure>
+      <measure id="Contractor" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Contractor"/>
+        <measureMapping columnObjectName="Projection_2" columnName="Contractor"/>
+      </measure>
+      <measure id="Man_Hours" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Man_Hours"/>
+        <measureMapping columnObjectName="Projection_2" columnName="Man_Hours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="417"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

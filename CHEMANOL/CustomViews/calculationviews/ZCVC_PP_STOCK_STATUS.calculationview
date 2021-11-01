@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PP_STOCK_STATUS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PP_STOCK_STATUS"/>
+  <metadata activatedAt="2021-10-26 12:08:46.0" changedAt="2021-10-26 12:06:44.739"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="44"/>
+  <dataSources>
+    <DataSource id="ZPP_PSS_SAC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZPP_PSS_SAC"/>
+    </DataSource>
+    <DataSource id="ZPP_MSS_SAC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZPP_MSS_SAC"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Product_Ztable">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QUANTITY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOCAT_TXT"/>
+        <viewAttribute id="DATES"/>
+        <viewAttribute id="PRODUCT_T"/>
+        <viewAttribute id="DESPATCH"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZPP_PSS_SAC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAT_TXT" source="LOCAT_TXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATES" source="DATES"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESPATCH" source="DESPATCH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="RawMaterial_Ztable">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="STOCK"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR_T"/>
+        <viewAttribute id="PRODUCT_T"/>
+        <viewAttribute id="DATES"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZPP_MSS_SAC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOCK" source="STOCK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_T" source="MATNR_T"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATES" source="DATES"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Product_Stock_status" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QUANTITY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOCAT_TXT"/>
+        <viewAttribute id="DATES"/>
+        <viewAttribute id="PRODUCT_T"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Quantity" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;QUANTITY&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="35" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Product Stock Status'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_Today" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)+midstr(string(now()),6,2)+MIDSTR(STRING(adddays(now(), -1)),9,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Product_Ztable">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAT_TXT" source="LOCAT_TXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATES" source="DATES"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+      </input>
+      <filter>&quot;DATES&quot;= &quot;Date_Today&quot;</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="RawMaterial_Status" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR_T"/>
+        <viewAttribute id="STOCK"/>
+        <viewAttribute id="DATES"/>
+        <viewAttribute id="PRODUCT_T"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Quantity" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;STOCK&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="35" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Raw Material Stock'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_Today" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)+midstr(string(now()),6,2)+MIDSTR(STRING(adddays(now(), -1)),9,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#RawMaterial_Ztable">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_T" source="MATNR_T"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOCK" source="STOCK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATES" source="DATES"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+      </input>
+      <filter>&quot;DATES&quot;= &quot;Date_Today&quot;</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MATNR_T" transparentFilter="false"/>
+        <viewAttribute id="Quantity" transparentFilter="false"/>
+        <viewAttribute id="LOCAT_TXT" transparentFilter="false"/>
+        <viewAttribute id="PRODUCT_T" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Product_Stock_status">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR_T" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Quantity" source="Quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAT_TXT" source="LOCAT_TXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#RawMaterial_Status">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_T" source="MATNR_T"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Quantity" source="Quantity"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="LOCAT_TXT" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_T" source="PRODUCT_T"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="KPI" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="MATNR_T" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MATNR_T"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATNR_T"/>
+      </attribute>
+      <attribute id="LOCAT_TXT" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="LOCAT_TXT"/>
+        <keyMapping columnObjectName="Union_1" columnName="LOCAT_TXT"/>
+      </attribute>
+      <attribute id="PRODUCT_T" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="PRODUCT_T"/>
+        <keyMapping columnObjectName="Union_1" columnName="PRODUCT_T"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Quantity" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="Union_1" columnName="Quantity"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="133" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Product_Ztable" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="38" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="RawMaterial_Ztable" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="228" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Product_Stock_status" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="64" width="172"/>
+      </shape>
+      <shape expanded="true" modelObjectName="RawMaterial_Status" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="208" y="281"/>
+        <rectangleSize height="64" width="181"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="112" y="165"/>
+        <rectangleSize height="102" width="182"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

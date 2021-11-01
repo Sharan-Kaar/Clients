@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_TEST" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_TEST"/>
+  <metadata changedAt="2021-10-19 10:40:38.0" createdAt="2021-10-19 10:38:52.994"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="34"/>
+  <dataSources>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+    <DataSource id="ZLO_SHIP_TRACK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ZLO_SHIP_TRACK"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RLDNR"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="BELNR"/>
+        <viewAttribute id="RYEAR"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="HSL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BELNR" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RYEAR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="BAYAN"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZLO_SHIP_TRACK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BAYAN" source="BAYAN"/>
+      </input>
+      <filter>(&quot;BAYAN&quot; !='')and (&quot;BAYAN&quot;!='LOCAL')</filter>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCLNT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCLNT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RCLNT"/>
+      </attribute>
+      <attribute id="RLDNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RLDNR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RLDNR"/>
+      </attribute>
+      <attribute id="RBUKRS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RBUKRS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RBUKRS"/>
+      </attribute>
+      <attribute id="BELNR" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BELNR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="BELNR"/>
+      </attribute>
+      <attribute id="RYEAR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RYEAR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RYEAR"/>
+      </attribute>
+      <attribute id="RACCT" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RACCT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RACCT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HSL" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Projection_1" columnName="HSL"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="40" y="230"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="120" y="171"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

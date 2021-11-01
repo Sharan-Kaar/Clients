@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_EHS_CLASSIFICATIONS_SAFETY_OBS_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_EHS_CLASSIFICATIONS_SAFETY_OBS_DASHBOARD"/>
+  <metadata activatedAt="2021-10-24 19:16:55.0" changedAt="2021-10-19 10:50:40.464" createdAt="2021-10-19 10:50:32.632"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="51"/>
+  <dataSources>
+    <DataSource id="EHHSSD_INC_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_ROOT"/>
+    </DataSource>
+    <DataSource id="EHHSSD_INC_INCGR" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_INCGR"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_2$$$$EHHSSD_INC_INCGR$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_INCGR"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_1$$$$EHHSSD_INC_ROOT$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_ROOT"/>
+    </DataSource>
+    <DataSource id="EHHSSC_SO_GRP_T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSC_SO_GRP_T"/>
+    </DataSource>
+    <DataSource id="EHHSSC_INC_GRP_T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSC_INC_GRP_T"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="STATUS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="00"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;DATETIME_CR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#EHHSSD_INC_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="INC_GROUP"/>
+        <viewAttribute id="SO_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSD_INC_INCGR">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="INC_GROUP"/>
+        <viewAttribute id="SO_GROUP"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="DATETIME_CH"/>
+        <viewAttribute id="USER_ID_CH"/>
+        <viewAttribute id="NM_GROUP"/>
+        <viewAttribute id="EEW_INC_INCGR_D"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_2$$$$EHHSSD_INC_INCGR$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CH" source="DATETIME_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CH" source="USER_ID_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NM_GROUP" source="NM_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EEW_INC_INCGR_D" source="EEW_INC_INCGR_D"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CATEGORY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="001"/>
+        </viewAttribute>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="STATUS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="00"/>
+        </viewAttribute>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="DATETIME_CH"/>
+        <viewAttribute id="USER_ID_CH"/>
+        <viewAttribute id="ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;DATETIME_CR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_1$$$$EHHSSD_INC_ROOT$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CH" source="DATETIME_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CH" source="USER_ID_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="INC_GROUP"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      </input>
+      <input node="#CopyOfProjection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="PARENT_KEY"/>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="INC_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="INC_GRP_DESC" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;INC_GROUP&quot;='EHHSS_IGR_RELEASE','Environment',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_FIR','Fire/Smoke/Property Damage',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_PS1','Process safety - Tier 1',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_PS2','Process safety - Tier 2',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_REL','Reliability',if(&quot;INC_GROUP&quot;='EHHSS_IGR_OCC_INC','Safety(Injury/Illness)',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_SAF','Safety(Property Damage/Fire)',if(&quot;INC_GROUP&quot;='ZEHHSS_IGR_SEC','Security',if(&quot;INC_GROUP&quot;='EHHSS_IGR_NOT_OF_VIOL','Notice of violation',&quot;INC_GROUP&quot;)))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="INC_GRP_DESC"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="INC_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+      </input>
+      <windowFunction dynamicPartitionAttributes="false">
+        <partitionViewAttributeName>PARENT_KEY</partitionViewAttributeName>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <order byViewAttributeName="SEVERITY" direction="ASC"/>
+        <rankThreshold>
+          <value>1</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="INC_GRP_DESC"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="INC_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'INCIDENT_CLASSIFICATION'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CATEGORY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="003"/>
+        </viewAttribute>
+        <viewAttribute id="STATUS"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="DATETIME_CR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="Date_1" expressionLanguage="COLUMN_ENGINE">
+          <formula>date(&quot;DATETIME_CR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="SO_GROUP"/>
+        <viewAttribute hidden="true" id="JOIN$DB_KEY$PARENT_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DB_KEY$PARENT_KEY" source="DB_KEY"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DB_KEY$PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$DB_KEY$PARENT_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="SO_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'SAFETY_OBS_CLASSIFICATION'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="SO_GRP_DESC" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;SO_GROUP&quot;='ZEHS_SO_19_CEE','Condition of emergency equipment',if(&quot;SO_GROUP&quot;='ZEHS_SO_11_CFB','Crane/forklift/boom truck',if(&quot;SO_GROUP&quot;='ZEHS_SO_08_EH','Electrical hazard',if(&quot;SO_GROUP&quot;='ZEHS_SO_06_EOM','Equipment Operation &amp; Maintenance',if(&quot;SO_GROUP&quot;='ZEHS_SO_15_GCR','Gas/chemical release',if(&quot;SO_GROUP&quot;='ZEHS_SO_22_HH','Health hygiene(chemical exposure/noise)',if(&quot;SO_GROUP&quot;='ZEHS_SO_16_HK','Housekeeping',if(&quot;SO_GROUP&quot;='ZEHS_SO_12_LA','Laboratory areas',if(&quot;SO_GROUP&quot;='ZEHS_SO_14_CIMS','Management system noncompliance(CIMS)',if(&quot;SO_GROUP&quot;='ZEHS_SO_07_MH','Material handling/loading',if(&quot;SO_GROUP&quot;='ZEHS_SO_23_MS','Material stacking',if(&quot;SO_GROUP&quot;='ZEHS_SO_03_NE','Narrow Escapes',if(&quot;SO_GROUP&quot;='ZEHS_SO_18_OEE','Obstruction to emergency equipment',if(&quot;SO_GROUP&quot;='ZEHS_SO_27_OTH','Others',if(&quot;SO_GROUP&quot;='ZEHS_SO_25_RAD','Radiation',if(&quot;SO_GROUP&quot;='ZEHS_SO_21_RE','Related to Excavation',if(&quot;SO_GROUP&quot;='ZEHS_SO_02_RBH','Risky Behavior and Horseplay',if(&quot;SO_GROUP&quot;='ZEHS_SO_24_SCA','Scaffold',if(&quot;SO_GROUP&quot;='ZEHS_SO_05_SHC','Signage &amp; Hazard Communication',if(&quot;SO_GROUP&quot;='ZEHS_SO_01_STF','Slips, Trips and Fall',if(&quot;SO_GROUP&quot;='ZEHS_SO_20_SAC','Spillage/area contamination',if(&quot;SO_GROUP&quot;='ZEHS_SO_10_SP','Structural Platform(Grating)',if(&quot;SO_GROUP&quot;='ZEHS_SO_09_TRA','Traffic',if(&quot;SO_GROUP&quot;='ZEHS_SO_13_UE','Unauthorized entry to an area',if(&quot;SO_GROUP&quot;='ZEHS_SO_26_UP','Unsafe practices',if(&quot;SO_GROUP&quot;='ZEHS_SO_17_WM','Waste management(waste segregation)',if(&quot;SO_GROUP&quot;='ZEHS_SO_04_WH','Working at Heights',if(&quot;SO_GROUP&quot;='EHHSS_SOG_UNS_USE_MAT','Unsafe use of material',&quot;SO_GROUP&quot;))))))))))))))))))))))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="CODE"/>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="LANGUAGE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSC_SO_GRP_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SO_GROUP"/>
+        <viewAttribute id="SO_GRP_DESC"/>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="CODE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GRP_DESC" source="SO_GRP_DESC"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="CODE"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="SO_GROUP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SO_GROUP"/>
+        <viewAttribute id="SO_GRP_DESC"/>
+        <viewAttribute id="DESCRIPTION"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SO_GRP_DESC" source="SO_GRP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="LANGUAGE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="CODE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSC_INC_GRP_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="INC_GRP_DESC" transparentFilter="false"/>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="CODE"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Date"/>
+        <viewAttribute id="SEVERITY"/>
+        <viewAttribute id="INC_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="INC_GRP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+      </input>
+      <joinAttribute name="INC_GROUP"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Date" transparentFilter="false"/>
+        <viewAttribute id="INC_GRP_DESC" transparentFilter="false"/>
+        <viewAttribute id="INC_GROUP" transparentFilter="false"/>
+        <viewAttribute id="SEVERITY" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="SO_GROUP"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SEVERITY" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GROUP" source="INC_GROUP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEVERITY" source="SEVERITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date" source="Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INC_GRP_DESC" source="DESCRIPTION"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="KPI" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Date" order="4" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="Date"/>
+      </attribute>
+      <attribute id="INC_GRP_DESC" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="INC_GRP_DESC"/>
+        <keyMapping columnObjectName="Union_1" columnName="INC_GRP_DESC"/>
+      </attribute>
+      <attribute id="INC_GROUP" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="INC_GROUP"/>
+        <keyMapping columnObjectName="Union_1" columnName="INC_GROUP"/>
+      </attribute>
+      <attribute id="SEVERITY" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="SEVERITY"/>
+        <keyMapping columnObjectName="Union_1" columnName="SEVERITY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="1" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="743"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="551"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="473"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="377"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="551"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="377"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="281"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="743"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="743"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

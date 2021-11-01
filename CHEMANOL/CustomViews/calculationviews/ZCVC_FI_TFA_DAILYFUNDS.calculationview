@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_TFA_DAILYFUNDS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_TFA_DAILYFUNDS"/>
+  <metadata activatedAt="2021-10-26 13:01:47.0" changedAt="2021-10-26 12:59:50.238"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="44"/>
+  <dataSources>
+    <DataSource id="ZFIT_SOFP_GL" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_SOFP_GL"/>
+    </DataSource>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="COL4"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFIT_SOFP_GL">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RBUKRS"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="RLDNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Current_Year" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+      </input>
+      <filter>(&quot;RBUKRS&quot; ='1000') AND (&quot;GJAHR&quot;= &quot;Current_Year&quot;) AND (&quot;RLDNR&quot; = '0L')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="GL"/>
+        <viewAttribute id="COL4"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="COL1"/>
+        <viewAttribute id="COL2"/>
+        <viewAttribute id="COL3"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$RCLNT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL4" source="COL4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL1" source="COL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL2" source="COL2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COL3" source="COL3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$RCLNT" source="MANDT"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL" source="RACCT"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$RCLNT"/>
+      <joinAttribute name="GL"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCLNT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCLNT"/>
+        <keyMapping columnObjectName="Join_1" columnName="RCLNT"/>
+      </attribute>
+      <attribute id="RACCT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RACCT"/>
+        <keyMapping columnObjectName="Join_1" columnName="RACCT"/>
+      </attribute>
+      <attribute id="POPER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POPER"/>
+        <keyMapping columnObjectName="Join_1" columnName="POPER"/>
+      </attribute>
+      <attribute id="GL" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL"/>
+        <keyMapping columnObjectName="Join_1" columnName="GL"/>
+      </attribute>
+      <attribute id="COL4" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL4"/>
+        <keyMapping columnObjectName="Join_1" columnName="COL4"/>
+      </attribute>
+      <attribute id="GJAHR" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR"/>
+        <keyMapping columnObjectName="Join_1" columnName="GJAHR"/>
+      </attribute>
+      <attribute id="COL1" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL1"/>
+        <keyMapping columnObjectName="Join_1" columnName="COL1"/>
+      </attribute>
+      <attribute id="COL2" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL2"/>
+        <keyMapping columnObjectName="Join_1" columnName="COL2"/>
+      </attribute>
+      <attribute id="COL3" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COL3"/>
+        <keyMapping columnObjectName="Join_1" columnName="COL3"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HSL" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Join_1" columnName="HSL"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="20" y="260"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

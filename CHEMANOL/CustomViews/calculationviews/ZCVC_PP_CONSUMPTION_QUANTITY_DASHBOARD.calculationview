@@ -1,0 +1,1742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PP_CONSUMPTION_QUANTITY_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PP_CONSUMPTION_QUANTITY_DASHBOARD"/>
+  <metadata activatedAt="2021-10-26 12:14:20.0" changedAt="2021-10-26 12:12:17.589"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="ZPP_PRDCOMP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZPP_PRDCOMP"/>
+    </DataSource>
+    <DataSource id="NSDM_V_MSEG" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="NSDM_V_MSEG"/>
+    </DataSource>
+    <DataSource id="Projection_3$$$$NSDM_V_MSEG$$" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="NSDM_V_MSEG"/>
+    </DataSource>
+    <DataSource id="ZPP_SPEC_CON_SAC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZPP_SPEC_CON_SAC"/>
+    </DataSource>
+    <DataSource id="Projection_12$$$$ZPP_PRDCOMP$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZPP_PRDCOMP"/>
+    </DataSource>
+    <DataSource id="MBVMBEW" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MBVMBEW"/>
+    </DataSource>
+    <DataSource id="Unconsumed_Not_in_MBEW$$$$MBVMBEW$$" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MBVMBEW"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="Aggregation_7$$$$NSDM_V_MSEG$$" type="DATA_BASE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="NSDM_V_MSEG"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATPRD"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MATCMP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZPP_PRDCOMP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Prod">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATPRD"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MATCMP"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Product'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Comp_Material" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;MATPRD&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATPRD"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Int" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Component'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Comp_Material" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;MATCMP&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATPRD"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="Comp_Material"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Prod">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MJAHR"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BWART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="261"/>
+            <operands value="262"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="DMBTR"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="MENGE"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="DMBTR_NEW_Comp" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;BWART&quot;='262',&quot;DMBTR&quot;*-1,&quot;DMBTR&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="MENGE_NEW_Comp" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;BWART&quot;='262',&quot;MENGE&quot;*-1,&quot;MENGE&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_Year" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;BUDAT_MKPF&quot;,4)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#NSDM_V_MSEG">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MJAHR" source="MJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR" source="DMBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="Comp_Material"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Comp_Material"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_20">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Comp_Material"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Comp_Mat_v1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Comp_Material&quot;='PARA','PARA-IN-SILO',&quot;Comp_Material&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="DMBTR"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="MENGE"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="Comp_Material"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute hidden="true" id="JOIN$Comp_Mat_v1$MATNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_20">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Comp_Mat_v1$MATNR" source="Comp_Mat_v1"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR" source="DMBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="Date_Year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Comp_Mat_v1$MATNR" source="MATNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="GJAHR"/>
+      <joinAttribute name="JOIN$Comp_Mat_v1$MATNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MJAHR"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="DMBTR"/>
+        <viewAttribute id="MENGE"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="AUFNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="DMBTR_NEW" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;BWART&quot;='102' OR &quot;BWART&quot;='532',&quot;DMBTR&quot;*-1,&quot;DMBTR&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="MENGE_NEW" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;BWART&quot;='102' OR &quot;BWART&quot;='532',&quot;MENGE&quot;*-1,&quot;MENGE&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Matnr_New" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(match(&quot;MATNR&quot;,'AF-*-STAB'),'AF-*-STAB',&quot;MATNR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_3$$$$NSDM_V_MSEG$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MJAHR" source="MJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR" source="DMBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+      </input>
+      <filter>(in (&quot;BWART&quot;,'101','102','531','532')) AND( (in (&quot;MATNR&quot;,'SG','PARA-IN-SILO','UF-85','FORMALDEHYDE','AF-37-UNSTAB','OUF401','OUF402','OUF404','MUF505','MUF507','HDR-AUH983','HDR-AU7030','PENTAM','NAFORMATE','NAFORMATE1','PENTAX1','PENTAX','PENTAL','ACETALDEHYDE','METHANOL','CO','DMF-100-S','MMA-100-S','DMA-100-S','TMA-100-S','UF201P','UF301P','MFSOLN-48','MFSOLN-50','MF101L','MF102L','MF103L','MF104L','MF105L','MF106L','MF320L','MF550L','MF101P','MF102P','MF103P','MF104P','MF105P','MF106P','MF320P','MF550P','NF801PNG','NF801PLS'))&#xD;
+ OR match( &quot;MATNR&quot;,'HMTC-*-STAB') or match(&quot;MATNR&quot;,'AF-*-STAB') or match(&quot;MATNR&quot;,'MF701L-NG-40')or match(&quot;MATNR&quot;,'NF801L-*-43'))</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="MATNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="MATNR_v1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATNR&quot;='PARA','PARA-IN-SILO',&quot;MATNR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZPP_SPEC_CON_SAC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Cal_ProdName" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="DMBTR_NEW"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="MENGE_NEW"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute hidden="true" id="JOIN$MATNR_v1$Matnr_New"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR_v1$Matnr_New" source="MATNR_v1"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW" source="DMBTR_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR_v1$Matnr_New" source="Matnr_New"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+      <joinAttribute name="JOIN$MATNR_v1$Matnr_New"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="DMBTR_NEW"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="MENGE_NEW"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Cal_ProdName">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW" source="DMBTR_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute aggregationType="sum" id="DMBTR_NEW"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute aggregationType="sum" id="MENGE_NEW"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW" source="DMBTR_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Matnr_New"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute hidden="true" id="JOIN$MATNR_v1$Matnr_New"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR_v1$Matnr_New" source="MATNR_v1"/>
+      </input>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Matnr_New" source="Matnr_New"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR_v1$Matnr_New" source="Matnr_New"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+      <joinAttribute name="JOIN$MATNR_v1$Matnr_New"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Matnr_New"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Matnr_New" source="Matnr_New"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="PRODUCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="Comp_Material"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="DMBTR"/>
+        <viewAttribute id="MENGE"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Material" source="Comp_Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR" source="DMBTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE" source="MENGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="PRODUCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+      </input>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="AUFNR"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="PRODUCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="SHKZG"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="Int"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute aggregationType="sum" id="DMBTR_NEW_Comp"/>
+        <viewAttribute aggregationType="sum" id="MENGE_NEW_Comp"/>
+        <viewAttribute id="PRODUCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SHKZG" source="SHKZG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="Int">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Component"/>
+        </viewAttribute>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="PRODUCT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Comp'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Int" source="Int"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="DMBTR_NEW"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="MEINS"/>
+        <viewAttribute id="MENGE_NEW"/>
+        <viewAttribute id="BWART"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Product'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_SQL" expressionLanguage="COLUMN_ENGINE">
+          <formula> DATE(&quot;BUDAT_MKPF&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Date_SQL_copy_1" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(now()),4)+midstr(string(now()),6,2)+midstr(STRING(adddays(NOW(),-1)),9,2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW" source="DMBTR_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MEINS" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWART" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+      <filter>(&quot;BUDAT_MKPF&quot; &lt;= &quot;Date_SQL_copy_1&quot;)</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="MATPRD"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Comp_Mat_v1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATPRD&quot;='PARA','PARA-IN-SILO',&quot;MATPRD&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_12$$$$ZPP_PRDCOMP$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATPRD" source="MATPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+      </input>
+      <input node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="Comp_Mat_v1"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="GJAHR"/>
+      <joinAttribute name="PRODUCT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_13">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BWKEY">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="VERPR"/>
+        <viewAttribute id="STPRS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Standard_Price" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;VERPR&quot;=0)or isnull(&quot;VERPR&quot;),&quot;STPRS&quot;,&quot;VERPR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#MBVMBEW">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="BWKEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR" source="VERPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STPRS" source="STPRS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_14">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="MENGE_NEW_Comp"/>
+        <viewAttribute id="DMBTR_NEW_Comp"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ConsumedorNot" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MATNR&quot;= &quot;MATCMP&quot;,'C','UC')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Dmbtr_Act_Final" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ConsumedorNot&quot;='C',&quot;DMBTR_NEW_Comp&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Menge_Act_Final" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ConsumedorNot&quot;='C',&quot;MENGE_NEW_Comp&quot;,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW_Comp" source="MENGE_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DMBTR_NEW_Comp" source="DMBTR_NEW_Comp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_16">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="ConsumedorNot"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConsumedorNot" source="ConsumedorNot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Unconsumed_Not_in_MBEW">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="VERPR"/>
+        <viewAttribute id="STPRS"/>
+        <viewAttribute id="BWTAR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="NEW"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="VERPR_1" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;VERPR&quot;=0)or isnull(&quot;VERPR&quot;),0,&quot;VERPR&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Unconsumed_Not_in_MBEW$$$$MBVMBEW$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="BWKEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR" source="VERPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STPRS" source="STPRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWTAR" source="BWTAR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="ConsumedorNot"/>
+        <viewAttribute id="Standard_Price"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_16">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConsumedorNot" source="ConsumedorNot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+      <input node="#Projection_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Standard_Price" source="Standard_Price"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="MATCMP"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_15">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="ConsumedorNot"/>
+        <viewAttribute id="Standard_Price"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Comp_there_in_mbewornot" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;MATNR&quot;),'N','Y')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConsumedorNot" source="ConsumedorNot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Standard_Price" source="Standard_Price"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="Comp_there_in_mbewornot"/>
+        <viewAttribute id="Standard_Price"/>
+        <viewAttribute id="ConsumedorNot"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="VERPR"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="VERPR_1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_there_in_mbewornot" source="Comp_there_in_mbewornot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Standard_Price" source="Standard_Price"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConsumedorNot" source="ConsumedorNot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+      <input node="#Unconsumed_Not_in_MBEW">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR" source="VERPR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_1" source="VERPR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="MATCMP"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_17">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="Standard_Price"/>
+        <viewAttribute id="Comp_there_in_mbewornot"/>
+        <viewAttribute id="ConsumedorNot"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="VERPR_1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="CMP_DESC"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="VERPR_FINAL" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;Comp_there_in_mbewornot&quot;='Y',&quot;Standard_Price&quot;,&quot;VERPR_1&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Standard_Price" source="Standard_Price"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_there_in_mbewornot" source="Comp_there_in_mbewornot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ConsumedorNot" source="ConsumedorNot"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_1" source="VERPR_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute aggregationType="sum" id="CMP_QTY"/>
+        <viewAttribute aggregationType="sum" id="VERPR_FINAL"/>
+        <viewAttribute aggregationType="sum" id="Dmbtr_Act_Final"/>
+        <viewAttribute aggregationType="sum" id="Menge_Act_Final"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="GJAHR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_17">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL" source="VERPR_FINAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_18">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="VERPR_FINAL"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="GJAHR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Comp_Qty_Final" length="30" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;CMP_QTY&quot;/ &quot;Count&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="VERPR_FINAL_V1" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;VERPR_FINAL&quot;/ &quot;Count&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Aggregation_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL" source="VERPR_FINAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_19">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="VERPR_FINAL_V1"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Comp_Qty_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="CMP_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_18">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_22">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_7$$$$NSDM_V_MSEG$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DATE_SAP"/>
+        <viewAttribute id="DATE_SQL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_22">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="DATE_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <input node="#Aggregation_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SAP" source="BUDAT_MKPF"/>
+      </input>
+      <joinAttribute name="DATE_SAP"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_9" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VERPR_FINAL_V1"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Comp_Qty_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="DATE_SQL"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="BUDAT_MKPF_1"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute hidden="true" id="JOIN$Dummy$Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_19">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <input node="#Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATE_SQL" source="DATE_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF_1" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$Dummy$Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="JOIN$Dummy$Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_23">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="VERPR_FINAL_V1"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Comp_Qty_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="BUDAT_MKPF_1"/>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="CMP_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Dmbtr_Act_Final_V1" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BUDAT_MKPF&quot;= &quot;BUDAT_MKPF_1&quot;,&quot;Menge_Act_Final&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="Count_V1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BUDAT_MKPF&quot;= &quot;BUDAT_MKPF_1&quot;,&quot;Count&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Cmp_Act_Final_V1" length="34" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;BUDAT_MKPF&quot;= &quot;BUDAT_MKPF_1&quot;,&quot;Comp_Qty_Final&quot;,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF_1" source="BUDAT_MKPF_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="VERPR_FINAL_V1"/>
+        <viewAttribute aggregationType="sum" id="Dmbtr_Act_Final"/>
+        <viewAttribute aggregationType="sum" id="Menge_Act_Final"/>
+        <viewAttribute aggregationType="sum" id="Comp_Qty_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute aggregationType="sum" id="Count"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute aggregationType="sum" id="Count_V1"/>
+        <viewAttribute aggregationType="sum" id="Dmbtr_Act_Final_V1"/>
+        <viewAttribute id="BUDAT_MKPF_1"/>
+        <viewAttribute id="PRODUCT" transparentFilter="false"/>
+        <viewAttribute aggregationType="sum" id="CMP_QTY"/>
+        <viewAttribute aggregationType="sum" id="Cmp_Act_Final_V1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_23">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_V1" source="Count_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final_V1" source="Dmbtr_Act_Final_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF_1" source="BUDAT_MKPF_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cmp_Act_Final_V1" source="Cmp_Act_Final_V1"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" dynamic="false" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="MENGE_NEW"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="Date_SQL"/>
+        <viewAttribute id="VERPR_FINAL_V1"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Comp_Qty_Final"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="Count_V1"/>
+        <viewAttribute id="Dmbtr_Act_Final_V1"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="Cmp_Act_Final_V1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+      </input>
+      <input node="#Aggregation_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_V1" source="Count_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final_V1" source="Dmbtr_Act_Final_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cmp_Act_Final_V1" source="Cmp_Act_Final_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      </input>
+      <joinAttribute name="BUDAT_MKPF"/>
+      <joinAttribute name="PRODUCT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_21">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="Dmbtr_Act_Final"/>
+        <viewAttribute id="Menge_Act_Final"/>
+        <viewAttribute id="Comp_Qty_Final"/>
+        <viewAttribute id="CMP_DESC"/>
+        <viewAttribute id="MENGE_NEW"/>
+        <viewAttribute id="VERPR_FINAL_V1"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="BUDAT_MKPF"/>
+        <viewAttribute id="Date_SQL"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MATCMP"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Count_V1"/>
+        <viewAttribute id="Dmbtr_Act_Final_V1"/>
+        <viewAttribute id="CMP_QTY"/>
+        <viewAttribute id="Cmp_Act_Final_V1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Product_v1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PRODUCT&quot;='PARA-IN-SILO','PARA',&quot;PRODUCT&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final" source="Dmbtr_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Menge_Act_Final" source="Menge_Act_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Comp_Qty_Final" source="Comp_Qty_Final"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_DESC" source="CMP_DESC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MENGE_NEW" source="MENGE_NEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERPR_FINAL_V1" source="VERPR_FINAL_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_MKPF" source="BUDAT_MKPF"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATCMP" source="MATCMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count_V1" source="Count_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dmbtr_Act_Final_V1" source="Dmbtr_Act_Final_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CMP_QTY" source="CMP_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Cmp_Act_Final_V1" source="Cmp_Act_Final_V1"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_21">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT_OLD" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_OLD"/>
+        <keyMapping columnObjectName="Projection_21" columnName="PRODUCT"/>
+      </attribute>
+      <attribute id="CMP_DESC" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CMP_DESC"/>
+        <keyMapping columnObjectName="Projection_21" columnName="CMP_DESC"/>
+      </attribute>
+      <attribute id="BUDAT_MKPF" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUDAT_MKPF"/>
+        <keyMapping columnObjectName="Projection_21" columnName="BUDAT_MKPF"/>
+      </attribute>
+      <attribute id="Date_SQL" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date_SQL"/>
+        <keyMapping columnObjectName="Projection_21" columnName="Date_SQL"/>
+      </attribute>
+      <attribute id="GJAHR" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR"/>
+        <keyMapping columnObjectName="Projection_21" columnName="GJAHR"/>
+      </attribute>
+      <attribute id="MATCMP" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATCMP"/>
+        <keyMapping columnObjectName="Projection_21" columnName="MATCMP"/>
+      </attribute>
+      <attribute id="MANDT" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_21" columnName="MANDT"/>
+      </attribute>
+      <attribute id="PRODUCT" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT"/>
+        <keyMapping columnObjectName="Projection_21" columnName="Product_v1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Dmbtr_Act_Final_OLD" order="2" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Dmbtr_Act_Final_OLD"/>
+        <measureMapping columnObjectName="Projection_21" columnName="Dmbtr_Act_Final"/>
+      </measure>
+      <measure id="Menge_Act_Final" order="3" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Menge_Act_Final"/>
+        <measureMapping columnObjectName="Projection_21" columnName="Menge_Act_Final"/>
+      </measure>
+      <measure id="MENGE_NEW" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MENGE_NEW"/>
+        <measureMapping columnObjectName="Projection_21" columnName="MENGE_NEW"/>
+      </measure>
+      <measure id="VERPR_FINAL_V1" order="6" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VERPR_FINAL_V1"/>
+        <measureMapping columnObjectName="Projection_21" columnName="VERPR_FINAL_V1"/>
+      </measure>
+      <measure id="Count_OLD" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count_OLD"/>
+        <measureMapping columnObjectName="Projection_21" columnName="Count"/>
+      </measure>
+      <measure id="Count" order="13" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_21" columnName="Count_V1"/>
+      </measure>
+      <measure id="Menge_Act_Final_v1" order="14" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Menge_Act_Final_v1"/>
+        <measureMapping columnObjectName="Projection_21" columnName="Dmbtr_Act_Final_V1"/>
+      </measure>
+      <measure id="Cmp_Act_Final_V1" hidden="false" order="16" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_21" columnName="Cmp_Act_Final_V1"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="329" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="2393"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Prod" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="2315"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="2315"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="2199"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1947"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="2121"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="2043"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_20" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="98" y="1947"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1851"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="483" y="2043"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="2043"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Cal_ProdName" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="1947"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="495"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="417"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1947"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1851"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1773"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1773"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1677"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1599"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1521"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1443"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1347"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1191"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1269"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_16" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1191"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Unconsumed_Not_in_MBEW" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="1017"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1095"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="1017"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="921"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_17" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="843"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="765"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_18" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="687"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_19" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="591"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_22" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="687"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="714" y="687"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="591"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="495"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_23" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="339"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_21" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

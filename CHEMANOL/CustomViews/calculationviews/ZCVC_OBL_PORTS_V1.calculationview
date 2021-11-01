@@ -1,0 +1,2040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_OBL_PORTS_V1" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_OBL_DASHBOARD"/>
+  <metadata activatedAt="2021-10-24 13:25:34.0" changedAt="2021-10-19 10:42:59.638" createdAt="2021-10-19 10:42:56.221"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="55"/>
+  <dataSources>
+    <DataSource id="LIKP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIKP"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="/SCMTMS/D_TORITE" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORITE"/>
+    </DataSource>
+    <DataSource id="/SCMTMS/D_TORROT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORROT"/>
+    </DataSource>
+    <DataSource id="Aggregation_3$$$$/SCMTMS/D_TORITE$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORITE"/>
+    </DataSource>
+    <DataSource id="/SCMTMS/D_TORSTP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORSTP"/>
+    </DataSource>
+    <DataSource id="/SAPAPO/LOC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SAPAPO/LOC"/>
+    </DataSource>
+    <DataSource id="ADRC" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ADRC"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_2$$$$/SCMTMS/D_TORSTP$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORSTP"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_4$$$$/SAPAPO/LOC$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SAPAPO/LOC"/>
+    </DataSource>
+    <DataSource id="/SAPAPO/LOCMAP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SAPAPO/LOCMAP"/>
+    </DataSource>
+    <DataSource id="KNA1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="KNA1"/>
+    </DataSource>
+    <DataSource id="Projection_16$$$$ADRC$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ADRC"/>
+    </DataSource>
+    <DataSource id="T005U" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T005U"/>
+    </DataSource>
+    <DataSource id="Projection_14$$$$LIPS$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_14$$$$LIPS$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Dispatch_Header">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="LFART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="ZSOR"/>
+            <operands value="ZSER"/>
+            <operands value="ZSPL"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WBSTK">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIKP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFART" source="LFART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTK" source="WBSTK"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Dispatch_Item">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="PDSTA">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PDSTA" source="PDSTA"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Dispatch" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="LFART"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LFIMG"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Dispatch_Header">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFART" source="LFART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <input node="#Dispatch_Item">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Dispatch">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="BASE_BTD_ID"/>
+        <viewAttribute id="REF_BO">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOR"/>
+        </viewAttribute>
+        <viewAttribute id="LOCAL_ITEM">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="R"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DocumentID" length="12" expressionLanguage="COLUMN_ENGINE">
+          <formula>Rightstr(&quot;BASE_BTD_ID&quot;,10)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#/SCMTMS/D_TORITE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_BTD_ID" source="BASE_BTD_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REF_BO" source="REF_BO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_ITEM" source="LOCAL_ITEM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="BASE_BTD_ID"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="MANDT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+      </input>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_BTD_ID" source="BASE_BTD_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="DocumentID"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="TOR_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/SCMTMS/D_TORROT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="ITEM_TYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="CONT"/>
+        </viewAttribute>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PLATENUMBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_3$$$$/SCMTMS/D_TORITE$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_TYPE" source="ITEM_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PLATENUMBER" source="PLATENUMBER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_13" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PLATENUMBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PLATENUMBER" source="PLATENUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="PARENT_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="TOR_ID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute hidden="true" id="JOIN$PARENT_KEY$DB_KEY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PARENT_KEY$DB_KEY" source="PARENT_KEY"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PARENT_KEY$DB_KEY" source="DB_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$PARENT_KEY$DB_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="TOR_ID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="STOP_CAT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="O"/>
+        </viewAttribute>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOG_LOCID"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Mode" length="25" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Sea/Air Route'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#/SCMTMS/D_TORSTP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="DB_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_17">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Empty_Container_Check" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;TURES_TCO&quot;='','X','')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="NonEmpty_Container_Check" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;TURES_TCO&quot;!='','X','')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_4">
+      <descriptions>
+        <comment text="For  DESC sorting the TURES_TCO Field so that Non empty value appears first."/>
+      </descriptions>
+      <viewAttributes>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="Empty_Container_Check"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_17">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Empty_Container_Check" source="Empty_Container_Check"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>TOR_ID</partitionViewAttributeName>
+        <order byViewAttributeName="TURES_TCO" direction="DESC"/>
+        <rankThreshold>
+          <value>100</value>
+        </rankThreshold>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="Empty_Container_Check"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Rank_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Empty_Container_Check" source="Empty_Container_Check"/>
+      </input>
+      <windowFunction dynamicPartitionAttributes="false">
+        <partitionViewAttributeName>STOP_ID</partitionViewAttributeName>
+        <partitionViewAttributeName>TOR_ID</partitionViewAttributeName>
+        <partitionViewAttributeName>DocumentID</partitionViewAttributeName>
+        <order byViewAttributeName="STOP_ID" direction="DESC"/>
+        <rankThreshold>
+          <value>5</value>
+        </rankThreshold>
+        <rankViewAttributeName>Rank_Column</rankViewAttributeName>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_19">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="Rank_Column">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+        </viewAttribute>
+        <viewAttribute id="Empty_Container_Check"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Rank_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Empty_Container_Check" source="Empty_Container_Check"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_19">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>TOR_ID</partitionViewAttributeName>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <partitionViewAttributeName>DocumentID</partitionViewAttributeName>
+        <order byViewAttributeName="STOP_ID" direction="ASC"/>
+        <rankThreshold>
+          <value>10</value>
+        </rankThreshold>
+        <rankViewAttributeName>Single_Entries</rankViewAttributeName>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="LOCTYPE">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="1100"/>
+            <operands value="1110"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/SAPAPO/LOC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_CAT" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID" transparentFilter="false"/>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOCNO"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LOG_LOCID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID" transparentFilter="false"/>
+        <viewAttribute id="STOP_CAT" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+      </input>
+      <windowFunction>
+        <partitionViewAttributeName>TOR_ID</partitionViewAttributeName>
+        <partitionViewAttributeName>MANDT</partitionViewAttributeName>
+        <order byViewAttributeName="STOP_ID" direction="ASC"/>
+        <rankThreshold>
+          <value>2</value>
+        </rankThreshold>
+        <rankViewAttributeName>Seq_no</rankViewAttributeName>
+      </windowFunction>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_16">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="ADDRNUMBER"/>
+        <viewAttribute id="COUNTRY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ADRC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_15" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID" transparentFilter="false"/>
+        <viewAttribute id="STOP_CAT" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="Seq_no"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute hidden="true" id="JOIN$ADRNUMMER$ADDRNUMBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Rank_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Seq_no" source="Seq_no"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ADRNUMMER$ADDRNUMBER" source="ADRNUMMER"/>
+      </input>
+      <input node="#CopyOfProjection_16">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ADRNUMMER$ADDRNUMBER" source="ADDRNUMBER"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$ADRNUMMER$ADDRNUMBER"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID" transparentFilter="false"/>
+        <viewAttribute id="STOP_CAT" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="Seq_no"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="COUNTRY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Port_category" length="45" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;LOCTYPE&quot;='1100' or &quot;LOCTYPE&quot;='1110') and &quot;Seq_no&quot;=1 and &quot;COUNTRY&quot;='SA','Port of Loading',if((&quot;LOCTYPE&quot;='1100' or &quot;LOCTYPE&quot;='1110') and &quot;Seq_no&quot;=2 and &quot;COUNTRY&quot;='SA','Port of Loading','Port of Destination'))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Seq_no" source="Seq_no"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="I"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Mode" length="25" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Land Route'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_2$$$$/SCMTMS/D_TORSTP$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="Single_Entries"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="NotElgible" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;Single_Entries&quot;>1,'NE','E')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Single_Entries" source="Single_Entries"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="Single_Entries"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="NotElgible" length="5" expressionLanguage="COLUMN_ENGINE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="NE"/>
+          <formula>if(&quot;Single_Entries&quot;>1,'NE','E')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Rank_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Single_Entries" source="Single_Entries"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID_1" transparentFilter="false"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="DocumentID_1"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="MANDT_1" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#CopyOfProjection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID_1" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID_1" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="TOR_ID"/>
+      <joinAttribute name="DocumentID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID_1" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="checker" length="20" expressionLanguage="COLUMN_ENGINE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+          <formula>if(isnull(&quot;TOR_ID_1&quot;),'E','NE')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID_1" source="TOR_ID_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+      <joinAttribute name="PARENT_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_4$$$$/SAPAPO/LOC$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#CopyOfProjection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOCNO"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="LOG_LOCID"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EXT_LOCNO"/>
+        <viewAttribute id="LOCNO"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/SAPAPO/LOCMAP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EXT_LOCNO" source="EXT_LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="EXT_LOCNO"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOG_LOCID"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOG_LOCID" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EXT_LOCNO" source="EXT_LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="LOCNO"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="REGIO"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="KUNNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#KNA1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGIO" source="REGIO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_16">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="ADDRNUMBER"/>
+        <viewAttribute id="COUNTRY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_16$$$$ADRC$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADDRNUMBER" source="ADDRNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_14" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="EXT_LOCNO"/>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute id="ADRNUMMER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EXT_LOCNO" source="EXT_LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADRNUMMER"/>
+      </input>
+      <input node="#Projection_16">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADRNUMMER" source="ADDRNUMBER"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ADRNUMMER"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_9" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="REGIO"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute hidden="true" id="JOIN$EXT_LOCNO$KUNNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EXT_LOCNO$KUNNR" source="EXT_LOCNO"/>
+      </input>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGIO" source="REGIO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EXT_LOCNO$KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="JOIN$EXT_LOCNO$KUNNR"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="BEZEI"/>
+        <viewAttribute id="BLAND"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T005U">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEZEI" source="BEZEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BLAND" source="BLAND"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_10" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="SPRAS"/>
+        <viewAttribute id="BEZEI"/>
+        <viewAttribute id="STOP_CAT"/>
+        <viewAttribute id="STOP_ID"/>
+        <viewAttribute id="LOCTYPE"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="LAND1_1"/>
+        <viewAttribute id="REGIO"/>
+        <viewAttribute id="COUNTRY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCTYPE" source="LOCTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1_1" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGIO" source="REGIO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEZEI" source="BEZEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGIO" source="BLAND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1_1" source="LAND1"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="REGIO"/>
+      <joinAttribute name="LAND1_1"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="BEZEI"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="COUNTRY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Port_category" length="45" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Port of Destination'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEZEI" source="BEZEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode"/>
+        <viewAttribute id="KUNNR"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCNO"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute id="BEZEI"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Port_category" length="45" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Port of Loading'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Location" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'PORT_JUBAIL'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BEZEI" source="BEZEI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="LOCNO" transparentFilter="false"/>
+        <viewAttribute id="KUNNR" transparentFilter="false"/>
+        <viewAttribute id="Port_category" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="BEZEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#CopyOfProjection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Port_category" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="LOCNO" transparentFilter="false"/>
+        <viewAttribute id="KUNNR" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Union_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCNO" source="LOCNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KUNNR" source="KUNNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="STOP_CAT" transparentFilter="false"/>
+        <viewAttribute id="STOP_ID" transparentFilter="false"/>
+        <viewAttribute id="DB_KEY" transparentFilter="false"/>
+        <viewAttribute id="Mode" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Port_category" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_CAT" source="STOP_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STOP_ID" source="STOP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="LOG_LOCID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="STOP_CAT" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="STOP_ID" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DB_KEY" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Mode" source="Mode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Port_category" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Port of Loading"/>
+        </viewAttribute>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Port of Loading'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_13">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Port_category" transparentFilter="false">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Port of Destination"/>
+        </viewAttribute>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Port of Destination'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_14">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="PDSTA">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_14$$$$LIPS$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PDSTA" source="PDSTA"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_11" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="Port_category" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#Projection_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DocumentID"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_14">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="PDSTA">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DeliveryCompleted_Flag" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;PDSTA&quot;='C','X','')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#CopyOfProjection_14$$$$LIPS$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PDSTA" source="PDSTA"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_12" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="UECHA"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="PDSTA"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="Port_category" transparentFilter="false"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="DeliveryCompleted_Flag"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Port_category" source="Port_category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+      </input>
+      <input node="#CopyOfProjection_14">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UECHA" source="UECHA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PDSTA" source="PDSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeliveryCompleted_Flag" source="DeliveryCompleted_Flag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="DocumentID"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_15">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="LFIMG" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="DeliveryCompleted_Flag">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="X"/>
+        </viewAttribute>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DeliveryCompleted_Flag" source="DeliveryCompleted_Flag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute aggregationType="sum" id="LFIMG" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute aggregationType="sum" id="LFIMG" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_15">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="Location" transparentFilter="false"/>
+        <viewAttribute id="LFIMG" transparentFilter="false"/>
+        <viewAttribute id="WADAT_IST" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="TOR_ID" transparentFilter="false"/>
+        <viewAttribute id="DocumentID" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Aggregation_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOR_ID" source="TOR_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="KPI" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_3" columnName="KPI"/>
+      </attribute>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_3" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Location" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Location"/>
+        <keyMapping columnObjectName="Union_3" columnName="Location"/>
+      </attribute>
+      <attribute id="WADAT_IST" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="WADAT_IST"/>
+        <keyMapping columnObjectName="Union_3" columnName="WADAT_IST"/>
+      </attribute>
+      <attribute id="TURES_TCO" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TURES_TCO"/>
+        <keyMapping columnObjectName="Union_3" columnName="TURES_TCO"/>
+      </attribute>
+      <attribute id="TOR_ID" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TOR_ID"/>
+        <keyMapping columnObjectName="Union_3" columnName="TOR_ID"/>
+      </attribute>
+      <attribute id="DocumentID" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="DocumentID"/>
+        <keyMapping columnObjectName="Union_3" columnName="DocumentID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="Dispatch_Date" hidden="false" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Dispatch_Date"/>
+        <keyCalculation datatype="DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;WADAT_IST&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="LFIMG" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="LFIMG"/>
+        <measureMapping columnObjectName="Union_3" columnName="LFIMG"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="Equipment_Counter" hidden="false" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Equipment_Counter"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="TURES_TCO"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="616" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch_Header" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="2793"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch_Item" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="2793"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="2697"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="2619"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="2619"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="2523"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="65" y="2427"/>
+        <rectangleSize height="64" width="171"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="2523"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="2427"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="162" y="2331"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="162" y="2253"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="316" y="2253"/>
+        <rectangleSize height="64" width="171"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="2157"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_17" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="2079"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="2001"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="1923"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_19" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="242" y="1845"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="190" y="1760"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="69" y="1035"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="156" y="939"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="156" y="861"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_16" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="310" y="861"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="310" y="745"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="310" y="667"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="244" y="1515"/>
+        <rectangleSize height="64" width="171"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="244" y="1689"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="398" y="1689"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="398" y="1593"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="429" y="1515"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="315" y="1419"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="469" y="1419"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="363" y="1323"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="517" y="1323"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="412" y="1227"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="616" y="1131"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_16" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="566" y="1227"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="462" y="1131"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="513" y="1035"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="667" y="1035"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="565" y="939"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="464" y="861"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="618" y="861"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="464" y="745"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="464" y="667"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="385" y="551"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="301" y="446"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="539" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="524" y="430"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="517" y="340"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="693" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="693" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_15" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="693" y="330"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="616" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="513" y="272"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="704" y="272"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

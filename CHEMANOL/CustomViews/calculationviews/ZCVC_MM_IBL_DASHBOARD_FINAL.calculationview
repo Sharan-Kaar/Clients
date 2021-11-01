@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_MM_IBL_DASHBOARD_FINAL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MM_IBL_DASHBOARD_FINAL"/>
+  <metadata activatedAt="2021-10-25 16:43:30.0" changedAt="2021-10-19 10:45:08.281" createdAt="2021-10-19 10:45:08.036"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="50"/>
+  <dataSources>
+    <DataSource id="ZCVC_MM_INBOUND_LOG_DASHBOARD" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_INBOUND_LOG_DASHBOARD</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_IBL_SHIPMENT_DELIVERED" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_IBL_SHIPMENT_DELIVERED</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVC_MM_IBL_NO_OF_TRIPS" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVC_MM_IBL_NO_OF_TRIPS</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SCD"/>
+        <viewAttribute id="BILL_OF_LAD"/>
+        <viewAttribute id="Count"/>
+        <viewAttribute id="Transport_Type" transparentFilter="false"/>
+        <viewAttribute id="MTBEZ" transparentFilter="false"/>
+        <viewAttribute id="Category"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Quantity_V1"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="VBELN" transparentFilter="false"/>
+        <viewAttribute id="Material_No" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVC_MM_INBOUND_LOG_DASHBOARD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Quantity_V1" source="Quantity_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material_No" source="Material_No"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MTBEZ"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="Final_Quantity"/>
+        <viewAttribute id="Material_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI1" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Shipment delivered'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_IBL_SHIPMENT_DELIVERED">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_Quantity" source="Final_Quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material_Type" source="Material_Type"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="TRUCK_NO"/>
+        <viewAttribute id="GATE_IN_DATE"/>
+        <viewAttribute id="Trip"/>
+        <viewAttribute id="Check"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'No of Trips'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVC_MM_IBL_NO_OF_TRIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GATE_IN_DATE" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Trip" source="Trip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Check"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT" transparentFilter="false"/>
+        <viewAttribute id="SCD" transparentFilter="false"/>
+        <viewAttribute id="BILL_OF_LAD" transparentFilter="false"/>
+        <viewAttribute id="Count" transparentFilter="false"/>
+        <viewAttribute id="Transport_Type" transparentFilter="false"/>
+        <viewAttribute id="MTBEZ" transparentFilter="false"/>
+        <viewAttribute id="Category" transparentFilter="false"/>
+        <viewAttribute id="KPI" transparentFilter="false"/>
+        <viewAttribute id="Quantity_V1" transparentFilter="false"/>
+        <viewAttribute id="MATNR" transparentFilter="false"/>
+        <viewAttribute id="Final_Quantity" transparentFilter="false"/>
+        <viewAttribute id="VBELN" transparentFilter="false"/>
+        <viewAttribute id="Material_No" transparentFilter="false"/>
+        <viewAttribute id="Material_Type" transparentFilter="false"/>
+        <viewAttribute id="TRUCK_NO" transparentFilter="false"/>
+        <viewAttribute id="Trip" transparentFilter="false"/>
+        <viewAttribute id="Check" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="SCD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILL_OF_LAD" source="BILL_OF_LAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Count" source="Count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Transport_Type" source="Transport_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Category" source="Category"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Quantity_V1" source="Quantity_V1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_Quantity" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material_No" source="Material_No"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRUCK_NO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Trip" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Check" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MTBEZ" source="MTBEZ"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Category" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI1"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Quantity_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Final_Quantity" source="Final_Quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_No" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Material_Type" source="Material_Type"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TRUCK_NO" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Trip" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Check" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SCD" source="GATE_IN_DATE"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="BILL_OF_LAD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Count" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Transport_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MTBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Category" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Quantity_V1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATNR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Final_Quantity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="VBELN" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_No" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Material_Type" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TRUCK_NO" source="TRUCK_NO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Trip" source="Trip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Check" source="Check"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="SCD" order="2" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="SCD"/>
+        <keyMapping columnObjectName="Union_1" columnName="SCD"/>
+      </attribute>
+      <attribute id="BILL_OF_LAD" order="3" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="BILL_OF_LAD"/>
+        <keyMapping columnObjectName="Union_1" columnName="BILL_OF_LAD"/>
+      </attribute>
+      <attribute id="Transport_Type" order="5" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Transport_Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="Transport_Type"/>
+      </attribute>
+      <attribute id="MTBEZ" order="6" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MTBEZ"/>
+        <keyMapping columnObjectName="Union_1" columnName="MTBEZ"/>
+      </attribute>
+      <attribute id="Category" order="7" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Category"/>
+        <keyMapping columnObjectName="Union_1" columnName="Category"/>
+      </attribute>
+      <attribute id="KPI" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="MATNR" order="10" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="VBELN" order="12" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="VBELN"/>
+        <keyMapping columnObjectName="Union_1" columnName="VBELN"/>
+      </attribute>
+      <attribute id="Material_No" order="13" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Material_No"/>
+        <keyMapping columnObjectName="Union_1" columnName="Material_No"/>
+      </attribute>
+      <attribute id="Material_Type" order="14" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Material_Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="Material_Type"/>
+      </attribute>
+      <attribute id="TRUCK_NO" order="15" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TRUCK_NO"/>
+        <keyMapping columnObjectName="Union_1" columnName="TRUCK_NO"/>
+      </attribute>
+      <attribute id="Trip" order="16" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Trip"/>
+        <keyMapping columnObjectName="Union_1" columnName="Trip"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="4" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Count"/>
+      </measure>
+      <measure id="Quantity_V1" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity_V1"/>
+        <measureMapping columnObjectName="Union_1" columnName="Quantity_V1"/>
+      </measure>
+      <measure id="Final_Quantity" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Final_Quantity"/>
+        <measureMapping columnObjectName="Union_1" columnName="Final_Quantity"/>
+      </measure>
+      <measure id="Check" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Trip Count"/>
+        <measureMapping columnObjectName="Union_1" columnName="Check"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

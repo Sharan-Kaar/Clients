@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PM_MAINT_ORDER_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_MAINTENANCE_ORDER"/>
+  <metadata activatedAt="2021-10-25 12:00:06.0" changedAt="2021-10-25 11:57:58.58"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="84"/>
+  <dataSources>
+    <DataSource id="ZCVA_AUFK" type="ANALYTIC_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/analyticviews/ZCVA_AUFK</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVA_AFKO" type="ANALYTIC_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/analyticviews/ZCVA_AFKO</resourceUri>
+    </DataSource>
+    <DataSource id="ZAT_JEST" type="ATTRIBUTE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/attributeviews/ZAT_JEST</resourceUri>
+    </DataSource>
+    <DataSource id="ZAT_AFIH" type="ATTRIBUTE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/attributeviews/ZAT_AFIH</resourceUri>
+    </DataSource>
+    <DataSource id="ZCVAT_V_EQUI" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/calculationviews/ZCVAT_V_EQUI</resourceUri>
+    </DataSource>
+    <DataSource id="ZAT_T370C_T" type="ATTRIBUTE_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/SAC_DATA_CHEMANOL.CustomViews/attributeviews/ZAT_T370C_T</resourceUri>
+    </DataSource>
+    <DataSource id="ZTARGETVALUES" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZTARGETVALUES"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="PM01"/>
+            <operands value="PM03"/>
+            <operands value="PM04"/>
+            <operands value="PM11"/>
+            <operands value="PM02"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="OBJNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="No_Of_Orders" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZCVA_AUFK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVA_AFKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="No_Of_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="AUFNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="No_Of_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="INACT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Confirmed_Orders" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZAT_JEST">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INACT" source="INACT"/>
+      </input>
+      <filter>&quot;INACT&quot; = '' AND &quot;STAT&quot; = 'I0009'</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+        <viewAttribute hidden="true" id="JOIN$OBJNR$OBJNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$OBJNR$OBJNR" source="OBJNR"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$OBJNR$OBJNR" source="OBJNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="JOIN$OBJNR$OBJNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="EQUNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZAT_AFIH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="AUFNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ABCKZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZCVAT_V_EQUI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+      </input>
+      <filter>&quot;DATBI&quot; = '99991231'</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+      </input>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="EQUNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Compliance_Type" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;AUART&quot; = 'PM01') OR (&quot;AUART&quot; = 'PM02') OR (&quot;AUART&quot; = 'PM04') OR (&quot;AUART&quot; = 'PM11'), 'CM ORDER COMPLIANCE',  &#xD;
+if((&quot;AUART&quot; = 'PM03' and &quot;ABCKZ&quot;!='A')OR(&quot;AUART&quot; = 'PM03' and isnull(&quot;ABCKZ&quot;)),'PM ORDER COMPLIANCE',if((&quot;AUART&quot; = 'PM03' and &quot;ABCKZ&quot;='A'),'A CRITICAL PM ORDER COMPLIANCE','')))&#xD;
+</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="ABCTX"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZAT_T370C_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCTX" source="ABCTX"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="ABCTX"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+        <viewAttribute id="Compliance_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Compliance_Type" source="Compliance_Type"/>
+      </input>
+      <input node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCTX" source="ABCTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ABCKZ"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_12">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ORDER_TYPE"/>
+        <viewAttribute id="DESCRIPTION"/>
+        <viewAttribute id="TARGET"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZTARGETVALUES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_TYPE" source="ORDER_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TARGET" source="TARGET"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="ABCTX"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+        <viewAttribute id="TARGET"/>
+        <viewAttribute id="Compliance_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCTX" source="ABCTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Compliance_Type" source="Compliance_Type"/>
+      </input>
+      <input node="#Projection_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TARGET" source="TARGET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Compliance_Type" source="DESCRIPTION"/>
+      </input>
+      <joinAttribute name="Compliance_Type"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUFNR"/>
+        <viewAttribute id="AUART"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="GSTRP"/>
+        <viewAttribute id="GLTRP"/>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="ABCKZ"/>
+        <viewAttribute id="ABCTX"/>
+        <viewAttribute id="No_Of_Orders"/>
+        <viewAttribute id="Confirmed_Orders"/>
+        <viewAttribute id="TARGET"/>
+        <viewAttribute id="Compliance_Type"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Target" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>float(&quot;TARGET&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="Completion_Percentage" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula> (&quot;Confirmed_Orders&quot; / &quot;No_Of_Orders&quot; ) * 1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Start_Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GSTRP&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="End_Date" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GLTRP&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUFNR" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUART" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GSTRP" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLTRP" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCKZ" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABCTX" source="ABCTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="No_Of_Orders" source="No_Of_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Confirmed_Orders" source="Confirmed_Orders"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TARGET" source="TARGET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Compliance_Type" source="Compliance_Type"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_11">
+    <descriptions/>
+    <attributes>
+      <attribute id="Client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_11" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Order" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order"/>
+        <keyMapping columnObjectName="Projection_11" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="Order_Type" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order_Type"/>
+        <keyMapping columnObjectName="Projection_11" columnName="AUART"/>
+      </attribute>
+      <attribute id="Plant" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Projection_11" columnName="WERKS"/>
+      </attribute>
+      <attribute id="Equipment_Number" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment_Number"/>
+        <keyMapping columnObjectName="Projection_11" columnName="EQUNR"/>
+      </attribute>
+      <attribute id="ABC_Indicator" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC_Indicator"/>
+        <keyMapping columnObjectName="Projection_11" columnName="ABCKZ"/>
+      </attribute>
+      <attribute id="Indicator_Text" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator_Text"/>
+        <keyMapping columnObjectName="Projection_11" columnName="ABCTX"/>
+      </attribute>
+      <attribute id="Start_Date" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Start Date"/>
+        <keyMapping columnObjectName="Projection_11" columnName="Start_Date"/>
+      </attribute>
+      <attribute id="End_Date" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="End Date"/>
+        <keyMapping columnObjectName="Projection_11" columnName="End_Date"/>
+      </attribute>
+      <attribute id="Compliance_Type" hidden="false" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Compliance_Type"/>
+        <keyMapping columnObjectName="Projection_11" columnName="Compliance_Type"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Target" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Target"/>
+        <measureMapping columnObjectName="Projection_11" columnName="Target"/>
+      </measure>
+      <measure id="No_Of_Orders" hidden="false" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_11" columnName="No_Of_Orders"/>
+      </measure>
+      <measure id="Confirmed_Orders" hidden="false" order="10" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Projection_11" columnName="Confirmed_Orders"/>
+      </measure>
+      <measure id="Completion_Percentage" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Completion Percentage"/>
+        <measureMapping columnObjectName="Projection_11" columnName="Completion_Percentage"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="478" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1131"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1131"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="1035"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="957"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="957"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="861"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="783"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="783"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="687"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="325" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="325" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="479" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="401" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="555" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="478" y="243"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="478" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

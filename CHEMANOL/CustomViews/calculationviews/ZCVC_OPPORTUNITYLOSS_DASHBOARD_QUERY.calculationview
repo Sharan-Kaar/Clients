@@ -1,0 +1,1146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_OPPORTUNITYLOSS_DASHBOARD_QUERY" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_OPPORTUNITYLOSS_DASHBOARD_QUERY"/>
+  <metadata activatedAt="2021-10-26 12:43:13.0" changedAt="2021-10-26 12:41:10.494"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="63"/>
+  <dataSources>
+    <DataSource id="AUFM" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="AUFM"/>
+    </DataSource>
+    <DataSource id="MARA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="MARA"/>
+    </DataSource>
+    <DataSource id="T023T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T023T"/>
+    </DataSource>
+    <DataSource id="M_TIME_DIMENSION" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="ZFIT_PROD_QTY" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_PROD_QTY"/>
+    </DataSource>
+    <DataSource id="VBRP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBRP"/>
+    </DataSource>
+    <DataSource id="VBRK" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="VBRK"/>
+    </DataSource>
+    <DataSource id="PRCD_ELEMENTS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="PRCD_ELEMENTS"/>
+    </DataSource>
+    <DataSource id="Aggregation_3$$$$M_TIME_DIMENSION$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="_SYS_BI" columnObjectName="M_TIME_DIMENSION"/>
+    </DataSource>
+    <DataSource id="ZFIT_CONT_DASH" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_CONT_DASH"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="ERFMG"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BUDAT_CalMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;BUDAT&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#AUFM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute aggregationType="sum" id="ERFMG"/>
+        <viewAttribute id="BUDAT_CalMonth"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT_CalMonth" source="BUDAT_CalMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Copy_2_Of_Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="AFSOLN"/>
+            <operands value="DMF"/>
+            <operands value="HMT"/>
+            <operands value="MA"/>
+            <operands value="METHANOL"/>
+            <operands value="MFRESIN"/>
+            <operands value="NAFORMATE"/>
+            <operands value="PARA"/>
+            <operands value="PENTAMIX"/>
+            <operands value="PENTAMONO"/>
+            <operands value="SNFPOWDER"/>
+            <operands value="SNFSOLN"/>
+            <operands value="UFRESIN"/>
+            <operands value="UFSOLN"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T023T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Copy_2_Of_Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATKL"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="CopyOfAggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="2021"/>
+        </viewAttribute>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute aggregationType="sum" id="YEAR_INT"/>
+        <viewAttribute id="CALMONTH"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#M_TIME_DIMENSION">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR_INT" source="YEAR_INT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_9" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+      <input node="#CopyOfAggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+      <input node="#Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="BUDAT_CalMonth"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATNR"/>
+      <joinAttribute name="CALMONTH"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="JAN"/>
+        <viewAttribute id="FEB"/>
+        <viewAttribute id="MAR"/>
+        <viewAttribute id="APR"/>
+        <viewAttribute id="MAY"/>
+        <viewAttribute id="JUN"/>
+        <viewAttribute id="JUL"/>
+        <viewAttribute id="AUG"/>
+        <viewAttribute id="SEP"/>
+        <viewAttribute id="OCT"/>
+        <viewAttribute id="NOV"/>
+        <viewAttribute id="DECE"/>
+        <viewAttribute id="TOTAL"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="UOM"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFIT_PROD_QTY">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JAN" source="JAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FEB" source="FEB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAR" source="MAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="APR" source="APR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAY" source="MAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUN" source="JUN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUL" source="JUL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUG" source="AUG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEP" source="SEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OCT" source="OCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOV" source="NOV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DECE" source="DECE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOTAL" source="TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UOM" source="UOM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="POSNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#VBRP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="FKDAT"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="KAPPL"/>
+        <viewAttribute id="FKART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="ZSER"/>
+            <operands value="ZSOR"/>
+            <operands value="ZSPL"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#VBRK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKDAT" source="FKDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KAPPL" source="KAPPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKART" source="FKART"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="FKDAT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="KAPPL"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKDAT" source="FKDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KAPPL" source="KAPPL"/>
+      </input>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CLIENT"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="KPOSN"/>
+        <viewAttribute id="KAPPL"/>
+        <viewAttribute id="KWERT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="KKURS"/>
+        <viewAttribute id="KSCHL">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ZEXW"/>
+        </viewAttribute>
+        <viewAttribute id="WAERK"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Amount" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;WAERK&quot;='USD',&quot;KWERT&quot;*3.75,&quot;KWERT&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#PRCD_ELEMENTS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPOSN" source="KPOSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KAPPL" source="KAPPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KSCHL" source="KSCHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERK" source="WAERK"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="FKDAT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="KNUMV"/>
+        <viewAttribute id="POSNR"/>
+        <viewAttribute id="KAPPL"/>
+        <viewAttribute id="KWERT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="KKURS"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKDAT" source="FKDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KAPPL" source="KAPPL"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KNUMV" source="KNUMV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="KPOSN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="KNUMV"/>
+      <joinAttribute name="POSNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute aggregationType="sum" id="ERFMG"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute aggregationType="sum" id="YEAR_INT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_3$$$$M_TIME_DIMENSION$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR_INT" source="YEAR_INT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="UOM"/>
+        <viewAttribute id="JAN"/>
+        <viewAttribute id="FEB"/>
+        <viewAttribute id="MAR"/>
+        <viewAttribute id="APR"/>
+        <viewAttribute id="MAY"/>
+        <viewAttribute id="JUN"/>
+        <viewAttribute id="JUL"/>
+        <viewAttribute id="AUG"/>
+        <viewAttribute id="SEP"/>
+        <viewAttribute id="OCT"/>
+        <viewAttribute id="NOV"/>
+        <viewAttribute id="DECE"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UOM" source="UOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JAN" source="JAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FEB" source="FEB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAR" source="MAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="APR" source="APR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAY" source="MAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUN" source="JUN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUL" source="JUL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUG" source="AUG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEP" source="SEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OCT" source="OCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOV" source="NOV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DECE" source="DECE"/>
+      </input>
+      <input node="#Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="YEAR"/>
+      </input>
+      <joinAttribute name="GJAHR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="BUKRS"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="UOM"/>
+        <viewAttribute id="JAN"/>
+        <viewAttribute id="FEB"/>
+        <viewAttribute id="MAR"/>
+        <viewAttribute id="APR"/>
+        <viewAttribute id="MAY"/>
+        <viewAttribute id="JUN"/>
+        <viewAttribute id="JUL"/>
+        <viewAttribute id="AUG"/>
+        <viewAttribute id="SEP"/>
+        <viewAttribute id="OCT"/>
+        <viewAttribute id="NOV"/>
+        <viewAttribute id="DECE"/>
+        <viewAttribute id="MONTH"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="BudgetedQty" length="34" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MONTH&quot;='01',&quot;JAN&quot;,(&#xD;
+if(&quot;MONTH&quot;='02',&quot;FEB&quot;,(&#xD;
+if(&quot;MONTH&quot;='03',&quot;MAR&quot;,(&#xD;
+if(&quot;MONTH&quot;='04',&quot;APR&quot;,(&#xD;
+if(&quot;MONTH&quot;='05',&quot;MAY&quot;,(&#xD;
+if(&quot;MONTH&quot;='06',&quot;JUN&quot;,(&#xD;
+if(&quot;MONTH&quot;='07',&quot;JUL&quot;,(&#xD;
+if(&quot;MONTH&quot;='08',&quot;AUG&quot;,(&#xD;
+if(&quot;MONTH&quot;='09',&quot;SEP&quot;,(&#xD;
+if(&quot;MONTH&quot;='10',&quot;OCT&quot;,(&#xD;
+if(&quot;MONTH&quot;='11',&quot;NOV&quot;,(&#xD;
+if(&quot;MONTH&quot;='12',&quot;DECE&quot;,0)))))))))))))))))))))))&#xD;
+</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UOM" source="UOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JAN" source="JAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FEB" source="FEB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAR" source="MAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="APR" source="APR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MAY" source="MAY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUN" source="JUN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JUL" source="JUL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AUG" source="AUG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEP" source="SEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OCT" source="OCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOV" source="NOV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DECE" source="DECE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="BudgetedQty"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BudgetedDate" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+&quot;MONTH&quot;+'01'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="BudgetedCalMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+&quot;MONTH&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BudgetedQty"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="BudgetedQty"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+      <input node="#Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BudgetedQty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="BudgetedCalMonth"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATKL"/>
+      <joinAttribute name="CALMONTH"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="BudgetedQty"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BudgetedQty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="FKDAT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="KWERT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="KKURS"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="FKDAT_CalMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;FKDAT&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKDAT" source="FKDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="FKDAT_CalMonth"/>
+        <viewAttribute aggregationType="sum" id="FKIMG"/>
+        <viewAttribute aggregationType="sum" id="KWERT"/>
+        <viewAttribute aggregationType="sum" id="KKURS"/>
+        <viewAttribute aggregationType="sum" id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKDAT_CalMonth" source="FKDAT_CalMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="KWERT"/>
+        <viewAttribute id="KKURS"/>
+        <viewAttribute id="Amount"/>
+        <viewAttribute hidden="true" id="JOIN$FKDAT_CalMonth$CALMONTH"/>
+        <viewAttribute hidden="true" id="JOIN$MANDT$MANDT"/>
+        <viewAttribute hidden="true" id="JOIN$MATNR$MATNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR$MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$FKDAT_CalMonth$CALMONTH" source="FKDAT_CalMonth"/>
+      </input>
+      <input node="#Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MANDT$MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$MATNR$MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$FKDAT_CalMonth$CALMONTH" source="CALMONTH"/>
+      </input>
+      <joinAttribute name="JOIN$MANDT$MANDT"/>
+      <joinAttribute name="JOIN$MATNR$MATNR"/>
+      <joinAttribute name="JOIN$FKDAT_CalMonth$CALMONTH"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute aggregationType="sum" id="FKIMG"/>
+        <viewAttribute aggregationType="sum" id="KWERT"/>
+        <viewAttribute aggregationType="sum" id="KKURS"/>
+        <viewAttribute aggregationType="sum" id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="ERFMG"/>
+        <viewAttribute id="BudgetedQty"/>
+        <viewAttribute id="FKIMG"/>
+        <viewAttribute id="KWERT"/>
+        <viewAttribute id="KKURS"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="Amount"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERFMG" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BudgetedQty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+      <input node="#Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FKIMG" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KWERT" source="KWERT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KKURS" source="KKURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Amount" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATKL"/>
+      <joinAttribute name="CALMONTH"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="GJAHR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ACTPRD"/>
+        <viewAttribute id="BUDPRD"/>
+        <viewAttribute id="OPPLOSS"/>
+        <viewAttribute id="AVGSAR"/>
+        <viewAttribute id="AVGUSD"/>
+        <viewAttribute id="OPPLOSSAMT"/>
+        <viewAttribute id="NETSALE"/>
+        <viewAttribute id="NETQTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="CalMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;GJAHR&quot;+'01'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZFIT_CONT_DASH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GJAHR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACTPRD" source="ACTPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDPRD" source="BUDPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OPPLOSS" source="OPPLOSS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AVGSAR" source="AVGSAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AVGUSD" source="AVGUSD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OPPLOSSAMT" source="OPPLOSSAMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NETSALE" source="NETSALE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NETQTY" source="NETQTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MaterialGroup"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="CALMONTH"/>
+        <viewAttribute id="MONTH"/>
+        <viewAttribute id="YEAR"/>
+        <viewAttribute id="MaterialGroupDesc"/>
+        <viewAttribute id="ActualProduction"/>
+        <viewAttribute id="BudgetedQty"/>
+        <viewAttribute id="SalesQuantity"/>
+        <viewAttribute id="NetSalesValue"/>
+        <viewAttribute id="NetSalesCurrencyExValue"/>
+        <viewAttribute id="OPPLOSS" transparentFilter="false"/>
+        <viewAttribute id="AVGSAR" transparentFilter="false"/>
+        <viewAttribute id="AVGUSD" transparentFilter="false"/>
+        <viewAttribute id="OPPLOSSAMT" transparentFilter="false"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MaterialGroup" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MaterialGroupDesc" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ActualProduction" source="ERFMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BudgetedQty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesQuantity" source="FKIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NetSalesValue" source="Amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NetSalesCurrencyExValue" source="KKURS"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OPPLOSS" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AVGSAR" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AVGUSD" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OPPLOSSAMT" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MaterialGroup" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Dummy" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CalMonth"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MONTH" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MaterialGroupDesc" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ActualProduction" source="ACTPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BudgetedQty" source="BUDPRD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesQuantity" source="NETQTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NetSalesValue" source="NETSALE"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="NetSalesCurrencyExValue" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OPPLOSS" source="OPPLOSS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AVGSAR" source="AVGSAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AVGUSD" source="AVGUSD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OPPLOSSAMT" source="OPPLOSSAMT"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="MaterialGroup" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MaterialGroupID"/>
+        <keyMapping columnObjectName="Union_1" columnName="MaterialGroup"/>
+      </attribute>
+      <attribute id="Dummy" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Dummy"/>
+        <keyMapping columnObjectName="Union_1" columnName="Dummy"/>
+      </attribute>
+      <attribute id="CALMONTH" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="MONTH" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MONTH"/>
+        <keyMapping columnObjectName="Union_1" columnName="MONTH"/>
+      </attribute>
+      <attribute id="YEAR" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="Union_1" columnName="YEAR"/>
+      </attribute>
+      <attribute id="MaterialGroupDesc" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="MaterialGroupDesc"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="Quarter" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>if((&quot;MONTH&quot;='01' or &quot;MONTH&quot;='02'or &quot;MONTH&quot;='03'),'Q1',if((&quot;MONTH&quot;='04' or &quot;MONTH&quot;='05'or &quot;MONTH&quot;='06'),'Q2',if((&quot;MONTH&quot;='07' or &quot;MONTH&quot;='08'or &quot;MONTH&quot;='09'),'Q3','Q4')))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="ActualProduction" order="9" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="ActualProduction"/>
+        <measureMapping columnObjectName="Union_1" columnName="ActualProduction"/>
+      </measure>
+      <measure id="BudgetedQty" order="10" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BudgetedQty"/>
+        <measureMapping columnObjectName="Union_1" columnName="BudgetedQty"/>
+      </measure>
+      <measure id="SalesQuantity" order="11" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SalesQuantity"/>
+        <measureMapping columnObjectName="Union_1" columnName="SalesQuantity"/>
+      </measure>
+      <measure id="NetSalesValue" order="12" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="NetSalesValue"/>
+        <measureMapping columnObjectName="Union_1" columnName="NetSalesValue"/>
+      </measure>
+      <measure id="NetSalesCurrencyExValue" order="13" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="NetSalesCurrencyExValue"/>
+        <measureMapping columnObjectName="Union_1" columnName="NetSalesCurrencyExValue"/>
+      </measure>
+      <measure id="OPPLOSS" order="14" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="OPPLOSS"/>
+        <measureMapping columnObjectName="Union_1" columnName="OPPLOSS"/>
+      </measure>
+      <measure id="AVGSAR" order="15" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AVGSAR"/>
+        <measureMapping columnObjectName="Union_1" columnName="AVGSAR"/>
+      </measure>
+      <measure id="AVGUSD" order="16" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="AVGUSD"/>
+        <measureMapping columnObjectName="Union_1" columnName="AVGUSD"/>
+      </measure>
+      <measure id="OPPLOSSAMT" order="17" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="OPPLOSSAMT"/>
+        <measureMapping columnObjectName="Union_1" columnName="OPPLOSSAMT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="483" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="725"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Copy_2_Of_Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="917"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="561" y="917"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfAggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="725"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="869" y="917"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="715" y="917"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="725"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="551"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="821"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="725"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="629"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="557"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="690" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="587" y="551"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="455"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="281"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="483" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

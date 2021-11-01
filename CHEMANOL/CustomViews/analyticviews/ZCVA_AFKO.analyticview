@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cube:cube xmlns:Cube="http://www.sap.com/ndb/BiModelCube.ecore" schemaVersion="1.5" id="ZCVA_AFKO" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled">
+  <origin/>
+  <descriptions defaultDescription="ZCV_AFKO"/>
+  <metadata activatedAt="2021-10-19 15:16:33.0" changedAt="2021-10-19 15:14:29.323"/>
+  <localVariables/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <privateMeasureGroup id="MeasureGroup">
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MANDT"/>
+      </attribute>
+      <attribute id="AUFNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="GLTRP" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLTRP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLTRP"/>
+      </attribute>
+      <attribute id="GSTRP" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSTRP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSTRP"/>
+      </attribute>
+      <attribute id="FTRMS" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FTRMS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FTRMS"/>
+      </attribute>
+      <attribute id="GLTRS" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLTRS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLTRS"/>
+      </attribute>
+      <attribute id="GSTRS" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSTRS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSTRS"/>
+      </attribute>
+      <attribute id="GSTRI" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSTRI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSTRI"/>
+      </attribute>
+      <attribute id="GETRI" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GETRI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GETRI"/>
+      </attribute>
+      <attribute id="GLTRI" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLTRI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLTRI"/>
+      </attribute>
+      <attribute id="FTRMI" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FTRMI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FTRMI"/>
+      </attribute>
+      <attribute id="FTRMP" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FTRMP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FTRMP"/>
+      </attribute>
+      <attribute id="RSNUM" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSNUM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RSNUM"/>
+      </attribute>
+      <attribute id="GMEIN" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GMEIN"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GMEIN"/>
+      </attribute>
+      <attribute id="PLNBEZ" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNBEZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNBEZ"/>
+      </attribute>
+      <attribute id="PLNTY" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNTY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNTY"/>
+      </attribute>
+      <attribute id="PLNNR" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNNR"/>
+      </attribute>
+      <attribute id="PLNAW" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNAW"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNAW"/>
+      </attribute>
+      <attribute id="PLNAL" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNAL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNAL"/>
+      </attribute>
+      <attribute id="PVERW" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PVERW"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PVERW"/>
+      </attribute>
+      <attribute id="PLAUF" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLAUF"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLAUF"/>
+      </attribute>
+      <attribute id="PLNME" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLNME"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLNME"/>
+      </attribute>
+      <attribute id="PDATV" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PDATV"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PDATV"/>
+      </attribute>
+      <attribute id="PAENR" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PAENR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PAENR"/>
+      </attribute>
+      <attribute id="PLGRP" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLGRP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLGRP"/>
+      </attribute>
+      <attribute id="STLTY" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLTY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLTY"/>
+      </attribute>
+      <attribute id="STLBEZ" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLBEZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLBEZ"/>
+      </attribute>
+      <attribute id="STLST" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLST"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLST"/>
+      </attribute>
+      <attribute id="STLNR" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLNR"/>
+      </attribute>
+      <attribute id="SDATV" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SDATV"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SDATV"/>
+      </attribute>
+      <attribute id="SBMEH" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SBMEH"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SBMEH"/>
+      </attribute>
+      <attribute id="SAENR" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SAENR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SAENR"/>
+      </attribute>
+      <attribute id="STLAL" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLAL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLAL"/>
+      </attribute>
+      <attribute id="STLAN" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STLAN"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STLAN"/>
+      </attribute>
+      <attribute id="AUFLD" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFLD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AUFLD"/>
+      </attribute>
+      <attribute id="DISPO" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DISPO"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="DISPO"/>
+      </attribute>
+      <attribute id="AUFPL" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFPL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AUFPL"/>
+      </attribute>
+      <attribute id="FEVOR" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FEVOR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FEVOR"/>
+      </attribute>
+      <attribute id="FHORI" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FHORI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FHORI"/>
+      </attribute>
+      <attribute id="TERKZ" order="48" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TERKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="TERKZ"/>
+      </attribute>
+      <attribute id="REDKZ" order="49" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REDKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="REDKZ"/>
+      </attribute>
+      <attribute id="APRIO" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="APRIO"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="APRIO"/>
+      </attribute>
+      <attribute id="NTZUE" order="51" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NTZUE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NTZUE"/>
+      </attribute>
+      <attribute id="VORUE" order="52" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VORUE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VORUE"/>
+      </attribute>
+      <attribute id="PROFID" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PROFID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PROFID"/>
+      </attribute>
+      <attribute id="VORGZ" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VORGZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VORGZ"/>
+      </attribute>
+      <attribute id="SICHZ" order="55" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SICHZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SICHZ"/>
+      </attribute>
+      <attribute id="FREIZ" order="56" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FREIZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FREIZ"/>
+      </attribute>
+      <attribute id="UPTER" order="57" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UPTER"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="UPTER"/>
+      </attribute>
+      <attribute id="BEDID" order="58" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BEDID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="BEDID"/>
+      </attribute>
+      <attribute id="PRONR" order="59" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRONR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PRONR"/>
+      </attribute>
+      <attribute id="ZAEHL" order="60" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZAEHL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ZAEHL"/>
+      </attribute>
+      <attribute id="MZAEHL" order="61" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MZAEHL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MZAEHL"/>
+      </attribute>
+      <attribute id="ZKRIZ" order="62" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZKRIZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ZKRIZ"/>
+      </attribute>
+      <attribute id="PRUEFLOS" order="63" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRUEFLOS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PRUEFLOS"/>
+      </attribute>
+      <attribute id="KLVARP" order="64" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KLVARP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KLVARP"/>
+      </attribute>
+      <attribute id="KLVARI" order="65" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KLVARI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KLVARI"/>
+      </attribute>
+      <attribute id="RGEKZ" order="66" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RGEKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RGEKZ"/>
+      </attribute>
+      <attribute id="PLART" order="67" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLART"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLART"/>
+      </attribute>
+      <attribute id="FLG_AOB" order="68" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FLG_AOB"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FLG_AOB"/>
+      </attribute>
+      <attribute id="FLG_ARBEI" order="69" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FLG_ARBEI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FLG_ARBEI"/>
+      </attribute>
+      <attribute id="GLTPP" order="70" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLTPP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLTPP"/>
+      </attribute>
+      <attribute id="GSTPP" order="71" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSTPP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSTPP"/>
+      </attribute>
+      <attribute id="GLTPS" order="72" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLTPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLTPS"/>
+      </attribute>
+      <attribute id="GSTPS" order="73" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSTPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSTPS"/>
+      </attribute>
+      <attribute id="FTRPS" order="74" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FTRPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FTRPS"/>
+      </attribute>
+      <attribute id="RDKZP" order="75" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RDKZP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RDKZP"/>
+      </attribute>
+      <attribute id="TRKZP" order="76" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRKZP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="TRKZP"/>
+      </attribute>
+      <attribute id="RUECK" order="77" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RUECK"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RUECK"/>
+      </attribute>
+      <attribute id="RMZHL" order="78" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RMZHL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RMZHL"/>
+      </attribute>
+      <attribute id="RATID" order="80" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RATID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RATID"/>
+      </attribute>
+      <attribute id="GROID" order="81" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GROID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GROID"/>
+      </attribute>
+      <attribute id="CUOBJ" order="82" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CUOBJ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CUOBJ"/>
+      </attribute>
+      <attribute id="GLUZS" order="83" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLUZS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLUZS"/>
+      </attribute>
+      <attribute id="GSUZS" order="84" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSUZS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSUZS"/>
+      </attribute>
+      <attribute id="REVLV" order="85" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REVLV"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="REVLV"/>
+      </attribute>
+      <attribute id="RSHTY" order="86" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSHTY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RSHTY"/>
+      </attribute>
+      <attribute id="RSHID" order="87" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSHID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RSHID"/>
+      </attribute>
+      <attribute id="RSNTY" order="88" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSNTY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RSNTY"/>
+      </attribute>
+      <attribute id="RSNID" order="89" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSNID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RSNID"/>
+      </attribute>
+      <attribute id="NAUTERM" order="90" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAUTERM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NAUTERM"/>
+      </attribute>
+      <attribute id="NAUCOST" order="91" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAUCOST"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NAUCOST"/>
+      </attribute>
+      <attribute id="ARSNR" order="95" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ARSNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ARSNR"/>
+      </attribute>
+      <attribute id="ARSPS" order="96" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ARSPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ARSPS"/>
+      </attribute>
+      <attribute id="MAUFNR" order="97" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MAUFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MAUFNR"/>
+      </attribute>
+      <attribute id="LKNOT" order="98" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LKNOT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="LKNOT"/>
+      </attribute>
+      <attribute id="RKNOT" order="99" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RKNOT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RKNOT"/>
+      </attribute>
+      <attribute id="PRODNET" order="100" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODNET"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PRODNET"/>
+      </attribute>
+      <attribute id="ABARB" order="102" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABARB"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ABARB"/>
+      </attribute>
+      <attribute id="AUFNT" order="103" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFNT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AUFNT"/>
+      </attribute>
+      <attribute id="AUFPT" order="104" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFPT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AUFPT"/>
+      </attribute>
+      <attribute id="APLZT" order="105" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="APLZT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="APLZT"/>
+      </attribute>
+      <attribute id="NO_DISP" order="106" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NO_DISP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NO_DISP"/>
+      </attribute>
+      <attribute id="CSPLIT" order="107" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CSPLIT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CSPLIT"/>
+      </attribute>
+      <attribute id="AENNR" order="108" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AENNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="AENNR"/>
+      </attribute>
+      <attribute id="CY_SEQNR" order="109" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CY_SEQNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CY_SEQNR"/>
+      </attribute>
+      <attribute id="BREAKS" order="110" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BREAKS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="BREAKS"/>
+      </attribute>
+      <attribute id="TRMDT" order="113" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TRMDT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="TRMDT"/>
+      </attribute>
+      <attribute id="GLUZP" order="114" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLUZP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLUZP"/>
+      </attribute>
+      <attribute id="GSUZP" order="115" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSUZP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSUZP"/>
+      </attribute>
+      <attribute id="GSUZI" order="116" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSUZI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSUZI"/>
+      </attribute>
+      <attribute id="GEUZI" order="117" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GEUZI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GEUZI"/>
+      </attribute>
+      <attribute id="GLUPP" order="118" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLUPP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLUPP"/>
+      </attribute>
+      <attribute id="GSUPP" order="119" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSUPP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSUPP"/>
+      </attribute>
+      <attribute id="GLUPS" order="120" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GLUPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GLUPS"/>
+      </attribute>
+      <attribute id="GSUPS" order="121" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSUPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSUPS"/>
+      </attribute>
+      <attribute id="CHSCH" order="122" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CHSCH"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CHSCH"/>
+      </attribute>
+      <attribute id="KAPT_VORGZ" order="123" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KAPT_VORGZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KAPT_VORGZ"/>
+      </attribute>
+      <attribute id="KAPT_SICHZ" order="124" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KAPT_SICHZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KAPT_SICHZ"/>
+      </attribute>
+      <attribute id="LEAD_AUFNR" order="125" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LEAD_AUFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="LEAD_AUFNR"/>
+      </attribute>
+      <attribute id="PNETSTARTD" order="126" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PNETSTARTD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PNETSTARTD"/>
+      </attribute>
+      <attribute id="PNETSTARTT" order="127" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PNETSTARTT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PNETSTARTT"/>
+      </attribute>
+      <attribute id="PNETENDD" order="128" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PNETENDD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PNETENDD"/>
+      </attribute>
+      <attribute id="PNETENDT" order="129" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PNETENDT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PNETENDT"/>
+      </attribute>
+      <attribute id="KBED" order="130" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KBED"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KBED"/>
+      </attribute>
+      <attribute id="KKALKR" order="131" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KKALKR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KKALKR"/>
+      </attribute>
+      <attribute id="SFCPF" order="132" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SFCPF"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SFCPF"/>
+      </attribute>
+      <attribute id="GSBTR" order="134" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSBTR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GSBTR"/>
+      </attribute>
+      <attribute id="NOPCOST" order="136" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NOPCOST"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NOPCOST"/>
+      </attribute>
+      <attribute id="NETZKONT" order="137" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NETZKONT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="NETZKONT"/>
+      </attribute>
+      <attribute id="ATRKZ" order="138" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ATRKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ATRKZ"/>
+      </attribute>
+      <attribute id="OBJTYPE" order="139" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJTYPE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="OBJTYPE"/>
+      </attribute>
+      <attribute id="CH_PROC" order="140" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CH_PROC"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CH_PROC"/>
+      </attribute>
+      <attribute id="KAPVERSA" order="141" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KAPVERSA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KAPVERSA"/>
+      </attribute>
+      <attribute id="COLORDPROC" order="142" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COLORDPROC"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="COLORDPROC"/>
+      </attribute>
+      <attribute id="KZERB" order="143" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KZERB"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="KZERB"/>
+      </attribute>
+      <attribute id="CONF_KEY" order="144" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONF_KEY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CONF_KEY"/>
+      </attribute>
+      <attribute id="ST_ARBID" order="145" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ST_ARBID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ST_ARBID"/>
+      </attribute>
+      <attribute id="VSNMR_V" order="146" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VSNMR_V"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VSNMR_V"/>
+      </attribute>
+      <attribute id="TERHW" order="147" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TERHW"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="TERHW"/>
+      </attribute>
+      <attribute id="SPLSTAT" order="148" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SPLSTAT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SPLSTAT"/>
+      </attribute>
+      <attribute id="COSTUPD" order="149" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COSTUPD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="COSTUPD"/>
+      </attribute>
+      <attribute id="MES_ROUTINGID" order="151" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MES_ROUTINGID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MES_ROUTINGID"/>
+      </attribute>
+      <attribute id="TL_VERSN" order="152" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TL_VERSN"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="TL_VERSN"/>
+      </attribute>
+      <attribute id="BOM_VERSN" order="153" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BOM_VERSN"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="BOM_VERSN"/>
+      </attribute>
+      <attribute id="ADPSP" order="154" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ADPSP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="ADPSP"/>
+      </attribute>
+      <attribute id="RMANR" order="155" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RMANR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RMANR"/>
+      </attribute>
+      <attribute id="POSNR_RMA" order="156" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSNR_RMA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="POSNR_RMA"/>
+      </attribute>
+      <attribute id="POSNV_RMA" order="157" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSNV_RMA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="POSNV_RMA"/>
+      </attribute>
+      <attribute id="CFB_LZEIH" order="159" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CFB_LZEIH"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CFB_LZEIH"/>
+      </attribute>
+      <attribute id="CFB_DATOFM" order="161" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CFB_DATOFM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CFB_DATOFM"/>
+      </attribute>
+      <attribute id="CFB_BBDPI" order="162" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CFB_BBDPI"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CFB_BBDPI"/>
+      </attribute>
+      <attribute id="OIHANTYP" order="163" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OIHANTYP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="OIHANTYP"/>
+      </attribute>
+      <attribute id="FSH_MPROD_ORD" order="164" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FSH_MPROD_ORD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FSH_MPROD_ORD"/>
+      </attribute>
+      <attribute id="FLG_BUNDLE" order="165" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FLG_BUNDLE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="FLG_BUNDLE"/>
+      </attribute>
+      <attribute id="BMEINS" order="167" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BMEINS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="BMEINS"/>
+      </attribute>
+      <attribute id="MILL_OC_ZUSKZ" order="169" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MILL_OC_ZUSKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MILL_OC_ZUSKZ"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies>
+        <tableProxy centralTable="true">
+          <table schemaName="SAPHANADB" columnObjectName="AFKO"/>
+        </tableProxy>
+      </tableProxies>
+      <joins/>
+      <layout>
+        <shapes>
+          <shape modelObjectName="AFKO" modelObjectNameSpace="SAPHANADB" modelObjectType="catalog">
+            <upperLeftCorner x="70" y="30"/>
+          </shape>
+        </shapes>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="GASMG" order="14" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="GASMG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GASMG"/>
+      </measure>
+      <measure id="GAMNG" order="15" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="GAMNG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="GAMNG"/>
+      </measure>
+      <measure id="PLSVB" order="24" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PLSVB"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLSVB"/>
+      </measure>
+      <measure id="PLSVN" order="26" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="PLSVN"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="PLSVN"/>
+      </measure>
+      <measure id="LODIV" order="30" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="LODIV"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="LODIV"/>
+      </measure>
+      <measure id="SBMNG" order="36" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SBMNG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SBMNG"/>
+      </measure>
+      <measure id="SLSVN" order="41" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SLSVN"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SLSVN"/>
+      </measure>
+      <measure id="SLSBS" order="42" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SLSBS"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SLSBS"/>
+      </measure>
+      <measure id="IGMNG" order="79" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="IGMNG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="IGMNG"/>
+      </measure>
+      <measure id="STUFE" order="92" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="STUFE"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="STUFE"/>
+      </measure>
+      <measure id="WEGXX" order="93" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="WEGXX"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="WEGXX"/>
+      </measure>
+      <measure id="VWEGX" order="94" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VWEGX"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VWEGX"/>
+      </measure>
+      <measure id="IASMG" order="101" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="IASMG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="IASMG"/>
+      </measure>
+      <measure id="VORGZ_TRM" order="111" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VORGZ_TRM"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VORGZ_TRM"/>
+      </measure>
+      <measure id="SICHZ_TRM" order="112" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="SICHZ_TRM"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="SICHZ_TRM"/>
+      </measure>
+      <measure id="RMNGA" order="133" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="RMNGA"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="RMNGA"/>
+      </measure>
+      <measure id="VFMNG" order="135" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="VFMNG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="VFMNG"/>
+      </measure>
+      <measure id="MAX_GAMNG" order="150" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MAX_GAMNG"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MAX_GAMNG"/>
+      </measure>
+      <measure id="CFB_MAXLZ" order="158" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CFB_MAXLZ"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CFB_MAXLZ"/>
+      </measure>
+      <measure id="CFB_ADTDAYS" order="160" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CFB_ADTDAYS"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="CFB_ADTDAYS"/>
+      </measure>
+      <measure id="MILL_RATIO" order="166" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="MILL_RATIO"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="MILL_RATIO"/>
+      </measure>
+      <measure id="BMENGE" order="168" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="BMENGE"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AFKO" columnName="BMENGE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <sharedDimensions/>
+    <layout>
+      <shapes>
+        <shape modelObjectName="MEASURE_GROUP" modelObjectType="repository">
+          <upperLeftCorner x="300" y="200"/>
+        </shape>
+        <shape modelObjectName="LogicalView" modelObjectNameSpace="MeasureGroup" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize height="0" width="0"/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateMeasureGroup>
+</Cube:cube>

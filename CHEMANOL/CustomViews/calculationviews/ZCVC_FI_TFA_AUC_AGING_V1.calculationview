@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_TFA_AUC_AGING_V1" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_TFA_AUC_AGING"/>
+  <metadata activatedAt="2021-10-26 13:03:31.0" changedAt="2021-10-19 10:47:03.268" createdAt="2021-10-19 10:46:55.088"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="PRPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="PRPS"/>
+    </DataSource>
+    <DataSource id="JCDS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="JCDS"/>
+    </DataSource>
+    <DataSource id="ANLA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ANLA"/>
+    </DataSource>
+    <DataSource id="ACDOCA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+    <DataSource id="CopyOfProjection_6$$$$ACDOCA$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCA"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#PRPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="I0045"/>
+            <operands value="I0046"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="CompletedProjectFlag" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'X'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#JCDS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="MANDT_1"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="OBJNR_1"/>
+        <viewAttribute id="CompletedProjectFlag"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT_1" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompletedProjectFlag" source="CompletedProjectFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <joinAttribute name="OBJNR"/>
+      <joinAttribute name="MANDT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="CompletedProjectFlag">
+          <filter xsi:type="AccessControl:SingleValueFilter" operator="NL" including="true"/>
+        </viewAttribute>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Aging_Days" expressionLanguage="COLUMN_ENGINE">
+          <formula>daysbetween(date(&quot;ERDAT&quot;),date(&quot;Current_Date&quot;))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Current_Date" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(now(),'yyyymmdd')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Aging_Bucket" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(date(&quot;ERDAT&quot;)>date(&quot;Current_Date&quot;),'Not Due',if(&quot;Aging_Days&quot;>=0 and &quot;Aging_Days&quot;&lt;=30,'0 to 30 Days',if(&quot;Aging_Days&quot;>30 and &quot;Aging_Days&quot;&lt;=60,'30 to 60 Days',if(&quot;Aging_Days&quot;>60 and &quot;Aging_Days&quot;&lt;=90,'60 to 90 Days',if(&quot;Aging_Days&quot;>90 and &quot;Aging_Days&quot;&lt;=180,'90 to 180 Days',if(&quot;Aging_Days&quot;>180 and &quot;Aging_Days&quot;&lt;=360,'180 to 360 Days',if(&quot;Aging_Days&quot;>360 and &quot;Aging_Days&quot;&lt;=730,'1 to 2 yr',if(&quot;Aging_Days&quot;>730 and &quot;Aging_Days&quot;&lt;=1095,'2 to 3 yr',if(&quot;Aging_Days&quot;>1095 and &quot;Aging_Days&quot;&lt;=1460,'3 to 4 yr',if(&quot;Aging_Days&quot;>1460 and &quot;Aging_Days&quot;&lt;=1825,'4 to 5 yr',if(&quot;Aging_Days&quot;>1825 ,'Above 5 yr','0')))))))))))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CompletedProjectFlag" source="CompletedProjectFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Aging_Days"/>
+        <viewAttribute id="Aging_Bucket"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Days" source="Aging_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Bucket" source="Aging_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="POSNR"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ANLN1_2" length="12" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;ANLN1&quot;+','+&quot;ANLN2&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ANLA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSNR" source="POSNR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Aging_Bucket"/>
+        <viewAttribute id="Aging_Days"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="ANLN1_2"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Bucket" source="Aging_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Days" source="Aging_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+      <input node="#Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_2" source="ANLN1_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="POSNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="PSPNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="BTTYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="ZUCO"/>
+        </viewAttribute>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="RLDNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="0L"/>
+        </viewAttribute>
+        <viewAttribute id="RBUKRS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+        <viewAttribute id="RACCT">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="0010670000"/>
+            <operands value="0010670001"/>
+            <operands value="0010670002"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BTTYPE" source="BTTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Aging_Days"/>
+        <viewAttribute id="Aging_Bucket"/>
+        <viewAttribute id="PSPNR"/>
+        <viewAttribute id="POST1"/>
+        <viewAttribute id="ANLN1_2"/>
+        <viewAttribute id="BTTYPE"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="ANLN2_1"/>
+        <viewAttribute id="ANLN1_1"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="POSKI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Days" source="Aging_Days"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Aging_Bucket" source="Aging_Bucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PSPNR" source="PSPNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POST1" source="POST1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_2" source="ANLN1_2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_1" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POSKI" source="POSKI"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BTTYPE" source="BTTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1_1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2_1" source="ANLN2"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="ANLN1_1"/>
+      <joinAttribute name="ANLN2_1"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="CopyOfProjection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="BTTYPE"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="ANLN1"/>
+        <viewAttribute id="ANLN2"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="RLDNR">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="0L"/>
+        </viewAttribute>
+        <viewAttribute id="RBUKRS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+        <viewAttribute id="RACCT">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="0010670003"/>
+            <operands value="0010300001"/>
+          </filter>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfProjection_6$$$$ACDOCA$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BTTYPE" source="BTTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN1" source="ANLN1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANLN2" source="ANLN2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RLDNR" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RBUKRS" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="OBJNR" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJNR"/>
+        <keyMapping columnObjectName="Join_3" columnName="OBJNR"/>
+      </attribute>
+      <attribute id="ERDAT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ERDAT"/>
+        <keyMapping columnObjectName="Join_3" columnName="ERDAT"/>
+      </attribute>
+      <attribute id="MANDT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Join_3" columnName="MANDT"/>
+      </attribute>
+      <attribute id="Aging_Bucket" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Aging_Bucket"/>
+        <keyMapping columnObjectName="Join_3" columnName="Aging_Bucket"/>
+      </attribute>
+      <attribute id="PSPNR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PSPNR"/>
+        <keyMapping columnObjectName="Join_3" columnName="PSPNR"/>
+      </attribute>
+      <attribute id="POST1" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POST1"/>
+        <keyMapping columnObjectName="Join_3" columnName="POST1"/>
+      </attribute>
+      <attribute id="ANLN1_2" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN1_2"/>
+        <keyMapping columnObjectName="Join_3" columnName="ANLN1_2"/>
+      </attribute>
+      <attribute id="ANLN1" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN1"/>
+        <keyMapping columnObjectName="Join_3" columnName="ANLN1"/>
+      </attribute>
+      <attribute id="ANLN2" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANLN2"/>
+        <keyMapping columnObjectName="Join_3" columnName="ANLN2"/>
+      </attribute>
+      <attribute id="POSKI" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSKI"/>
+        <keyMapping columnObjectName="Join_3" columnName="POSKI"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HSL" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Join_3" columnName="HSL"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="252" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="435"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="252" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfProjection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="480" y="310"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

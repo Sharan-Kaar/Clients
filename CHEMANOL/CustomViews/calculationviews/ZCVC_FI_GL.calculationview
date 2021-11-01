@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_FI_GL" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_FI_GL"/>
+  <metadata activatedAt="2021-10-25 16:01:47.0" changedAt="2021-10-25 15:59:49.158"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="64"/>
+  <dataSources>
+    <DataSource id="SKA1" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="SKA1"/>
+    </DataSource>
+    <DataSource id="ZFIT_PL_GL_GRP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_PL_GL_GRP"/>
+    </DataSource>
+    <DataSource id="SKAT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="SKAT"/>
+    </DataSource>
+    <DataSource id="ZFIT_PL_CC_GRP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SACUSER" columnObjectName="ZFIT_PL_CC_GRP"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SAKNR"/>
+        <viewAttribute id="KTOPL"/>
+        <viewAttribute id="XBILK"/>
+        <viewAttribute id="SAKAN"/>
+        <viewAttribute id="BILKT"/>
+        <viewAttribute id="ERDAT"/>
+        <viewAttribute id="ERNAM"/>
+        <viewAttribute id="GVTYP"/>
+        <viewAttribute id="KTOKS"/>
+        <viewAttribute id="MUSTR"/>
+        <viewAttribute id="VBUND"/>
+        <viewAttribute id="XLOEV"/>
+        <viewAttribute id="XSPEA"/>
+        <viewAttribute id="XSPEB"/>
+        <viewAttribute id="XSPEP"/>
+        <viewAttribute id="MCOD1"/>
+        <viewAttribute id="FUNC_AREA"/>
+        <viewAttribute id="GLACCOUNT_TYPE"/>
+        <viewAttribute id="LAST_CHANGED_TS"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#SKA1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTOPL" source="KTOPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XBILK" source="XBILK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKAN" source="SAKAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BILKT" source="BILKT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERDAT" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERNAM" source="ERNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GVTYP" source="GVTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTOKS" source="KTOKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MUSTR" source="MUSTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBUND" source="VBUND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XLOEV" source="XLOEV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XSPEA" source="XSPEA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XSPEB" source="XSPEB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="XSPEP" source="XSPEP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCOD1" source="MCOD1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FUNC_AREA" source="FUNC_AREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GLACCOUNT_TYPE" source="GLACCOUNT_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_CHANGED_TS" source="LAST_CHANGED_TS"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="GL_TO"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Dummy" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>'A'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ZFIT_PL_GL_GRP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="SAKNR"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="KTOPL">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="1000"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SKAT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTOPL" source="KTOPL"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="SAKNR"/>
+        <viewAttribute id="TXT20"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+      </input>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="SAKNR"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="COST_CNTR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#ZFIT_PL_CC_GRP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST_CNTR" source="COST_CNTR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="GL_TO"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <input node="#Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+      </input>
+      <joinAttribute name="H_TEXT"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="GL_TO"/>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Dummy"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Filter_For_Revenue" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(ISNULL(&quot;H_TEXT_1&quot;),'Y','N')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="SAKNR"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="GL_TO"/>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+      </input>
+      <input node="#Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+      </input>
+      <joinAttribute name="Dummy"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="Dummy"/>
+        <viewAttribute id="SAKNR"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="GL_TO"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="H_TEXT_1"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Range_GL" length="33" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;GL_FRM&quot; &lt;= &quot;SAKNR&quot; and &quot;SAKNR&quot; &lt;= &quot;GL_TO&quot;),&quot;SAKNR&quot;,'No')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Dummy" source="Dummy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAKNR" source="SAKNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="300"/>
+        </viewAttribute>
+        <viewAttribute id="S_TEXT"/>
+        <viewAttribute id="H_TEXT"/>
+        <viewAttribute id="Range_GL">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="false" value="No"/>
+        </viewAttribute>
+        <viewAttribute id="GL_FRM"/>
+        <viewAttribute id="GL_TO"/>
+        <viewAttribute id="TXT20"/>
+        <viewAttribute id="Filter_For_Revenue"/>
+        <viewAttribute id="H_TEXT_1"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="Count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="S_TEXT" source="S_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT" source="H_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Range_GL" source="Range_GL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_FRM" source="GL_FRM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GL_TO" source="GL_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TXT20" source="TXT20"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Filter_For_Revenue" source="Filter_For_Revenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="H_TEXT_1" source="H_TEXT_1"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="MANDT"/>
+      </attribute>
+      <attribute id="S_TEXT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="S_TEXT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="S_TEXT"/>
+      </attribute>
+      <attribute id="H_TEXT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="H_TEXT"/>
+        <keyMapping columnObjectName="Projection_5" columnName="H_TEXT"/>
+      </attribute>
+      <attribute id="Range_GL" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Range_GL"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Range_GL"/>
+      </attribute>
+      <attribute id="GL_FRM" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL_FRM"/>
+        <keyMapping columnObjectName="Projection_5" columnName="GL_FRM"/>
+      </attribute>
+      <attribute id="GL_TO" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL_TO"/>
+        <keyMapping columnObjectName="Projection_5" columnName="GL_TO"/>
+      </attribute>
+      <attribute id="TXT20" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TXT20"/>
+        <keyMapping columnObjectName="Projection_5" columnName="TXT20"/>
+      </attribute>
+      <attribute id="Filter_For_Revenue" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Filter_For_Revenue"/>
+        <keyMapping columnObjectName="Projection_5" columnName="Filter_For_Revenue"/>
+      </attribute>
+      <attribute id="H_TEXT_1" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="H_TEXT_1"/>
+        <keyMapping columnObjectName="Projection_5" columnName="H_TEXT_1"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Count" order="7" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Count"/>
+        <measureMapping columnObjectName="Projection_5" columnName="Count"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="513"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="609"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="513"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="417"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="321"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

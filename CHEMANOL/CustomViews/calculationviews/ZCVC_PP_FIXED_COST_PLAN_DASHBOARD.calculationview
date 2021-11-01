@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_PP_FIXED_COST_PLAN_DASHBOARD" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_PP_FIXED_COST_DASHBOARD"/>
+  <metadata activatedAt="2021-10-26 12:12:58.0" changedAt="2021-10-19 10:39:56.819" createdAt="2021-10-19 10:39:51.113"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="48"/>
+  <dataSources>
+    <DataSource id="ACDOCP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="ACDOCP"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="RYEAR"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="CATEGORY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="GL" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>ltrim(&quot;RACCT&quot;,'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="Date_SQL" expressionLanguage="COLUMN_ENGINE">
+          <formula> DATE(&quot;BUDAT&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ACDOCP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RYEAR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      </input>
+      <filter>(in(&quot;GL&quot;,'60000009','60400000','60400003','60500002','60500003','61500000','61000001','61000009','60500011','60500000','60500012','61400001','60400001','60400002','61500000','60500004','60500005','60000025','60700001','61400000','61100001','61000006','60900001','60900003')) and (&quot;CATEGORY&quot;='PLN')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="RCLNT"/>
+        <viewAttribute id="RACCT"/>
+        <viewAttribute id="RCNTR"/>
+        <viewAttribute id="RYEAR"/>
+        <viewAttribute id="POPER"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="Date_SQL"/>
+        <viewAttribute id="HSL"/>
+        <viewAttribute id="CATEGORY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="s" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>ltrim(&quot;RCNTR&quot;,'0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="KPI" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Fixed Cost Plan'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCLNT" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RACCT" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RCNTR" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="RYEAR" source="RYEAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POPER" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BUDAT" source="BUDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Date_SQL" source="Date_SQL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="HSL" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      </input>
+      <filter>match(&quot;s&quot;,'2*') and (not in (&quot;s&quot;,'276000','277000'))</filter>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="RCLNT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCLNT"/>
+        <keyMapping columnObjectName="Projection_2" columnName="RCLNT"/>
+      </attribute>
+      <attribute id="RACCT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RACCT"/>
+        <keyMapping columnObjectName="Projection_2" columnName="RACCT"/>
+      </attribute>
+      <attribute id="RCNTR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RCNTR"/>
+        <keyMapping columnObjectName="Projection_2" columnName="RCNTR"/>
+      </attribute>
+      <attribute id="RYEAR" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RYEAR"/>
+        <keyMapping columnObjectName="Projection_2" columnName="RYEAR"/>
+      </attribute>
+      <attribute id="POPER" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POPER"/>
+        <keyMapping columnObjectName="Projection_2" columnName="POPER"/>
+      </attribute>
+      <attribute id="BUDAT" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUDAT"/>
+        <keyMapping columnObjectName="Projection_2" columnName="BUDAT"/>
+      </attribute>
+      <attribute id="Date_SQL" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date_SQL"/>
+        <keyMapping columnObjectName="Projection_2" columnName="Date_SQL"/>
+      </attribute>
+      <attribute id="KPI" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Projection_2" columnName="KPI"/>
+      </attribute>
+      <attribute id="CATEGORY" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CATEGORY"/>
+        <keyMapping columnObjectName="Projection_2" columnName="CATEGORY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="HSL" order="8" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="HSL"/>
+        <measureMapping columnObjectName="Projection_2" columnName="HSL"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVA_EHSSD_INC_ROOT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVA_EHSSD_INC_ROOT"/>
+  <metadata activatedAt="2021-10-25 10:10:56.0" changedAt="2021-10-19 10:52:22.892" createdAt="2021-10-19 10:52:07.682"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="62"/>
+  <dataSources>
+    <DataSource id="EHHSSD_INC_ROOT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="EHHSSD_INC_ROOT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="DB_KEY"/>
+        <viewAttribute id="DATETIME_CR"/>
+        <viewAttribute id="USER_ID_CR"/>
+        <viewAttribute id="DATETIME_CH"/>
+        <viewAttribute id="USER_ID_CH"/>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="CATEGORY"/>
+        <viewAttribute id="STATUS"/>
+        <viewAttribute id="REPORT_REQ_TS"/>
+        <viewAttribute id="FATALITY_TS"/>
+        <viewAttribute id="ATF_KEY"/>
+        <viewAttribute id="ARCHIVING_STATUS"/>
+        <viewAttribute id="INIT_REPORT_REQ"/>
+        <viewAttribute id="MIGRATION_SRC"/>
+        <viewAttribute id="EEW_INC_ROOT_D"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EHHSSD_INC_ROOT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DB_KEY" source="DB_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CR" source="DATETIME_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CR" source="USER_ID_CR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATETIME_CH" source="DATETIME_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_CH" source="USER_ID_CH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REPORT_REQ_TS" source="REPORT_REQ_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FATALITY_TS" source="FATALITY_TS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ATF_KEY" source="ATF_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ARCHIVING_STATUS" source="ARCHIVING_STATUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="INIT_REPORT_REQ" source="INIT_REPORT_REQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MIGRATION_SRC" source="MIGRATION_SRC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EEW_INC_ROOT_D" source="EEW_INC_ROOT_D"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="DB_KEY" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DB_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DB_KEY"/>
+      </attribute>
+      <attribute id="USER_ID_CR" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CR"/>
+      </attribute>
+      <attribute id="USER_ID_CH" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER_ID_CH"/>
+        <keyMapping columnObjectName="Projection_1" columnName="USER_ID_CH"/>
+      </attribute>
+      <attribute id="ID" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ID"/>
+      </attribute>
+      <attribute id="CATEGORY" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CATEGORY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CATEGORY"/>
+      </attribute>
+      <attribute id="STATUS" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STATUS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="STATUS"/>
+      </attribute>
+      <attribute id="REPORT_REQ_TS" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REPORT_REQ_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="REPORT_REQ_TS"/>
+      </attribute>
+      <attribute id="FATALITY_TS" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FATALITY_TS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="FATALITY_TS"/>
+      </attribute>
+      <attribute id="ATF_KEY" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ATF_KEY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ATF_KEY"/>
+      </attribute>
+      <attribute id="ARCHIVING_STATUS" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ARCHIVING_STATUS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ARCHIVING_STATUS"/>
+      </attribute>
+      <attribute id="INIT_REPORT_REQ" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="INIT_REPORT_REQ"/>
+        <keyMapping columnObjectName="Projection_1" columnName="INIT_REPORT_REQ"/>
+      </attribute>
+      <attribute id="MIGRATION_SRC" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MIGRATION_SRC"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MIGRATION_SRC"/>
+      </attribute>
+      <attribute id="EEW_INC_ROOT_D" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEW_INC_ROOT_D"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EEW_INC_ROOT_D"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="DATETIME_CR" order="3" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CR"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CR"/>
+      </measure>
+      <measure id="DATETIME_CH" order="5" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="DATETIME_CH"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DATETIME_CH"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="160" y="70"/>
+        <rectangleSize/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="160" y="170"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

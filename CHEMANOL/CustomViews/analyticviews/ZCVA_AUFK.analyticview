@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cube:cube xmlns:Cube="http://www.sap.com/ndb/BiModelCube.ecore" schemaVersion="1.5" id="ZCVA_AUFK" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled">
+  <origin/>
+  <descriptions defaultDescription="ZCV_AUFK"/>
+  <metadata activatedAt="2021-10-19 15:17:51.0" changedAt="2021-10-19 15:15:57.319"/>
+  <localVariables/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <privateMeasureGroup id="MeasureGroup">
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="MANDT"/>
+      </attribute>
+      <attribute id="AUFNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="AUART" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUART"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AUART"/>
+      </attribute>
+      <attribute id="AUTYP" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUTYP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AUTYP"/>
+      </attribute>
+      <attribute id="REFNR" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="REFNR"/>
+      </attribute>
+      <attribute id="ERNAM" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ERNAM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ERNAM"/>
+      </attribute>
+      <attribute id="ERDAT" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ERDAT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ERDAT"/>
+      </attribute>
+      <attribute id="AENAM" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AENAM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AENAM"/>
+      </attribute>
+      <attribute id="AEDAT" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AEDAT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AEDAT"/>
+      </attribute>
+      <attribute id="KTEXT" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KTEXT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KTEXT"/>
+      </attribute>
+      <attribute id="LTEXT" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LTEXT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="LTEXT"/>
+      </attribute>
+      <attribute id="BUKRS" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BUKRS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="WERKS" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WERKS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="WERKS"/>
+      </attribute>
+      <attribute id="GSBER" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GSBER"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="GSBER"/>
+      </attribute>
+      <attribute id="KOKRS" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KOKRS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KOKRS"/>
+      </attribute>
+      <attribute id="CCKEY" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CCKEY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="CCKEY"/>
+      </attribute>
+      <attribute id="KOSTV" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KOSTV"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KOSTV"/>
+      </attribute>
+      <attribute id="STORT" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STORT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="STORT"/>
+      </attribute>
+      <attribute id="SOWRK" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SOWRK"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SOWRK"/>
+      </attribute>
+      <attribute id="ASTKZ" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ASTKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ASTKZ"/>
+      </attribute>
+      <attribute id="WAERS" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAERS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="WAERS"/>
+      </attribute>
+      <attribute id="ASTNR" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ASTNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ASTNR"/>
+      </attribute>
+      <attribute id="STDAT" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STDAT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="STDAT"/>
+      </attribute>
+      <attribute id="ESTNR" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ESTNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ESTNR"/>
+      </attribute>
+      <attribute id="PHAS0" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHAS0"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PHAS0"/>
+      </attribute>
+      <attribute id="PHAS1" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHAS1"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PHAS1"/>
+      </attribute>
+      <attribute id="PHAS2" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHAS2"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PHAS2"/>
+      </attribute>
+      <attribute id="PHAS3" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHAS3"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PHAS3"/>
+      </attribute>
+      <attribute id="PDAT1" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PDAT1"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PDAT1"/>
+      </attribute>
+      <attribute id="PDAT2" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PDAT2"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PDAT2"/>
+      </attribute>
+      <attribute id="PDAT3" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PDAT3"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PDAT3"/>
+      </attribute>
+      <attribute id="IDAT1" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IDAT1"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="IDAT1"/>
+      </attribute>
+      <attribute id="IDAT2" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IDAT2"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="IDAT2"/>
+      </attribute>
+      <attribute id="IDAT3" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IDAT3"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="IDAT3"/>
+      </attribute>
+      <attribute id="OBJID" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="OBJID"/>
+      </attribute>
+      <attribute id="VOGRP" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VOGRP"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="VOGRP"/>
+      </attribute>
+      <attribute id="LOEKZ" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOEKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="LOEKZ"/>
+      </attribute>
+      <attribute id="PLGKZ" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLGKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PLGKZ"/>
+      </attribute>
+      <attribute id="KVEWE" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KVEWE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KVEWE"/>
+      </attribute>
+      <attribute id="KAPPL" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KAPPL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KAPPL"/>
+      </attribute>
+      <attribute id="KALSM" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KALSM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KALSM"/>
+      </attribute>
+      <attribute id="ZSCHL" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZSCHL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ZSCHL"/>
+      </attribute>
+      <attribute id="ABKRS" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABKRS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ABKRS"/>
+      </attribute>
+      <attribute id="KSTAR" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KSTAR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KSTAR"/>
+      </attribute>
+      <attribute id="KOSTL" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KOSTL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KOSTL"/>
+      </attribute>
+      <attribute id="SAKNR" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SAKNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SAKNR"/>
+      </attribute>
+      <attribute id="SETNM" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SETNM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SETNM"/>
+      </attribute>
+      <attribute id="CYCLE" order="48" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CYCLE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="CYCLE"/>
+      </attribute>
+      <attribute id="SDATE" order="49" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SDATE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SDATE"/>
+      </attribute>
+      <attribute id="SEQNR" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SEQNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SEQNR"/>
+      </attribute>
+      <attribute id="USER0" order="51" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER0"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER0"/>
+      </attribute>
+      <attribute id="USER1" order="52" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER1"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER1"/>
+      </attribute>
+      <attribute id="USER2" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER2"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER2"/>
+      </attribute>
+      <attribute id="USER3" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER3"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER3"/>
+      </attribute>
+      <attribute id="USER5" order="56" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER5"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER5"/>
+      </attribute>
+      <attribute id="USER6" order="57" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER6"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER6"/>
+      </attribute>
+      <attribute id="USER7" order="58" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER7"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER7"/>
+      </attribute>
+      <attribute id="USER8" order="59" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER8"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER8"/>
+      </attribute>
+      <attribute id="USER9" order="60" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="USER9"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER9"/>
+      </attribute>
+      <attribute id="OBJNR" order="61" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="OBJNR"/>
+      </attribute>
+      <attribute id="PRCTR" order="62" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRCTR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PRCTR"/>
+      </attribute>
+      <attribute id="PSPEL" order="63" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PSPEL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PSPEL"/>
+      </attribute>
+      <attribute id="AWSLS" order="64" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AWSLS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AWSLS"/>
+      </attribute>
+      <attribute id="ABGSL" order="65" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABGSL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ABGSL"/>
+      </attribute>
+      <attribute id="TXJCD" order="66" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TXJCD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="TXJCD"/>
+      </attribute>
+      <attribute id="FUNC_AREA" order="67" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FUNC_AREA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="FUNC_AREA"/>
+      </attribute>
+      <attribute id="SCOPE" order="68" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SCOPE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SCOPE"/>
+      </attribute>
+      <attribute id="PLINT" order="69" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PLINT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PLINT"/>
+      </attribute>
+      <attribute id="KDAUF" order="70" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KDAUF"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KDAUF"/>
+      </attribute>
+      <attribute id="KDPOS" order="71" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KDPOS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KDPOS"/>
+      </attribute>
+      <attribute id="AUFEX" order="72" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AUFEX"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AUFEX"/>
+      </attribute>
+      <attribute id="IVPRO" order="73" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IVPRO"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="IVPRO"/>
+      </attribute>
+      <attribute id="LOGSYSTEM" order="74" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOGSYSTEM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="LOGSYSTEM"/>
+      </attribute>
+      <attribute id="FLG_MLTPS" order="75" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FLG_MLTPS"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="FLG_MLTPS"/>
+      </attribute>
+      <attribute id="ABUKR" order="76" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABUKR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ABUKR"/>
+      </attribute>
+      <attribute id="AKSTL" order="77" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AKSTL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AKSTL"/>
+      </attribute>
+      <attribute id="SIZECL" order="78" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SIZECL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="SIZECL"/>
+      </attribute>
+      <attribute id="IZWEK" order="79" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IZWEK"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="IZWEK"/>
+      </attribute>
+      <attribute id="UMWKZ" order="80" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UMWKZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="UMWKZ"/>
+      </attribute>
+      <attribute id="KSTEMPF" order="81" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KSTEMPF"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="KSTEMPF"/>
+      </attribute>
+      <attribute id="ZSCHM" order="82" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ZSCHM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ZSCHM"/>
+      </attribute>
+      <attribute id="PKOSA" order="83" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PKOSA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PKOSA"/>
+      </attribute>
+      <attribute id="ANFAUFNR" order="84" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ANFAUFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ANFAUFNR"/>
+      </attribute>
+      <attribute id="PROCNR" order="85" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PROCNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PROCNR"/>
+      </attribute>
+      <attribute id="PROTY" order="86" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PROTY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="PROTY"/>
+      </attribute>
+      <attribute id="RSORD" order="87" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RSORD"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="RSORD"/>
+      </attribute>
+      <attribute id="BEMOT" order="88" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BEMOT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="BEMOT"/>
+      </attribute>
+      <attribute id="ADRNRA" order="89" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ADRNRA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ADRNRA"/>
+      </attribute>
+      <attribute id="ERFZEIT" order="90" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ERFZEIT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ERFZEIT"/>
+      </attribute>
+      <attribute id="AEZEIT" order="91" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AEZEIT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AEZEIT"/>
+      </attribute>
+      <attribute id="CSTG_VRNT" order="92" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CSTG_VRNT"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="CSTG_VRNT"/>
+      </attribute>
+      <attribute id="COSTESTNR" order="93" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COSTESTNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="COSTESTNR"/>
+      </attribute>
+      <attribute id="VERAA_USER" order="94" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VERAA_USER"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="VERAA_USER"/>
+      </attribute>
+      <attribute id="EEW_AUFK_PS_DUMMY" order="95" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEW_AUFK_PS_DUMMY"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="EEW_AUFK_PS_DUMMY"/>
+      </attribute>
+      <attribute id="VNAME" order="96" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VNAME"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="VNAME"/>
+      </attribute>
+      <attribute id="RECID" order="97" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RECID"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="RECID"/>
+      </attribute>
+      <attribute id="ETYPE" order="98" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ETYPE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="ETYPE"/>
+      </attribute>
+      <attribute id="OTYPE" order="99" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OTYPE"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="OTYPE"/>
+      </attribute>
+      <attribute id="JV_JIBCL" order="100" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JV_JIBCL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="JV_JIBCL"/>
+      </attribute>
+      <attribute id="JV_JIBSA" order="101" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JV_JIBSA"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="JV_JIBSA"/>
+      </attribute>
+      <attribute id="JV_OCO" order="102" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JV_OCO"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="JV_OCO"/>
+      </attribute>
+      <attribute id="_CUM_INDCU" order="104" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="_CUM_INDCU"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="/CUM/INDCU"/>
+      </attribute>
+      <attribute id="_CUM_CMNUM" order="105" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="_CUM_CMNUM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="/CUM/CMNUM"/>
+      </attribute>
+      <attribute id="_CUM_AUEST" order="106" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="_CUM_AUEST"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="/CUM/AUEST"/>
+      </attribute>
+      <attribute id="_CUM_DESNUM" order="107" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="_CUM_DESNUM"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="/CUM/DESNUM"/>
+      </attribute>
+      <attribute id="AD01PROFNR" order="108" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="AD01PROFNR"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="AD01PROFNR"/>
+      </attribute>
+      <attribute id="VAPLZ" order="109" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VAPLZ"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="VAPLZ"/>
+      </attribute>
+      <attribute id="WAWRK" order="110" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAWRK"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="WAWRK"/>
+      </attribute>
+      <attribute id="FERC_IND" order="111" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FERC_IND"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="FERC_IND"/>
+      </attribute>
+      <attribute id="CLAIM_CONTROL" order="112" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CLAIM_CONTROL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="CLAIM_CONTROL"/>
+      </attribute>
+      <attribute id="UPDATE_NEEDED" order="113" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UPDATE_NEEDED"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="UPDATE_NEEDED"/>
+      </attribute>
+      <attribute id="UPDATE_CONTROL" order="114" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UPDATE_CONTROL"/>
+        <keyMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="UPDATE_CONTROL"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies>
+        <tableProxy centralTable="true">
+          <table schemaName="SAPHANADB" columnObjectName="AUFK"/>
+        </tableProxy>
+      </tableProxies>
+      <joins/>
+      <layout>
+        <shapes>
+          <shape modelObjectName="AUFK" modelObjectNameSpace="SAPHANADB" modelObjectType="catalog">
+            <upperLeftCorner x="70" y="30"/>
+          </shape>
+        </shapes>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="USER4" order="55" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="USER4"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="USER4"/>
+      </measure>
+      <measure id="CPD_UPDAT" order="103" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="CPD_UPDAT"/>
+        <measureMapping schemaName="SAPHANADB" columnObjectName="AUFK" columnName="CPD_UPDAT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <sharedDimensions/>
+    <layout>
+      <shapes>
+        <shape modelObjectName="MEASURE_GROUP" modelObjectType="repository">
+          <upperLeftCorner x="136" y="72"/>
+        </shape>
+        <shape modelObjectName="LogicalView" modelObjectNameSpace="MeasureGroup" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize height="0" width="0"/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateMeasureGroup>
+</Cube:cube>

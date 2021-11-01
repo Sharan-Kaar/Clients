@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="ZCVC_OBL_PRODUCT_EQUIPMENT_WISE" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="ZCVC_OBL_DASHBOARD"/>
+  <metadata activatedAt="2021-10-24 13:25:34.0" changedAt="2021-10-19 10:42:51.475" createdAt="2021-10-19 10:42:47.375"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="55"/>
+  <dataSources>
+    <DataSource id="LIKP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIKP"/>
+    </DataSource>
+    <DataSource id="LIPS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="LIPS"/>
+    </DataSource>
+    <DataSource id="/SCMTMS/D_TORITE" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORITE"/>
+    </DataSource>
+    <DataSource id="CopyOfAggregation_2$$$$/SCMTMS/D_TORITE$$" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMTMS/D_TORITE"/>
+    </DataSource>
+    <DataSource id="/SCMB/EQUI_CODET" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="/SCMB/EQUI_CODET"/>
+    </DataSource>
+    <DataSource id="T023T" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="SAPHANADB" columnObjectName="T023T"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Dispatch_Header">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="LFART">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="ZSOR"/>
+            <operands value="ZSER"/>
+            <operands value="ZSPL"/>
+            <operands value="ZSFD"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WBSTK">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="C"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#LIKP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFART" source="LFART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WBSTK" source="WBSTK"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Dispatch_Item">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="Converted_QTY" length="10" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;VRKME&quot;='KG' or &quot;VRKME&quot;='L',&quot;LFIMG&quot;/1000,&quot;LFIMG&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#LIPS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Dispatch" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="LFART"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="LFIMG"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="Converted_QTY"/>
+        <viewAttribute id="VRKME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Dispatch_Header">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFART" source="LFART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      </input>
+      <input node="#Dispatch_Item">
+        <mapping xsi:type="Calculation:AttributeMapping" target="LFIMG" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VRKME" source="VRKME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute aggregationType="sum" id="Volume"/>
+        <viewAttribute aggregationType="sum" id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Dispatch">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="LFIMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="BASE_BTD_ID"/>
+        <viewAttribute id="REF_BO">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOR"/>
+        </viewAttribute>
+        <viewAttribute id="LOCAL_ITEM">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="R"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="DocumentID" length="12" expressionLanguage="COLUMN_ENGINE">
+          <formula>Rightstr(&quot;BASE_BTD_ID&quot;,10)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#/SCMTMS/D_TORITE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_BTD_ID" source="BASE_BTD_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REF_BO" source="REF_BO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LOCAL_ITEM" source="LOCAL_ITEM"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="BASE_BTD_ID"/>
+        <viewAttribute id="DocumentID"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+      <input node="#Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BASE_BTD_ID" source="BASE_BTD_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DocumentID" source="DocumentID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="DocumentID"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="VBELN"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:AggregationView" id="CopyOfAggregation_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="ITEM_TYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="CONT"/>
+        </viewAttribute>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PLATENUMBER"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CopyOfAggregation_2$$$$/SCMTMS/D_TORITE$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_TYPE" source="ITEM_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PLATENUMBER" source="PLATENUMBER"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="EquipmentWise_Dispatch" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="ITEM_TYPE"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PARENT_KEY_1"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+      <input node="#CopyOfAggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_TYPE" source="ITEM_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY_1" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="PARENT_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Equipment_Text">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="E"/>
+        </viewAttribute>
+        <viewAttribute id="EQUI_TYPE">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="CHM"/>
+        </viewAttribute>
+        <viewAttribute id="EQUI_CODE"/>
+        <viewAttribute id="DESCR"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#/SCMB/EQUI_CODET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUI_TYPE" source="EQUI_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUI_CODE" source="EQUI_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="PARENT_KEY_1"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="FreightOrderFlag" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;PARENT_KEY_1&quot;),'X','')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#EquipmentWise_Dispatch">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY_1" source="PARENT_KEY_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Overall_Dispatch" cardinality="C1_1" joinOrder="OUTSIDE_IN" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DESCR"/>
+        <viewAttribute id="SPRAS"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="PARENT_KEY"/>
+        <viewAttribute id="FreightOrderFlag"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_KEY" source="PARENT_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FreightOrderFlag" source="FreightOrderFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+      <input node="#Equipment_Text">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="EQUI_CODE"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="TURES_TCO"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Equipment_Wise">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="DESCR"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="FreightOrderFlag">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value=""/>
+        </viewAttribute>
+        <viewAttribute id="TURES_TCO"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Equipment Wise'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Overall_Dispatch">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FreightOrderFlag" source="FreightOrderFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SPRAS">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="E"/>
+            <operands value="EN"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="WGBEZ"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#T023T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinOrder="OUTSIDE_IN" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+      <input node="#Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+      </input>
+      <joinAttribute name="MANDT"/>
+      <joinAttribute name="MATKL"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Product_Wise">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="VBELN"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="WGBEZ"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="KPI" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Product wise'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VBELN" source="VBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="Volume"/>
+        <viewAttribute id="DESCR"/>
+        <viewAttribute id="WADAT_IST"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATKL"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="WGBEZ" transparentFilter="false"/>
+        <viewAttribute id="TURES_TCO" transparentFilter="false"/>
+        <viewAttribute id="Converted_QTY"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="#Equipment_Wise">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCR" source="DESCR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="MATKL" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="WGBEZ" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TURES_TCO" source="TURES_TCO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="#Product_Wise">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Volume" source="Volume"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="DESCR" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WADAT_IST" source="WADAT_IST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATKL" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WGBEZ" source="WGBEZ"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="TURES_TCO" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Converted_QTY" source="Converted_QTY"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="DESCR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="DESCR"/>
+      </attribute>
+      <attribute id="WADAT_IST" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WADAT_IST"/>
+        <keyMapping columnObjectName="Union_1" columnName="WADAT_IST"/>
+      </attribute>
+      <attribute id="MANDT" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="MATKL" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Product Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="MATKL"/>
+      </attribute>
+      <attribute id="KPI" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KPI"/>
+        <keyMapping columnObjectName="Union_1" columnName="KPI"/>
+      </attribute>
+      <attribute id="WGBEZ" order="8" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="Product"/>
+        <keyMapping columnObjectName="Union_1" columnName="WGBEZ"/>
+      </attribute>
+      <attribute id="TURES_TCO" order="9" attributeHierarchyActive="false" displayAttribute="false" transparentFilter="false">
+        <descriptions defaultDescription="TURES_TCO"/>
+        <keyMapping columnObjectName="Union_1" columnName="TURES_TCO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="Dispatch_Date" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Dispatch Date"/>
+        <keyCalculation datatype="DATE" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;WADAT_IST&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Volume_old" order="2" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions defaultDescription="Volume_old"/>
+        <measureMapping columnObjectName="Union_1" columnName="Volume"/>
+      </measure>
+      <measure id="Volume" order="11" semanticType="empty" aggregationType="sum" engineAggregation="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Union_1" columnName="Converted_QTY"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="Equipment_Counter" hidden="false" order="10" aggregationType="sum" engineAggregation="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Equipment_Counter"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="TURES_TCO"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="276" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch_Header" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="340" y="899"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch_Item" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="494" y="899"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Dispatch" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="417" y="803"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="417" y="725"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="725"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="629"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CopyOfAggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="629"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="EquipmentWise_Dispatch" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="150" y="533"/>
+        <rectangleSize height="82" width="193"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Equipment_Text" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="455"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Overall_Dispatch" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Equipment_Wise" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="199" y="281"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="379" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Product_Wise" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="353" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="276" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>
